@@ -1,3 +1,14 @@
+{%- liquid
+  assign target_handle = target_handle | default: 'tyt-adjustable-5-in-1-tri-ball-hitch-ball-mount-for-2-5-receiver'
+  assign receiver_size = receiver_size | default: '2.5'
+  assign ref_sku = ref_sku | default: '039'
+  assign ref_link = ref_link | default: '5in1_25in'
+  assign linked_hitch = all_products[target_handle]
+  assign linked_hitch_image = linked_hitch.featured_image
+  if image_index != blank
+    assign linked_hitch_image = linked_hitch.images[image_index] | default: linked_hitch.featured_image
+  endif
+-%}
 <style>
   .tyt-039-crosslink {
     margin: 12px 0 16px;
@@ -59,17 +70,16 @@
   }
 </style>
 
-{%- assign linked_hitch = all_products['tyt-adjustable-5-in-1-tri-ball-hitch-ball-mount-for-2-5-receiver'] -%}
 <div class="tyt-039-crosslink">
   <a
     class="tyt-039-crosslink__link"
-    href="https://www.tyttowing.com/products/tyt-adjustable-5-in-1-tri-ball-hitch-ball-mount-for-2-5-receiver?ref_sku=039&amp;ref_link=5in1_25in"
-    aria-label="Explore TYT 2.5 inch 5-in-1 Tri-Ball Hitch"
+    href="https://www.tyttowing.com/products/{{ target_handle | escape }}?ref_sku={{ ref_sku | url_encode }}&amp;ref_link={{ ref_link | url_encode }}"
+    aria-label="Explore TYT {{ receiver_size | escape }}-inch receiver hitch"
   >
-    {%- if linked_hitch.featured_image != blank -%}
-      {{ linked_hitch.featured_image | image_url: width: 120 | image_tag: class: 'tyt-039-crosslink__image', widths: '40, 80, 120', sizes: '40px', width: 40, height: 40, loading: 'lazy', alt: '' }}
+    {%- if linked_hitch_image != blank -%}
+      {{ linked_hitch_image | image_url: width: 120 | image_tag: class: 'tyt-039-crosslink__image', widths: '40, 80, 120', sizes: '40px', width: 40, height: 40, loading: 'lazy', alt: '' }}
     {%- endif -%}
-    <span class="tyt-039-crosslink__title">Need a <strong>2.5″ hitch?</strong></span>
+    <span class="tyt-039-crosslink__title">Need a <strong>{{ receiver_size | escape }}″ hitch?</strong></span>
     <span class="tyt-039-crosslink__action">View <span aria-hidden="true">→</span></span>
   </a>
 </div>

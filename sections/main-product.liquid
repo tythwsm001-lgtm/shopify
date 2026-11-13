@@ -522,6 +522,14 @@
                   %}
                   {%- if product.handle == 'tyt-adjustable-tri-ball-hitch-for-2-receiver-with-tow-hook-shackle' -%}
                     {% render 'tyt-039-crosslink' %}
+                  {%- elsif product.handle == 'tyt-adjustable-5-in-1-tri-ball-hitch-ball-mount-for-2-5-receiver' -%}
+                    {% render 'tyt-039-crosslink',
+                      target_handle: 'tyt-adjustable-tri-ball-hitch-for-2-receiver-with-tow-hook-shackle',
+                      receiver_size: '2',
+                      image_index: 1,
+                      ref_sku: '054',
+                      ref_link: '039_2in'
+                    %}
                   {%- endif -%}
                 {%- when 'buy_buttons' -%}
                   {%- render 'buy-buttons',
