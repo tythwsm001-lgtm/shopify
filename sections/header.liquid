@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- if section.settings.tyt_compact_navigation -%}
+  {{ 'tyt-navigation.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
 <link
   rel="stylesheet"
   href="{{ 'component-cart-notification.css' | asset_url }}"
@@ -172,7 +175,9 @@
       endif
 
       if section.settings.menu != blank
-        render 'header-drawer', show_country_selector: country_selector, show_language_selector: language_selector, show_social_links: social_links
+        unless section.settings.tyt_compact_navigation
+          render 'header-drawer', show_country_selector: country_selector, show_language_selector: language_selector, show_social_links: social_links
+        endunless
       endif
 
       if render_search_left
@@ -215,7 +220,9 @@
 
     {%- liquid
       if section.settings.menu != blank
-        if section.settings.menu_type_desktop == 'dropdown'
+        if section.settings.tyt_compact_navigation
+          render 'tyt-navigation'
+        elsif section.settings.menu_type_desktop == 'dropdown'
           render 'header-dropdown-menu'
         elsif section.settings.menu_type_desktop != 'drawer'
           render 'header-mega-menu'
@@ -550,6 +557,13 @@
       "id": "menu",
       "default": "main-menu",
       "label": "t:sections.header.settings.menu.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "tyt_compact_navigation",
+      "label": "Use compact TYT navigation",
+      "info": "Show the Ball Mounts, Towing Gear, Hitch Guide, Deals and Support navigation. Turn off to use the selected Shopify menu.",
+      "default": false
     },
     {
       "type": "select",

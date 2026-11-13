@@ -1,0 +1,39 @@
+{%- comment -%}Visible top navigation on all screen sizes, with Dawn's native dropdown behavior.{%- endcomment -%}
+{%- assign groups = 'ball-mounts,towing-gear,hitch-guide,deals,support' | split: ',' -%}
+  <nav class="header__inline-menu tyt-nav" aria-label="Main navigation">
+    <ul class="list-menu list-menu--inline" role="list">
+{%- for group in groups -%}
+  {%- liquid
+    case group
+      when 'ball-mounts'
+        assign title = 'Ball Mounts'
+      when 'towing-gear'
+        assign title = 'Towing Gear'
+      when 'hitch-guide'
+        assign title = 'Hitch Guide'
+        assign destination = 'pages/hitch-selection-guide'
+      when 'deals'
+        assign title = 'Deals'
+        assign destination = 'collections/deals'
+      when 'support'
+        assign title = 'Support'
+    endcase
+  -%}
+  <li class="tyt-nav__item{% if group == 'deals' %} tyt-nav__item--deals{% endif %}">
+    {%- if group == 'hitch-guide' or group == 'deals' -%}
+      {%- assign target_url = routes.root_url | append: destination -%}
+      <a href="{{ target_url }}" class="header__menu-item list-menu__item link link--text focus-inset"{% if request.path == target_url %} aria-current="page"{% endif %}>{{ title }}</a>
+    {%- else -%}
+      <header-menu>
+        <details id="Details-TytNav-{{ group }}">
+          <summary class="header__menu-item list-menu__item link focus-inset" aria-controls="TytNavPanel-{{ group }}">{{ title }}{{ 'icon-caret.svg' | inline_asset_content }}</summary>
+          <ul id="TytNavPanel-{{ group }}" class="header__submenu tyt-nav__panel tyt-nav__panel--{{ group }} list-menu list-menu--disclosure color-{{ section.settings.menu_color_scheme }} gradient caption-large motion-reduce global-settings-popup" role="list" tabindex="-1">
+            {% render 'tyt-navigation-links', group: group %}
+          </ul>
+        </details>
+      </header-menu>
+    {%- endif -%}
+  </li>
+{%- endfor -%}
+    </ul>
+  </nav>

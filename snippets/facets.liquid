@@ -1,3 +1,14 @@
+{%- capture tyt_subcollection -%}{%- render 'tyt-ball-mount-subcollection', collection_handle: results.handle -%}{%- endcapture -%}
+{%- liquid
+  assign tyt_ball_mount_layout = false
+  if results.handle contains 'ball-mount' or tyt_subcollection == 'true'
+    assign tyt_ball_mount_layout = true
+  endif
+  assign tyt_fixed_receiver = false
+  if results.handle == '2-receiver-hitches' or results.handle == '2-5-receiver-hitches'
+    assign tyt_fixed_receiver = true
+  endif
+-%}
 {% doc %}
   Renders filtering and sorting controls for a collection or search results page.
 
@@ -30,7 +41,7 @@
 <div
   class="facets-container{% if filter_type == 'drawer' %} facets-container-drawer{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
   data-collection-id="{{ results.id }}"
-  data-collection-handle="{{ results.handle }}"
+  data-collection-handle="{{ results.handle }}" data-ball-mount-layout="{{ tyt_ball_mount_layout }}" data-fixed-receiver="{{ tyt_fixed_receiver }}"
   data-template="{{ template.name }}"
 >
   {%- if filter_type == 'vertical' or filter_type == 'horizontal' -%}
@@ -114,6 +125,7 @@
             <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
             {% comment %} Filters for both horizontal and vertical filter {% endcomment %}
             {%- for filter in results.filters -%}
+              {%- if tyt_fixed_receiver and filter.param_name contains 'receiver_size' -%}{%- continue -%}{%- endif -%}
               {% liquid
                 assign total_active_values = total_active_values | plus: filter.active_values.size
                 assign presentation = filter.presentation | default: default_presentation
@@ -513,6 +525,7 @@
             >
               {%- if enable_filtering -%}
                 {%- for filter in results.filters -%}
+                  {%- if tyt_fixed_receiver and filter.param_name contains 'receiver_size' -%}{%- continue -%}{%- endif -%}
                   {% liquid
                     assign presentation = filter.presentation | default: default_presentation
                     if presentation == 'image'

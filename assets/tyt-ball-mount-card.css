@@ -563,3 +563,8 @@
   }
 
 }
+
+/* Receiver-specific categories already determine receiver size. */
+#main-collection-filters .facets-container[data-fixed-receiver="true"]::before {
+  content: "Filter by ball size and hitch class to find the right fit for your towing setup.";
+}

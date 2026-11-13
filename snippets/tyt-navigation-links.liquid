@@ -1,0 +1,51 @@
+{%- liquid
+  case group
+    when 'ball-mounts'
+      assign sections = 'Shop by Receiver Size|2″ Receiver Ball Mounts^collections/2-receiver-hitches,2.5″ Receiver Ball Mounts^collections/2-5-receiver-hitches;Shop by Hitch Type|Dual-Ball Mounts^collections/dual-ball-hitches,Tri-Ball Mounts^collections/tri-ball-hitches,Hitch Extensions^collections/hitch-extension-1' | split: ';'
+    when 'towing-gear'
+      assign sections = 'Tie-Down & Recovery|Ratchet Straps^collections/ratchet-straps,Kinetic Recovery Ropes^collections/kinetic-rope,Winch Ropes^collections/3-16-winch-rope;Jacks & Winches|Trailer Jacks^collections/trailer-jack,Hand Winches^collections/hand-winch,ATV/UTV Winches^collections/winch' | split: ';'
+    when 'support'
+      assign sections = '|Contact Us^pages/contact-us,Shipping^policies/shipping-policy,Returns & Refunds^policies/refund-policy,About TYT^pages/about-us' | split: ';'
+  endcase
+-%}
+{%- if group == 'ball-mounts' -%}
+  <li class="tyt-nav__all"><a class="tyt-nav__link" href="{{ routes.root_url }}collections/ball-mounts"{% if request.path contains '/collections/ball-mounts' %} aria-current="page"{% endif %}>All Ball Mounts <span aria-hidden="true">→</span></a></li>
+{%- endif -%}
+{%- for menu_section in sections -%}
+  {%- assign parts = menu_section | split: '|' -%}
+  {%- assign heading = parts[0] -%}
+  {%- assign links = parts[1] | split: ',' -%}
+  <li class="tyt-nav__group">
+    {%- if heading != blank -%}<p class="tyt-nav__label">{{ heading | escape }}</p>{%- endif -%}
+    <ul class="list-menu" role="list">
+      {%- for item in links -%}
+        {%- assign fields = item | split: '^' -%}
+        {%- assign item_url = routes.root_url | append: fields[1] -%}
+        {%- assign nav_image = nil -%}
+        {%- if group == 'ball-mounts' or group == 'towing-gear' -%}
+          {%- assign collection_handle = fields[1] | remove_first: 'collections/' -%}
+          {%- assign nav_collection = collections[collection_handle] -%}
+          {%- assign nav_image = nav_collection.image | default: nav_collection.products.first.featured_image -%}
+        {%- endif -%}
+        <li>
+          <a class="tyt-nav__link{% if nav_image != blank %} tyt-nav__link--image{% endif %}{% if group == 'support' %} tyt-nav__link--support{% endif %}" href="{{ item_url }}"{% if request.path == item_url %} aria-current="page"{% endif %}>
+            <span>{{ fields[0] | escape }}</span>
+            {%- if group == 'support' -%}
+              <span class="tyt-nav__support-icon" aria-hidden="true">
+                {%- case fields[1] -%}
+                  {%- when 'pages/contact-us' -%}{{ 'icon-chat-bubble.svg' | inline_asset_content }}
+                  {%- when 'policies/shipping-policy' -%}{{ 'icon-truck.svg' | inline_asset_content }}
+                  {%- when 'policies/refund-policy' -%}{{ 'icon-return.svg' | inline_asset_content }}
+                  {%- when 'pages/about-us' -%}{{ 'icon-info.svg' | inline_asset_content }}
+                {%- endcase -%}
+              </span>
+            {%- endif -%}
+            {%- if nav_image != blank -%}
+              {{ nav_image | image_url: width: 120 | image_tag: class: 'tyt-nav__image', width: 40, height: 40, sizes: '40px', widths: '40, 80, 120', loading: 'lazy', alt: '' }}
+            {%- endif -%}
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </li>
+{%- endfor -%}

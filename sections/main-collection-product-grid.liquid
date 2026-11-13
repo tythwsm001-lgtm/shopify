@@ -1,26 +1,63 @@
+{%- capture tyt_subcollection -%}{%- render 'tyt-ball-mount-subcollection', collection_handle: collection.handle -%}{%- endcapture -%}
+{%- liquid
+  assign tyt_ball_mount_layout = false
+  if collection.handle contains 'ball-mount' or tyt_subcollection == 'true'
+    assign tyt_ball_mount_layout = true
+  endif
+  assign tyt_products_per_page = section.settings.products_per_page
+  assign tyt_columns_desktop = section.settings.columns_desktop
+  assign tyt_columns_mobile = section.settings.columns_mobile
+  assign tyt_image_ratio = section.settings.image_ratio
+  assign tyt_image_shape = section.settings.image_shape
+  assign tyt_show_secondary_image = section.settings.show_secondary_image
+  assign tyt_show_vendor = section.settings.show_vendor
+  assign tyt_show_rating = section.settings.show_rating
+  assign tyt_quick_add = section.settings.quick_add
+  assign tyt_enable_filtering = section.settings.enable_filtering
+  assign tyt_filter_type = section.settings.filter_type
+  assign tyt_enable_sorting = section.settings.enable_sorting
+  assign tyt_padding_top = section.settings.padding_top
+  assign tyt_padding_bottom = section.settings.padding_bottom
+  if tyt_subcollection == 'true'
+    assign tyt_products_per_page = 12
+    assign tyt_columns_desktop = 4
+    assign tyt_columns_mobile = '1'
+    assign tyt_image_ratio = 'square'
+    assign tyt_image_shape = 'default'
+    assign tyt_show_secondary_image = true
+    assign tyt_show_vendor = false
+    assign tyt_show_rating = true
+    assign tyt_quick_add = 'standard'
+    assign tyt_enable_filtering = true
+    assign tyt_filter_type = 'horizontal'
+    assign tyt_enable_sorting = false
+    assign tyt_padding_top = 0
+    assign tyt_padding_bottom = 0
+  endif
+-%}
 
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 
-{% if collection.handle contains 'ball-mount' %}
+{% if tyt_ball_mount_layout %}
   {{ 'tyt-ball-mount-card.css' | asset_url | stylesheet_tag }}
 {% endif %}
 
-{% if section.settings.image_shape == 'blob' %}
+{% if tyt_image_shape == 'blob' %}
   {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
 {% endif %}
 
-{% unless section.settings.quick_add == 'none' %}
+{% unless tyt_quick_add == 'none' %}
   {{ 'quick-add.css' | asset_url | stylesheet_tag }}
 {% endunless %}
 
-{% if section.settings.quick_add == 'standard' %}
+{% if tyt_quick_add == 'standard' %}
   <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 {% endif %}
 
-{% if section.settings.quick_add == 'bulk' %}
+{% if tyt_quick_add == 'bulk' %}
   <script src="{{ 'quick-add-bulk.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
@@ -28,15 +65,19 @@
 {% endif %}
 
 {% style %}
+  {% if tyt_ball_mount_layout %}
+    /* Keep the theme-rendered rating; suppress automatically injected plugin badges. */
+    #shopify-section-{{ section.id }} .loox-rating { display: none !important; }
+  {% endif %}
   .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-top: {{ tyt_padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ tyt_padding_bottom | times: 0.75 | round: 0 }}px;
   }
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
+      padding-top: {{ tyt_padding_top }}px;
+      padding-bottom: {{ tyt_padding_bottom }}px;
     }
   }
 {% endstyle %}
@@ -47,9 +88,9 @@
 >
   <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
 
-    {% paginate collection.products by section.settings.products_per_page %}
+    {% paginate collection.products by tyt_products_per_page %}
 
-      {% if section.settings.enable_sorting and section.settings.filter_type == 'vertical' %}
+      {% if tyt_enable_sorting and tyt_filter_type == 'vertical' %}
         <facet-filters-form class="facets facets-vertical-sort page-width small-hide">
           <form class="facets-vertical-form" id="FacetSortForm">
 
@@ -121,21 +162,21 @@
         </facet-filters-form>
       {% endif %}
 
-      <div class="{% if section.settings.filter_type == 'vertical' %}facets-vertical page-width{% endif %}">
+      <div class="{% if tyt_filter_type == 'vertical' %}facets-vertical page-width{% endif %}">
 
         {{ 'component-facets.css' | asset_url | stylesheet_tag }}
         <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
 
-        {% if section.settings.enable_filtering or section.settings.enable_sorting %}
+        {% if tyt_enable_filtering or tyt_enable_sorting %}
 
           <aside
             aria-labelledby="verticalTitle"
             class="
               facets-wrapper
-              {% unless section.settings.enable_filtering %}
+              {% unless tyt_enable_filtering %}
                 facets-wrapper--no-filters
               {% endunless %}
-              {% if section.settings.filter_type != 'vertical' %}
+              {% if tyt_filter_type != 'vertical' %}
                 page-width
               {% endif %}
             "
@@ -145,9 +186,9 @@
 
             {% render 'facets',
               results: collection,
-              enable_filtering: section.settings.enable_filtering,
-              enable_sorting: section.settings.enable_sorting,
-              filter_type: section.settings.filter_type
+              enable_filtering: tyt_enable_filtering,
+              enable_sorting: tyt_enable_sorting,
+              filter_type: tyt_filter_type
             %}
 
           </aside>
@@ -190,14 +231,14 @@
           {% else %}
 
             <div
-              class="collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
+              class="collection{% if tyt_filter_type != 'vertical' %} page-width{% endif %}"
             >
 
               <div class="loading-overlay gradient"></div>
 
               {% assign tyt_horizontal_cards = false %}
 
-              {% if collection.handle contains 'ball-mount' %}
+              {% if tyt_ball_mount_layout %}
                 {% assign tyt_horizontal_cards = true %}
               {% endif %}
 
@@ -207,12 +248,12 @@
                 class="
                   grid
                   product-grid
-                  grid--{{ section.settings.columns_mobile }}-col-tablet-down
-                  grid--{{ section.settings.columns_desktop }}-col-desktop
-                  {% if collection.handle contains 'ball-mount' %}
+                  grid--{{ tyt_columns_mobile }}-col-tablet-down
+                  grid--{{ tyt_columns_desktop }}-col-desktop
+                  {% if tyt_ball_mount_layout %}
                     tyt-ball-mount-grid
                   {% endif %}
-                  {% if section.settings.quick_add == 'bulk' %}
+                  {% if tyt_quick_add == 'bulk' %}
                     collection-quick-add-bulk
                   {% endif %}
                 "
@@ -238,14 +279,14 @@
 
                     {% render 'card-product',
                       card_product: product,
-                      media_aspect_ratio: section.settings.image_ratio,
-                      image_shape: section.settings.image_shape,
-                      show_secondary_image: section.settings.show_secondary_image,
-                      show_vendor: section.settings.show_vendor,
-                      show_rating: section.settings.show_rating,
+                      media_aspect_ratio: tyt_image_ratio,
+                      image_shape: tyt_image_shape,
+                      show_secondary_image: tyt_show_secondary_image,
+                      show_vendor: tyt_show_vendor,
+                      show_rating: tyt_show_rating,
                       lazy_load: lazy_load,
                       skip_styles: skip_card_product_styles,
-                      quick_add: section.settings.quick_add,
+                      quick_add: tyt_quick_add,
                       section_id: section.id,
                       horizontal_class: tyt_horizontal_cards,
                       product_view_context: 'collection'
@@ -273,7 +314,7 @@
 
     {% endpaginate %}
 
-    {% if section.settings.image_shape == 'arch' %}
+    {% if tyt_image_shape == 'arch' %}
       {{ 'mask-arch.svg' | inline_asset_content }}
     {% endif %}
 
