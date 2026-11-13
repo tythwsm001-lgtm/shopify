@@ -1,0 +1,606 @@
+
+{% comment %}
+  TYT Shop by Category
+  Shopify Dawn 15.3.0
+  Single-row horizontal scrolling
+{% endcomment %}
+
+<section
+  id="tyt-category-{{ section.id }}"
+  class="tyt-category"
+  style="
+    --tyt-bg: {{ section.settings.background_color }};
+    --tyt-card-bg: {{ section.settings.card_background }};
+    --tyt-color: {{ section.settings.text_color }};
+    --tyt-accent: {{ section.settings.accent_color }};
+    --tyt-desktop-cols: {{ section.settings.desktop_columns }};
+    --tyt-mobile-cols: {{ section.settings.mobile_columns }};
+    --tyt-gap: {{ section.settings.card_gap }}px;
+    --tyt-top: {{ section.settings.padding_top }}px;
+    --tyt-bottom: {{ section.settings.padding_bottom }}px;
+    --tyt-radius: {{ section.settings.card_radius }}px;
+    --tyt-ratio: {{ section.settings.image_ratio }};
+  "
+>
+  <div class="tyt-category__container">
+
+    {% if section.settings.heading != blank or section.settings.subtitle != blank %}
+      <div class="tyt-category__header">
+        {% if section.settings.heading != blank %}
+          <h2>{{ section.settings.heading | escape }}</h2>
+        {% endif %}
+
+        {% if section.settings.subtitle != blank %}
+          <p>{{ section.settings.subtitle | escape }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div
+      class="tyt-category__grid"
+      role="region"
+      aria-label="{{ section.settings.heading | default: 'Shop by Category' | escape }}"
+      tabindex="0"
+    >
+
+      {% for block in section.blocks %}
+        {% liquid
+          assign category_image = block.settings.image
+          assign category_title = block.settings.title
+          assign category_link = block.settings.link
+          assign image_alt = block.settings.image_alt
+
+          if image_alt == blank
+            assign image_alt = category_title
+          endif
+        %}
+
+        <div
+          class="tyt-category__card"
+          {{ block.shopify_attributes }}
+        >
+
+          {% if category_link != blank %}
+            <a
+              class="tyt-category__card-inner"
+              href="{{ category_link }}"
+              aria-label="{{ category_title | default: 'Shop category' | escape }}"
+            >
+          {% else %}
+            <div class="tyt-category__card-inner">
+          {% endif %}
+
+              <div class="tyt-category__image-wrap">
+
+                {% if category_image != blank %}
+                  {{
+                    category_image
+                    | image_url: width: 1000
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '240, 360, 480, 600, 800, 1000',
+                      sizes: '(min-width: 990px) 17vw, (min-width: 750px) 33vw, 50vw',
+                      alt: image_alt,
+                      class: 'tyt-category__image'
+                  }}
+                {% else %}
+                  <div class="tyt-category__placeholder">
+                    {{ 'product-1' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+
+              </div>
+
+              <div class="tyt-category__content">
+
+                {% if category_title != blank %}
+                  <h3>{{ category_title | escape }}</h3>
+                {% endif %}
+
+                {% if block.settings.description != blank %}
+                  <p>{{ block.settings.description | escape }}</p>
+                {% endif %}
+
+                {% if block.settings.button_label != blank %}
+                  <span class="tyt-category__button">
+                    {{ block.settings.button_label | escape }}
+                    <span aria-hidden="true">&rarr;</span>
+                  </span>
+                {% endif %}
+
+              </div>
+
+          {% if category_link != blank %}
+            </a>
+          {% else %}
+            </div>
+          {% endif %}
+
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #tyt-category-{{ section.id }} {
+    width: 100%;
+    background: var(--tyt-bg);
+    padding-top: var(--tyt-top);
+    padding-bottom: var(--tyt-bottom);
+  }
+
+  #tyt-category-{{ section.id }} *,
+  #tyt-category-{{ section.id }} *::before,
+  #tyt-category-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__container {
+    max-width: 1500px;
+    padding: 0 20px;
+    margin: 0 auto;
+    min-width: 0;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__header {
+    text-align: center;
+    margin-bottom: 26px;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__header h2 {
+    font-family: var(--font-heading-family);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--tyt-color);
+    margin: 0 0 8px;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__header p {
+    font-family: inherit;
+    font-size: 15px;
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* SINGLE ROW HORIZONTAL SCROLLER */
+  #tyt-category-{{ section.id }} .tyt-category__grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc(
+      (100% - (var(--tyt-desktop-cols) - 1) * var(--tyt-gap))
+      / var(--tyt-desktop-cols)
+    );
+    grid-template-rows: minmax(0, auto);
+    gap: var(--tyt-gap);
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 0;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+
+    padding-bottom: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: #cccccc transparent;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__grid::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__grid::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__grid::-webkit-scrollbar-thumb {
+    background: #cccccc;
+    border-radius: 6px;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__card {
+    min-width: 0;
+    width: 100%;
+    background: var(--tyt-card-bg);
+    border-radius: var(--tyt-radius);
+    overflow: hidden;
+    scroll-snap-align: start;
+    transition: box-shadow .25s ease;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,.09);
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__card-inner {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  #tyt-category-{{ section.id }} a.tyt-category__card-inner:focus-visible {
+    outline: 3px solid var(--tyt-accent);
+    outline-offset: -3px;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__grid:focus-visible {
+    outline: 2px solid var(--tyt-accent);
+    outline-offset: -2px;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__image-wrap {
+    width: 100%;
+    aspect-ratio: var(--tyt-ratio);
+    background: #f5f5f5;
+    overflow: hidden;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: {{ section.settings.image_fit }};
+    transition: transform .3s ease;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__card:hover img {
+    transform: scale(1.04);
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__placeholder svg {
+    width: 70%;
+    height: 70%;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__content {
+    padding: 16px 12px 20px;
+    text-align: center;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__content h3 {
+    font-family: var(--font-heading-family);
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--tyt-color);
+    margin: 0 0 8px;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__content p {
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #666;
+    margin: 0 0 12px;
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__button {
+    display: inline-block;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--tyt-accent);
+  }
+
+  #tyt-category-{{ section.id }} .tyt-category__button span {
+    margin-left: 4px;
+  }
+
+  /* TABLET: THREE CARDS VISIBLE */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #tyt-category-{{ section.id }} .tyt-category__grid {
+      grid-auto-columns: calc(
+        (100% - 2 * var(--tyt-gap)) / 3
+      );
+    }
+  }
+
+  /* MOBILE: ONE OR TWO CARDS VISIBLE */
+  @media screen and (max-width: 749px) {
+    #tyt-category-{{ section.id }} .tyt-category__container {
+      padding: 0 12px;
+    }
+
+    #tyt-category-{{ section.id }} .tyt-category__grid {
+      grid-auto-columns: calc(
+        (100% - (var(--tyt-mobile-cols) - 1) * var(--tyt-gap))
+        / var(--tyt-mobile-cols)
+      );
+    }
+
+    #tyt-category-{{ section.id }} .tyt-category__header h2 {
+      font-size: 26px;
+    }
+
+    #tyt-category-{{ section.id }} .tyt-category__content {
+      padding: 12px 8px 16px;
+    }
+
+    #tyt-category-{{ section.id }} .tyt-category__content h3 {
+      font-size: 14px;
+    }
+
+    #tyt-category-{{ section.id }} .tyt-category__content p {
+      font-size: 12px;
+    }
+
+    #tyt-category-{{ section.id }} .tyt-category__button {
+      font-size: 12px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #tyt-category-{{ section.id }} .tyt-category__card,
+    #tyt-category-{{ section.id }} .tyt-category__image {
+      transition: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "TYT Shop by Category",
+  "tag": "section",
+  "class": "tyt-shop-category",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Category"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Find the right towing gear for your needs."
+    },
+
+    {
+      "type": "header",
+      "content": "Layout settings"
+    },
+    {
+      "type": "range",
+      "id": "desktop_columns",
+      "label": "Desktop columns",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "Mobile columns",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 column"
+        },
+        {
+          "value": "2",
+          "label": "2 columns"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image ratio",
+      "options": [
+        {
+          "value": "1/1",
+          "label": "Square 1:1"
+        },
+        {
+          "value": "5/4",
+          "label": "Landscape 5:4"
+        },
+        {
+          "value": "4/3",
+          "label": "Landscape 4:3"
+        },
+        {
+          "value": "3/4",
+          "label": "Portrait 3:4"
+        }
+      ],
+      "default": "5/4"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image display",
+      "options": [
+        {
+          "value": "contain",
+          "label": "Show full image"
+        },
+        {
+          "value": "cover",
+          "label": "Fill image area"
+        }
+      ],
+      "default": "contain"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Card spacing",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card corner radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#F7F7F7"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#202020"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Link color",
+      "default": "#D71920"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_card",
+      "name": "Category Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Category image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image alt text"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category title",
+          "default": "Category"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Explore our collection."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Collection link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "TYT Shop by Category",
+      "blocks": [
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "2\" Adjustable Hitches",
+            "description": "Built for 2-inch receivers."
+          }
+        },
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "2.5\" Adjustable Hitches",
+            "description": "Made for 2.5-inch receivers."
+          }
+        },
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "All Ball Mounts",
+            "description": "Explore our full hitch collection."
+          }
+        },
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "Ratchet Straps",
+            "description": "Secure cargo for every haul."
+          }
+        },
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "Tow & Recovery Ropes",
+            "description": "Recovery essentials for tough jobs."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

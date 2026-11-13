@@ -1,0 +1,497 @@
+{
+  "layout": "theme",
+  "sections": {
+    "beae-default-template": {
+      "type": "beae-home-page-10",
+      "disabled": true,
+      "settings": {}
+    },
+    "tyt_home_banner_pBPXJp": {
+      "type": "tyt-home-banner",
+      "blocks": {
+        "slide_rQWRYY": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/039_47d44779-f7c6-4eb2-a734-f1997c4a57f0.png",
+            "mobile_image": "shopify:\/\/shop_images\/039_ce1554fb-3d61-4e36-90f7-d7dfa9588d04.png",
+            "image_alt": "TYT ADJUSTABLE TRI BALL HITCH FOR 2\" RECEIVER",
+            "link": "shopify:\/\/products\/tyt-adjustable-tri-ball-hitch-for-2-receiver-with-tow-hook-shackle",
+            "link_label": "View featured product"
+          }
+        },
+        "slide_36BYxT": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/050_52d64c70-612f-4d0f-923f-cbf444920aea.png",
+            "mobile_image": "shopify:\/\/shop_images\/050_20c451a5-7eb1-4dbb-b131-ab657bf6eac1.png",
+            "image_alt": "",
+            "link": "shopify:\/\/products\/tyt-adjustable-truck-trailer-hitch-for-2-5-inch-receiver-6-drop-rise-tow-hitch-with-dual-balls-2-2-5-16gold-includes-two-pin-locks-hitch-tightener",
+            "link_label": "View featured product"
+          }
+        },
+        "slide_kJLzP4": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/134564b16a32c299642c494993225e00.png",
+            "mobile_image": "shopify:\/\/shop_images\/134564b16a32c299642c494993225e00_f9d2fad7-7727-403d-97a7-11be8504c33a.png",
+            "image_alt": "",
+            "link": "shopify:\/\/products\/tyt-1-x-10-retractable-ratchet-straps-4pcs",
+            "link_label": "View featured product"
+          }
+        },
+        "slide_F4Uazx": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image_alt": "",
+            "link": "",
+            "link_label": "View featured product"
+          }
+        },
+        "slide_48LUAY": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image_alt": "",
+            "link": "",
+            "link_label": "View featured product"
+          }
+        }
+      },
+      "block_order": [
+        "slide_rQWRYY",
+        "slide_36BYxT",
+        "slide_kJLzP4",
+        "slide_F4Uazx",
+        "slide_48LUAY"
+      ],
+      "name": "TYT Homepage Banner",
+      "settings": {
+        "accessibility_label": "TYT featured products",
+        "autoplay": true,
+        "interval": 8,
+        "show_arrows": true,
+        "show_dots": true,
+        "desktop_ratio": "auto",
+        "mobile_ratio": "1\/1",
+        "max_width": 2400,
+        "arrow_color": "#ffffff",
+        "dot_color": "#171717"
+      }
+    },
+    "tyt_shop_by_category_UFbb7n": {
+      "type": "tyt-shop-by-category",
+      "blocks": {
+        "category_card_AdT74U": {
+          "type": "category_card",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/image_1_c59e5087-4ed0-406a-9520-5f1d9454c25a.jpg",
+            "image_alt": "",
+            "title": "2\" Adjustable Hitches",
+            "description": "Built for 2-inch receivers.",
+            "button_label": "Shop Now",
+            "link": "shopify:\/\/collections\/2-receiver-hitches"
+          }
+        },
+        "category_card_L9be79": {
+          "type": "category_card",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/image_1_e1b7b3ce-dd3f-4137-8776-e6c62b5ec25d.jpg",
+            "image_alt": "",
+            "title": "2.5\" Adjustable Hitches",
+            "description": "Made for 2.5-inch receivers.",
+            "button_label": "Shop Now",
+            "link": "shopify:\/\/collections\/2-5-receiver-hitches"
+          }
+        },
+        "category_card_zWBacg": {
+          "type": "category_card",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/20260121192034_2356_181.jpg",
+            "image_alt": "",
+            "title": "All Ball Mounts",
+            "description": "Explore our full hitch collection.",
+            "button_label": "Shop Now",
+            "link": "shopify:\/\/collections\/ball-mounts"
+          }
+        },
+        "category_card_MVCrMt": {
+          "type": "category_card",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/1_a774481b-7588-42aa-946e-24fcb791dcec.jpg",
+            "image_alt": "",
+            "title": "Ratchet Straps",
+            "description": "Secure cargo for every haul.",
+            "button_label": "Shop Now",
+            "link": "shopify:\/\/collections\/ratchet-straps"
+          }
+        },
+        "category_card_fE999p": {
+          "type": "category_card",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/image_1_ef831934-8e98-4989-947a-31ff9907a449.jpg",
+            "image_alt": "",
+            "title": "Tow & Recovery Ropes",
+            "description": "Recovery essentials for tough jobs.",
+            "button_label": "Shop Now",
+            "link": "shopify:\/\/collections\/kinetic-rope"
+          }
+        },
+        "category_card_i9b7AH": {
+          "type": "category_card",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/image_1_58baea95-e3b1-481c-a694-5276d4d11a18.jpg",
+            "image_alt": "",
+            "title": "Trailer Jack",
+            "description": "Explore our collection.",
+            "button_label": "Shop Now",
+            "link": "shopify:\/\/collections\/trailer-jack"
+          }
+        }
+      },
+      "block_order": [
+        "category_card_AdT74U",
+        "category_card_L9be79",
+        "category_card_zWBacg",
+        "category_card_MVCrMt",
+        "category_card_fE999p",
+        "category_card_i9b7AH"
+      ],
+      "name": "TYT Shop by Category",
+      "settings": {
+        "heading": "Shop by Category",
+        "subtitle": "Find the right towing gear for your needs.",
+        "desktop_columns": 5,
+        "mobile_columns": "2",
+        "image_ratio": "5\/4",
+        "image_fit": "contain",
+        "card_gap": 16,
+        "card_radius": 8,
+        "padding_top": 0,
+        "padding_bottom": 8,
+        "background_color": "#ffffff",
+        "card_background": "#f7f7f7",
+        "text_color": "#202020",
+        "accent_color": "#d71920"
+      }
+    },
+    "custom_liquid_Kktj3w": {
+      "type": "custom-liquid",
+      "name": "视频",
+      "settings": {
+        "custom_liquid": "{% assign tyt_video_url = 'https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/ee6a1c998102411fa9f2c12c5902d671.mov' %}\n{% assign tyt_video_poster = 'https:\/\/cdn.shopify.com\/s\/files\/1\/0268\/5442\/4762\/files\/10_27.jpg?v=1793096304' %}\n\n<div class=\"tyt-video-section\">\n  <video\n    class=\"tyt-video-player\"\n    autoplay\n    muted\n    loop\n    playsinline\n    preload=\"auto\"\n    poster=\"{{ tyt_video_poster }}\"\n    aria-label=\"TYT product video\"\n  >\n    <source src=\"{{ tyt_video_url }}\" type=\"video\/quicktime\">\n    Your browser does not support HTML5 video.\n  <\/video>\n<\/div>\n\n<style>\n  .tyt-video-section {\n    width: 100%;\n    max-width: 1200px;\n    margin: 0 auto;\n    padding: 0;\n    overflow: hidden;\n    background: #f5f5f5;\n  }\n\n  .tyt-video-player {\n    display: block;\n    width: 100%;\n    height: auto;\n    aspect-ratio: 16 \/ 9;\n    object-fit: contain;\n    background: #f5f5f5;\n  }\n\n  @media screen and (max-width: 749px) {\n    .tyt-video-section {\n      width: 100%;\n    }\n\n    .tyt-video-player {\n      aspect-ratio: 16 \/ 9;\n    }\n  }\n<\/style>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "tyt_best_sellers_HPj4jJ": {
+      "type": "tyt-best-sellers",
+      "blocks": {
+        "product_card_d83BQg": {
+          "type": "product_card",
+          "settings": {
+            "product": "tyt-adjustable-tri-ball-hitch-for-2-receiver-with-tow-hook-shackle"
+          }
+        },
+        "product_card_hDwc4F": {
+          "type": "product_card",
+          "settings": {
+            "product": "tyt-adjustable-truck-trailer-hitch-for-2-5-inch-receiver-6-drop-rise-tow-hitch-with-dual-balls-2-2-5-16gold-includes-two-pin-locks-hitch-tightener"
+          }
+        },
+        "product_card_pxgpk9": {
+          "type": "product_card",
+          "settings": {
+            "product": "tyt-adjustable-5-in-1-tri-ball-hitch-ball-mount-for-2-5-receiver"
+          }
+        },
+        "product_card_8ffkVY": {
+          "type": "product_card",
+          "settings": {
+            "product": "tyt-adjustable-heavy-duty-trailer-hitch-ball-mount-for-2-5-receiver"
+          }
+        }
+      },
+      "block_order": [
+        "product_card_d83BQg",
+        "product_card_hDwc4F",
+        "product_card_pxgpk9",
+        "product_card_8ffkVY"
+      ],
+      "name": "TYT Best Sellers",
+      "settings": {
+        "heading": "Best Sellers",
+        "subtitle": "Discover our most popular towing essentials.",
+        "desktop_columns": 4,
+        "mobile_columns": "2",
+        "image_ratio": "1\/1",
+        "card_gap": 16,
+        "show_rating": true,
+        "show_price": true,
+        "show_sale_badge": true,
+        "show_button": true,
+        "button_label": "Shop Now",
+        "collection_link": "",
+        "collection_label": "View All Ball Mounts",
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "background_color": "#ffffff",
+        "accent_color": "#d71920"
+      }
+    },
+    "tyt_towing_application_arAA4N": {
+      "type": "tyt-towing-application",
+      "blocks": {
+        "application_card_Ypnwed": {
+          "type": "application_card",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/tyt-work-equipment.jpg",
+            "image_alt": "",
+            "title": "Work & Equipment",
+            "description": "Heavy-duty towing for tough jobs.",
+            "button_label": "Shop Now",
+            "link": "shopify:\/\/collections\/tri-ball-hitches"
+          }
+        },
+        "application_card_kHdUc8": {
+          "type": "application_card",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/tyt-boat-towing.jpg",
+            "image_alt": "",
+            "title": "Boat & Marine",
+            "description": "Ready for your next adventure.",
+            "button_label": "Shop Now",
+            "link": "shopify:\/\/collections\/all-trailer-hitches"
+          }
+        },
+        "application_card_X89tgh": {
+          "type": "application_card",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/tyt-rv-camping.jpg",
+            "image_alt": "",
+            "title": "RV & Camping",
+            "description": "Explore more with confidence.",
+            "button_label": "Shop Now",
+            "link": "shopify:\/\/collections\/dual-ball-hitches"
+          }
+        },
+        "application_card_HTpxQc": {
+          "type": "application_card",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/tyt-farm-utility.jpg",
+            "image_alt": "",
+            "title": "Farm & Utility",
+            "description": "Built for everyday hauling.",
+            "button_label": "Shop Now",
+            "link": "shopify:\/\/collections\/tri-ball-hitches"
+          }
+        }
+      },
+      "block_order": [
+        "application_card_Ypnwed",
+        "application_card_kHdUc8",
+        "application_card_X89tgh",
+        "application_card_HTpxQc"
+      ],
+      "name": "TYT Towing Applications",
+      "settings": {
+        "heading": "Shop by Towing Application",
+        "subtitle": "Find the right hitch for your towing needs.",
+        "desktop_columns": 4,
+        "mobile_columns": "2",
+        "image_ratio": "5\/4",
+        "image_fit": "cover",
+        "card_gap": 16,
+        "card_radius": 8,
+        "padding_top": 32,
+        "padding_bottom": 40,
+        "background_color": "#ffffff",
+        "card_background": "#f7f7f7",
+        "text_color": "#202020",
+        "accent_color": "#d71920"
+      }
+    },
+    "custom_liquid_nCx78j": {
+      "type": "custom-liquid",
+      "name": "Trusted by Truck Owners Like You",
+      "settings": {
+        "custom_liquid": "<div class=\"tyt-review-heading\">\n  <h2>Trusted by Truck Owners Like You<\/h2>\n  <p>Real towing experiences. Honest feedback from TYT customers.<\/p>\n<\/div>\n\n<style>\n  .tyt-review-heading {\n    width: 100%;\n    padding: 0;\n    margin: 0;\n    text-align: center;\n  }\n\n  .tyt-review-heading h2 {\n    font-family: var(--font-heading-family);\n    font-size: 32px;\n    font-weight: 700;\n    line-height: 1.2;\n    color: #202020;\n    margin: 0 0 2px;\n    padding: 0;\n  }\n\n  .tyt-review-heading p {\n    font-family: inherit;\n    font-size: 15px;\n    line-height: 1.3;\n    color: #666666;\n    margin: 0;\n    padding: 0;\n  }\n\n  @media screen and (max-width: 749px) {\n    .tyt-review-heading h2 {\n      font-size: 26px;\n    }\n  }\n<\/style>",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "179255317135df9232": {
+      "type": "apps",
+      "blocks": {
+        "loox_reviews_loox_video_slider_VcNLBy": {
+          "type": "shopify:\/\/apps\/loox-reviews\/blocks\/loox-video-slider\/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "disabled": true,
+          "settings": {
+            "show-by-tag": false,
+            "layout": "spotlight",
+            "shadow": "",
+            "show-rating": true,
+            "show-reviewer-name": true,
+            "hide-arrows-mobile": true,
+            "auto-play": true,
+            "show-border": false,
+            "border-width": 1,
+            "border-radius": 16,
+            "text-color": "",
+            "rating-icon-color": "",
+            "border-color": "",
+            "play-button-color": "",
+            "shadow-color": "",
+            "product-id": ""
+          }
+        },
+        "loox_reviews_loox_dynamic_carousel_HXjMeC": {
+          "type": "shopify:\/\/apps\/loox-reviews\/blocks\/loox-dynamic-carousel\/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "corner-radius": 40,
+            "items-per-view": 2,
+            "items-per-view-mobile": 3,
+            "max-characters": 180,
+            "autoplay": false,
+            "autoplay-delay": 5,
+            "main-color": "#ae8868",
+            "stars-color": "#ff8d00",
+            "show-review-text": true,
+            "text-color": "",
+            "reviewer-name-color": "",
+            "verified-badge-color": "",
+            "quote-marks-icon": "style-1",
+            "quote-marks-icon-color": "",
+            "review-background-color": "",
+            "product-ids": ""
+          }
+        },
+        "loox_reviews_loox_referrals_section_tRyRd4": {
+          "type": "shopify:\/\/apps\/loox-reviews\/blocks\/loox-referrals-section\/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "max_width": 1100,
+            "layout": "with-photo",
+            "photo": "shopify:\/\/shop_images\/44f8f4ceaad39755746a907996b1ce1d.jpg",
+            "primary_color": "",
+            "text_color": "#000000",
+            "text_field_border_color": "#c9cdd4",
+            "background": ""
+          }
+        }
+      },
+      "block_order": [
+        "loox_reviews_loox_video_slider_VcNLBy",
+        "loox_reviews_loox_dynamic_carousel_HXjMeC",
+        "loox_reviews_loox_referrals_section_tRyRd4"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "custom_liquid_gzgKXq": {
+      "type": "custom-liquid",
+      "name": "about us",
+      "settings": {
+        "custom_liquid": "{% comment %}\n  TYT About Us\n  Shopify Dawn 15.3.0\n  Homepage Custom Liquid\n{% endcomment %}\n\n{% assign tyt_about_image = 'https:\/\/cdn.shopify.com\/s\/files\/1\/0268\/5442\/4762\/files\/about_us.jpg?v=1792569721' %}\n\n<section class=\"tyt-about\">\n  <div class=\"tyt-about__container\">\n\n    <div class=\"tyt-about__grid\">\n\n      <!-- Brand Image -->\n      <div class=\"tyt-about__media\">\n        <img\n          src=\"{{ tyt_about_image }}\"\n          alt=\"TYT towing equipment and brand story\"\n          loading=\"lazy\"\n          width=\"900\"\n          height=\"720\"\n          class=\"tyt-about__image\"\n        >\n      <\/div>\n\n      <!-- Brand Story -->\n      <div class=\"tyt-about__content\">\n\n        <span class=\"tyt-about__eyebrow\">\n          ABOUT TYT\n        <\/span>\n\n        <h2>\n          Built for the Way You Tow.\n        <\/h2>\n\n        <p>\n          At TYT, we believe dependable towing equipment\n          should be built for the demands of real life.\n        <\/p>\n\n        <p>\n          From work trailers and heavy-duty hauling to\n          RV adventures and weekend getaways, we focus\n          on practical design, reliable performance,\n          and exceptional value.\n        <\/p>\n\n        <p>\n          Our mission is simple: make every towing\n          experience more convenient and confident.\n        <\/p>\n\n        <a\n          href=\"\/collections\/deals\"\n          class=\"tyt-about__link\"\n        >\n          Explore Our Deals\n          <span aria-hidden=\"true\">&rarr;<\/span>\n        <\/a>\n\n      <\/div>\n\n    <\/div>\n\n  <\/div>\n<\/section>\n\n<style>\n  .tyt-about {\n    width: 100%;\n    background: #ffffff;\n    margin: 0;\n    padding: 32px 20px;\n    box-sizing: border-box;\n  }\n\n  .tyt-about *,\n  .tyt-about *::before,\n  .tyt-about *::after {\n    box-sizing: border-box;\n  }\n\n  .tyt-about__container {\n    max-width: 1400px;\n    margin: 0 auto;\n  }\n\n  .tyt-about__grid {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 48px;\n    align-items: center;\n  }\n\n  .tyt-about__media {\n    width: 100%;\n    aspect-ratio: 5 \/ 4;\n    overflow: hidden;\n    border-radius: 8px;\n    background: #f3f3f3;\n  }\n\n  .tyt-about__image {\n    display: block;\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n  }\n\n  .tyt-about__content {\n    padding: 12px 0;\n    min-width: 0;\n  }\n\n  .tyt-about__eyebrow {\n    display: block;\n    font-size: 12px;\n    font-weight: 700;\n    letter-spacing: 1.8px;\n    color: #d71920;\n    margin-bottom: 12px;\n  }\n\n  .tyt-about__content h2 {\n    font-family: var(--font-heading-family);\n    font-size: 32px;\n    line-height: 1.25;\n    font-weight: 700;\n    color: #202020;\n    margin: 0 0 18px;\n    padding: 0;\n  }\n\n  .tyt-about__content p {\n    font-family: inherit;\n    font-size: 15px;\n    line-height: 1.7;\n    color: #555555;\n    margin: 0 0 14px;\n    padding: 0;\n  }\n\n  .tyt-about__link {\n    display: inline-flex;\n    align-items: center;\n    gap: 8px;\n    margin-top: 10px;\n    color: #d71920;\n    text-decoration: none;\n    font-size: 15px;\n    font-weight: 700;\n  }\n\n  .tyt-about__link:hover {\n    text-decoration: underline;\n  }\n\n  .tyt-about__link:focus-visible {\n    outline: 2px solid #d71920;\n    outline-offset: 4px;\n  }\n\n  @media screen and (max-width: 749px) {\n    .tyt-about {\n      padding: 24px 12px;\n    }\n\n    .tyt-about__grid {\n      grid-template-columns: 1fr;\n      gap: 22px;\n    }\n\n    .tyt-about__media {\n      aspect-ratio: 5 \/ 4;\n    }\n\n    .tyt-about__content {\n      padding: 0 4px;\n    }\n\n    .tyt-about__content h2 {\n      font-size: 26px;\n      margin-bottom: 14px;\n    }\n\n    .tyt-about__content p {\n      font-size: 14px;\n      line-height: 1.6;\n      margin-bottom: 12px;\n    }\n  }\n<\/style>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "tyt_community_impact_kPNGwE": {
+      "type": "tyt-community-impact",
+      "blocks": {
+        "community_event_GrqHXj": {
+          "type": "community_event",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/img_v3_0216n_80cede17-fd67-45f2-ab02-370c5f89e4eg.jpg",
+            "image_alt": "",
+            "support_image": "shopify:\/\/shop_images\/img_v3_0216n_72b4fac3-61f3-42a6-a981-dd3338ede57g.jpg",
+            "support_image_alt": "",
+            "status": "upcoming",
+            "category": "COMMUNITY CLEANUP",
+            "title": "Supporting Our Off-Road Community",
+            "event_name": "Colorado 4x4 Offroad Event",
+            "event_date": "October 24, 2026 · 10:00 AM",
+            "event_location": "Littleton, Colorado",
+            "description": "TYT is proud to support ZacsTrax and a community-led fundraiser helping remove abandoned cars, ATVs, and campers from wooded areas.",
+            "link": "",
+            "button_label": "Event Details"
+          }
+        }
+      },
+      "block_order": [
+        "community_event_GrqHXj"
+      ],
+      "disabled": true,
+      "name": "TYT Community & Impact",
+      "settings": {
+        "eyebrow": "BEYOND THE TOW",
+        "heading": "TYT Community & Impact",
+        "subtitle": "Supporting the people, communities, and places that keep us moving.",
+        "desktop_columns": 3,
+        "card_gap": 18,
+        "padding_top": 32,
+        "padding_bottom": 40,
+        "background_color": "#ffffff",
+        "card_background": "#f7f7f7",
+        "text_color": "#202020",
+        "accent_color": "#d71920",
+        "view_all_link": "",
+        "view_all_label": "Explore Our Community"
+      }
+    },
+    "custom_liquid_8L4Ahp": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "tyt-sae-section",
+      "settings": {
+        "custom_liquid": "<div class=\"tyt-sae-section\">\n  <div class=\"tyt-sae-container\">\n\n    <!-- Section Header -->\n    <div class=\"tyt-sae-heading\">\n\n      <div class=\"tyt-sae-eyebrow\">\n        <svg viewBox=\"0 0 24 24\" fill=\"none\"\n          stroke=\"currentColor\" stroke-width=\"1.8\"\n          stroke-linecap=\"round\" stroke-linejoin=\"round\"\n          aria-hidden=\"true\">\n          <path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"\/>\n          <path d=\"m9 12 2 2 4-4\"\/>\n        <\/svg>\n        <span>TYT QUALITY ASSURANCE<\/span>\n      <\/div>\n\n      <h2>SAE-Tested. Built for Real Towing.<\/h2>\n\n      <p>\n        TYT products undergo testing against applicable SAE standards,\n        reinforcing our commitment to dependable towing performance.\n      <\/p>\n\n    <\/div>\n\n    <!-- Three Trust Points -->\n    <div class=\"tyt-sae-features\">\n\n      <!-- Feature 1 -->\n      <div class=\"tyt-sae-feature\">\n\n        <div class=\"tyt-sae-icon\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\"\n            stroke=\"currentColor\" stroke-width=\"1.7\"\n            stroke-linecap=\"round\" stroke-linejoin=\"round\"\n            aria-hidden=\"true\">\n            <path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"\/>\n            <path d=\"m9 12 2 2 4-4\"\/>\n          <\/svg>\n        <\/div>\n\n        <h3>SAE Standard Testing<\/h3>\n\n        <p>\n          Tested against applicable SAE requirements.\n        <\/p>\n      <\/div>\n\n      <!-- Feature 2 -->\n      <div class=\"tyt-sae-feature\">\n\n        <div class=\"tyt-sae-icon\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\"\n            stroke=\"currentColor\" stroke-width=\"1.7\"\n            stroke-linecap=\"round\" stroke-linejoin=\"round\"\n            aria-hidden=\"true\">\n            <rect x=\"5\" y=\"4\" width=\"14\" height=\"17\" rx=\"2\"\/>\n            <path d=\"M9 4.5V3h6v1.5\"\/>\n            <path d=\"m8 12 2 2 5-5\"\/>\n            <path d=\"M8 18h8\"\/>\n          <\/svg>\n        <\/div>\n\n        <h3>Performance Evaluated<\/h3>\n\n        <p>\n          Product performance evaluated through testing.\n        <\/p>\n      <\/div>\n\n      <!-- Feature 3 -->\n      <div class=\"tyt-sae-feature\">\n\n        <div class=\"tyt-sae-icon\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\"\n            stroke=\"currentColor\" stroke-width=\"1.7\"\n            stroke-linecap=\"round\" stroke-linejoin=\"round\"\n            aria-hidden=\"true\">\n            <path d=\"M3 7h11v10H3z\"\/>\n            <path d=\"M14 10h4l3 3v4h-7z\"\/>\n            <circle cx=\"7\" cy=\"18\" r=\"2\"\/>\n            <circle cx=\"18\" cy=\"18\" r=\"2\"\/>\n          <\/svg>\n        <\/div>\n\n        <h3>Built for Real Work<\/h3>\n\n        <p>\n          Dependable towing solutions for demanding jobs.\n        <\/p>\n      <\/div>\n\n    <\/div>\n\n  <\/div>\n<\/div>\n\n<style>\n  .tyt-sae-section {\n    width: 100%;\n    background: #1d1d1d;\n    color: #ffffff;\n    margin: 0;\n    padding: 32px 20px;\n    box-sizing: border-box;\n  }\n\n  .tyt-sae-section *,\n  .tyt-sae-section *::before,\n  .tyt-sae-section *::after {\n    box-sizing: border-box;\n  }\n\n  .tyt-sae-container {\n    max-width: 1400px;\n    margin: 0 auto;\n  }\n\n  .tyt-sae-heading {\n    text-align: center;\n    margin: 0 auto 26px;\n  }\n\n  .tyt-sae-eyebrow {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 8px;\n    color: #e0e0e0;\n    font-size: 12px;\n    font-weight: 600;\n    letter-spacing: 1.4px;\n    margin-bottom: 10px;\n  }\n\n  .tyt-sae-eyebrow svg {\n    width: 19px;\n    height: 19px;\n    flex-shrink: 0;\n  }\n\n  .tyt-sae-heading h2 {\n    color: #ffffff;\n    font-size: 32px;\n    font-weight: 700;\n    line-height: 1.25;\n    margin: 0 0 10px;\n    padding: 0;\n  }\n\n  .tyt-sae-heading > p {\n    max-width: 760px;\n    margin: 0 auto;\n    color: #d0d0d0;\n    font-size: 15px;\n    line-height: 1.6;\n    padding: 0;\n  }\n\n  .tyt-sae-features {\n    display: grid;\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n    gap: 28px;\n    padding-top: 24px;\n    border-top: 1px solid #444444;\n  }\n\n  .tyt-sae-feature {\n    min-width: 0;\n    text-align: center;\n    padding: 0 12px;\n  }\n\n  .tyt-sae-icon {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-bottom: 12px;\n  }\n\n  .tyt-sae-icon svg {\n    width: 32px;\n    height: 32px;\n    color: #ffffff;\n  }\n\n  .tyt-sae-feature h3 {\n    color: #ffffff;\n    font-size: 17px;\n    font-weight: 700;\n    line-height: 1.35;\n    margin: 0 0 8px;\n    padding: 0;\n  }\n\n  .tyt-sae-feature p {\n    color: #c9c9c9;\n    font-size: 13px;\n    line-height: 1.5;\n    margin: 0;\n    padding: 0;\n  }\n\n  @media screen and (max-width: 749px) {\n    .tyt-sae-section {\n      padding: 24px 14px;\n    }\n\n    .tyt-sae-heading {\n      margin-bottom: 20px;\n    }\n\n    .tyt-sae-heading h2 {\n      font-size: 26px;\n    }\n\n    .tyt-sae-heading > p {\n      font-size: 14px;\n    }\n\n    .tyt-sae-features {\n      grid-template-columns: 1fr;\n      gap: 20px;\n      padding-top: 20px;\n    }\n\n    .tyt-sae-feature {\n      padding: 0 8px;\n    }\n\n    .tyt-sae-icon {\n      margin-bottom: 8px;\n    }\n\n    .tyt-sae-icon svg {\n      width: 28px;\n      height: 28px;\n    }\n\n    .tyt-sae-feature h3 {\n      font-size: 16px;\n      margin-bottom: 5px;\n    }\n  }\n<\/style>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "tyt_community_blog_cKXRrz": {
+      "type": "tyt-community-blog",
+      "name": "TYT Community Blog",
+      "settings": {
+        "blog": "",
+        "article_limit": 3,
+        "eyebrow": "BEYOND THE TOW",
+        "heading": "TYT Community & Impact",
+        "subtitle": "Real stories. Stronger communities. Beyond the tow.",
+        "show_date": true,
+        "show_category": true,
+        "show_excerpt": true,
+        "read_more_label": "Read the Story",
+        "show_view_all": true,
+        "view_all_label": "Explore All Community Stories",
+        "desktop_columns": 3,
+        "card_gap": 20,
+        "padding_top": 32,
+        "padding_bottom": 40,
+        "background_color": "#FFFFFF",
+        "card_color": "#F7F7F7",
+        "text_color": "#202020",
+        "accent_color": "#D71920"
+      }
+    }
+  },
+  "order": [
+    "beae-default-template",
+    "tyt_home_banner_pBPXJp",
+    "tyt_shop_by_category_UFbb7n",
+    "custom_liquid_Kktj3w",
+    "tyt_best_sellers_HPj4jJ",
+    "tyt_towing_application_arAA4N",
+    "custom_liquid_nCx78j",
+    "179255317135df9232",
+    "custom_liquid_gzgKXq",
+    "tyt_community_impact_kPNGwE",
+    "custom_liquid_8L4Ahp",
+    "tyt_community_blog_cKXRrz"
+  ]
+}

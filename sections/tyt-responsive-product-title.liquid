@@ -1,0 +1,249 @@
+
+{% comment %}
+  TYT Responsive Product Title
+  Desktop and Mobile responsive styles
+  Inherits Shopify Dawn theme typography
+{% endcomment %}
+
+{% if product != blank %}
+
+<section
+  id="tyt-responsive-title-{{ section.id }}"
+  class="tyt-responsive-title"
+  style="
+    --tyt-desktop-size: {{ section.settings.desktop_font_size }}px;
+    --tyt-desktop-color: {{ section.settings.desktop_text_color }};
+    --tyt-mobile-size: {{ section.settings.mobile_font_size }}px;
+    --tyt-mobile-color: {{ section.settings.mobile_text_color }};
+    --tyt-mobile-bg: {{ section.settings.mobile_background }};
+    --tyt-mobile-radius: {{ section.settings.mobile_border_radius }}px;
+    --tyt-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
+    --tyt-mobile-padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+  "
+>
+
+  <!-- Desktop Title -->
+  <div class="tyt-title-desktop">
+    {{ product.title | escape }}
+  </div>
+
+  <!-- Mobile Title -->
+  <div class="tyt-title-mobile">
+    {{ product.title | escape }}
+  </div>
+
+</section>
+
+<style>
+  #tyt-responsive-title-{{ section.id }} {
+    width: 100%;
+    box-sizing: border-box;
+    background: transparent;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  #tyt-responsive-title-{{ section.id }} *,
+  #tyt-responsive-title-{{ section.id }} *::before,
+  #tyt-responsive-title-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  /* Desktop Title */
+
+  #tyt-responsive-title-{{ section.id }} .tyt-title-desktop {
+    display: block;
+    width: 100%;
+    color: var(--tyt-desktop-color);
+    font-size: var(--tyt-desktop-size);
+    font-weight: {{ section.settings.desktop_font_weight }};
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Mobile Title */
+
+  #tyt-responsive-title-{{ section.id }} .tyt-title-mobile {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+
+    #tyt-responsive-title-{{ section.id }} {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    #tyt-responsive-title-{{ section.id }} .tyt-title-desktop {
+      display: none;
+    }
+
+    #tyt-responsive-title-{{ section.id }} .tyt-title-mobile {
+      display: block;
+      width: 100%;
+
+      padding:
+        var(--tyt-mobile-padding-top)
+        12px
+        var(--tyt-mobile-padding-bottom);
+
+      margin: 0 0 12px;
+
+      color: var(--tyt-mobile-color);
+      background-color: var(--tyt-mobile-bg);
+
+      border: none;
+      border-radius: var(--tyt-mobile-radius);
+
+      font-size: var(--tyt-mobile-size);
+      line-height: 1.3;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+
+      overflow-wrap: break-word;
+      word-break: normal;
+    }
+  }
+</style>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "TYT Product Title",
+  "tag": "section",
+  "class": "tyt-responsive-title-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Desktop title"
+    },
+    {
+      "type": "range",
+      "id": "desktop_font_size",
+      "label": "Desktop font size",
+      "min": 24,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "desktop_font_weight",
+      "label": "Desktop font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "color",
+      "id": "desktop_text_color",
+      "label": "Desktop text color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Mobile title"
+    },
+    {
+      "type": "range",
+      "id": "mobile_font_size",
+      "label": "Mobile font size",
+      "min": 16,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "color",
+      "id": "mobile_text_color",
+      "label": "Mobile text color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "mobile_background",
+      "label": "Mobile background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "mobile_border_radius",
+      "label": "Mobile corner radius",
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top spacing",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom spacing",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "TYT Product Title"
+    }
+  ]
+}
+{% endschema %}

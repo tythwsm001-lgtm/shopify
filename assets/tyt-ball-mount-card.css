@@ -1,0 +1,565 @@
+
+/* =========================================
+   TYT BALL MOUNT COLLECTION
+   Dawn 15.3.0
+   Desktop: Vertical
+   Mobile: Horizontal
+========================================= */
+
+
+/* =========================================
+   1. DESKTOP PRODUCT CARD
+========================================= */
+
+@media screen and (min-width: 750px) {
+
+  .tyt-ball-mount-card > .card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    height: 100%;
+  }
+
+  .tyt-ball-mount-card > .card > .card__inner {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    flex: 0 0 auto !important;
+  }
+
+  .tyt-ball-mount-card > .card > .card__inner.ratio::before {
+    display: none !important;
+    content: none !important;
+  }
+
+  .tyt-ball-mount-card .card__media {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+  }
+
+  .tyt-ball-mount-card .card__media .media {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .tyt-ball-mount-card .card__media img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+  }
+
+  .tyt-ball-mount-card > .card > .card__content {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    min-width: 0;
+    padding: 0 !important;
+  }
+
+  .tyt-ball-mount-card .card__information {
+    width: 100%;
+    padding: 12px 0 !important;
+  }
+
+}
+
+
+/* =========================================
+   2. PRODUCT SPECIFICATIONS
+========================================= */
+
+.tyt-card-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  margin: 8px 0 10px;
+}
+
+.tyt-card-specs__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.tyt-card-specs__label {
+  color: #888888;
+  font-weight: 400;
+}
+
+.tyt-card-specs__value {
+  color: #333333;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+
+/* =========================================
+   3. RATING AND PRICE
+========================================= */
+
+.tyt-ball-mount-card .rating {
+  margin-top: 5px;
+}
+
+.tyt-ball-mount-card .price {
+  margin-top: 8px;
+}
+
+.tyt-ball-mount-card .quick-add {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.tyt-ball-mount-card .quick-add__submit {
+  width: 100%;
+  min-height: 42px;
+}
+
+
+/* =========================================
+   4. MOBILE PRODUCT CARD
+   IMAGE LEFT / CONTENT RIGHT
+========================================= */
+
+@media screen and (max-width: 749px) {
+
+  #product-grid:has(.tyt-ball-mount-card) {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+  }
+
+  #product-grid:has(.tyt-ball-mount-card) > .grid__item {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+
+  .tyt-ball-mount-card > .card {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    height: auto !important;
+    width: 100% !important;
+  }
+
+  /* Product Image */
+
+  .tyt-ball-mount-card > .card > .card__inner {
+    display: block !important;
+    position: relative !important;
+    width: 38% !important;
+    flex: 0 0 38% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .tyt-ball-mount-card > .card > .card__inner.ratio::before {
+    display: none !important;
+    content: none !important;
+  }
+
+  .tyt-ball-mount-card .card__media {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+  }
+
+  .tyt-ball-mount-card .card__media .media {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .tyt-ball-mount-card .card__media img {
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+  }
+
+  /* Product Information */
+
+  .tyt-ball-mount-card > .card > .card__content {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 62% !important;
+    flex: 1 1 0 !important;
+    min-width: 0;
+    padding: 0 !important;
+  }
+
+  .tyt-ball-mount-card .card__information {
+    width: 100%;
+    padding: 0 !important;
+  }
+
+  /* Title */
+
+  .tyt-ball-mount-card .card__heading {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    font-weight: 500;
+  }
+
+  /* Rating */
+
+  .tyt-ball-mount-card .rating {
+    margin-top: 5px !important;
+  }
+
+  .tyt-ball-mount-card .rating-star {
+    --font-size: 1.35;
+  }
+
+  .tyt-ball-mount-card .rating-count {
+    font-size: 11px;
+  }
+
+  /* Specifications */
+
+  .tyt-ball-mount-card .tyt-card-specs {
+    gap: 4px;
+    margin: 7px 0;
+  }
+
+  .tyt-ball-mount-card .tyt-card-specs__item {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  /* Price */
+
+  .tyt-ball-mount-card .price {
+    margin-top: 6px !important;
+  }
+
+  .tyt-ball-mount-card .price-item {
+    font-size: 15px;
+  }
+
+  /* Quick Add */
+
+  .tyt-ball-mount-card .quick-add {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .tyt-ball-mount-card .quick-add__submit {
+    width: 100%;
+    min-height: 38px;
+    padding: 7px 4px;
+    font-size: 12px;
+  }
+
+  /* Hide Duplicate Product Counts */
+
+  .product-count,
+  .product-count-light,
+  .product-count-vertical {
+    display: none !important;
+  }
+
+}
+
+
+/* =========================================
+   5. FILTER HEADER
+========================================= */
+
+#main-collection-filters::before {
+  content: "FIND YOUR PERFECT HITCH";
+  display: block;
+  margin: 0 0 7px;
+  color: #222222;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.3px;
+}
+
+#main-collection-filters .facets-container::before {
+  content: "Filter by receiver size, ball size, and hitch class to find the right fit for your towing setup.";
+  display: block;
+  width: 100%;
+  margin: 0 0 16px;
+  color: #777777;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+
+/* =========================================
+   6. FILTER ARROW
+   FIX: HIDE ORIGINAL DAWN ARROW
+========================================= */
+
+/* Hide ALL original SVG arrows inside filter summaries */
+
+#main-collection-filters .facets__summary svg,
+#main-collection-filters .facets__summary .svg-wrapper,
+#main-collection-filters .facets__summary .icon-caret {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Filter Summary */
+
+#main-collection-filters .facets__summary {
+  position: relative;
+  padding-right: 38px !important;
+  color: #222222;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* TYT Custom Arrow */
+
+#main-collection-filters .facets__summary::after {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #C9252C;
+  border-bottom: 2px solid #C9252C;
+  transform: translateY(-70%) rotate(45deg);
+  transition: transform 0.25s ease;
+  pointer-events: none;
+}
+
+/* Open State */
+
+#main-collection-filters .facets__disclosure[open] > .facets__summary::after {
+  transform: translateY(-20%) rotate(225deg);
+}
+
+/* Hover */
+
+#main-collection-filters .facets__summary:hover::after {
+  border-color: #A51E24;
+}
+
+
+/* =========================================
+   7. FILTER MOBILE DESIGN
+========================================= */
+
+@media screen and (max-width: 749px) {
+
+  #main-collection-filters {
+    background: #F5F6F8;
+    border-radius: 12px;
+    padding: 14px;
+    margin: 0 0 18px;
+  }
+
+  #main-collection-filters::before {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  #main-collection-filters .facets-container::before {
+    font-size: 11px;
+    line-height: 1.5;
+    margin-bottom: 13px;
+  }
+
+  /* Filter Cards */
+
+  #main-collection-filters .facets__disclosure {
+    display: block;
+    width: 100%;
+    margin: 0 0 8px !important;
+    border: 1px solid #E5E5E5;
+    border-radius: 9px;
+    background: #FFFFFF;
+    overflow: visible;
+  }
+
+  /* Filter Heading */
+
+  #main-collection-filters .facets__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 48px;
+    padding: 12px 38px 12px 14px !important;
+    font-size: 14px;
+    font-weight: 600;
+    color: #222222;
+  }
+
+  /* Open Card */
+
+  #main-collection-filters .facets__disclosure[open] {
+    border-color: #D8D8D8;
+  }
+
+  #main-collection-filters .facets__disclosure[open] > .facets__summary {
+    color: #C9252C;
+    border-bottom: 1px solid #EEEEEE;
+  }
+
+  /* Dropdown */
+
+  #main-collection-filters .facets__display {
+    position: static !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    padding: 8px 14px 12px !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 0 0 9px 9px;
+    box-shadow: none !important;
+    transform: none !important;
+    background: #FFFFFF;
+  }
+
+  /* Options */
+
+  #main-collection-filters .facets__list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-height: 240px;
+    overflow-y: auto;
+  }
+
+  #main-collection-filters .facets__item {
+    margin: 0;
+  }
+
+  #main-collection-filters .facets__label {
+    display: flex;
+    align-items: center;
+    min-height: 38px;
+    padding: 7px 2px;
+    color: #555555;
+    font-size: 13px;
+  }
+
+  #main-collection-filters input[type="checkbox"] {
+    accent-color: #C9252C;
+  }
+
+  /* Active Filters */
+
+  #main-collection-filters .active-facets__button {
+    border-radius: 20px;
+  }
+
+  /* Price Inputs */
+
+  #main-collection-filters .field__input {
+    border-radius: 7px;
+  }
+
+  #main-collection-filters .facets__footer {
+    padding-top: 10px;
+  }
+
+}
+
+
+/* =========================================
+   8. FILTER DESKTOP DESIGN
+========================================= */
+
+@media screen and (min-width: 750px) {
+
+  #main-collection-filters::before {
+    font-size: 21px;
+  }
+
+  #main-collection-filters .facets-container::before {
+    font-size: 13px;
+  }
+
+  #main-collection-filters .facets__disclosure {
+    border: 1px solid #E8E8E8;
+    border-radius: 9px;
+    background: #FFFFFF;
+  }
+
+  #main-collection-filters .facets__summary {
+    padding: 12px 38px 12px 14px !important;
+  }
+
+}
+
+/* =========================================
+   TYT PRODUCT PRICE - BOLDER & LARGER
+========================================= */
+
+/* Current Price */
+
+.tyt-ball-mount-card .price__regular .price-item--regular,
+.tyt-ball-mount-card .price__sale .price-item--sale {
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  color: #222222 !important;
+}
+
+/* Compare At Price */
+
+.tyt-ball-mount-card .price__sale .price-item--regular {
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: #999999 !important;
+  text-decoration: line-through;
+}
+
+/* Price Spacing */
+
+.tyt-ball-mount-card .price {
+  margin-top: 8px !important;
+}
+
+/* Mobile */
+
+@media screen and (max-width: 749px) {
+
+  .tyt-ball-mount-card .price__regular .price-item--regular,
+  .tyt-ball-mount-card .price__sale .price-item--sale {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+  }
+
+  .tyt-ball-mount-card .price__sale .price-item--regular {
+    font-size: 11px !important;
+  }
+
+  .tyt-ball-mount-card .price {
+    margin-top: 7px !important;
+  }
+
+}

@@ -1,0 +1,106 @@
+{
+  "sections": {
+    "collection_list_LJPf46": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_MYKiAC": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "ball-mounts"
+          }
+        },
+        "featured_collection_YUwHi4": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "hand-winch"
+          }
+        },
+        "featured_collection_FHBFhw": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "trailer-jack"
+          }
+        },
+        "featured_collection_gjGcEW": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "3-16-winch-rope"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_MYKiAC",
+        "featured_collection_YUwHi4",
+        "featured_collection_FHBFhw",
+        "featured_collection_gjGcEW"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "Welcome to TYT",
+        "heading_size": "h2",
+        "image_ratio": "square",
+        "columns_desktop": 4,
+        "color_scheme": "",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 28,
+        "padding_bottom": 24
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": false,
+        "show_collection_image": false,
+        "color_scheme": "accent-1"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "custom_css": [],
+      "settings": {
+        "products_per_page": 12,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "vertical",
+        "enable_sorting": false,
+        "padding_top": 16,
+        "padding_bottom": 12
+      }
+    },
+    "multirow_nztBGT": {
+      "type": "multirow",
+      "settings": {
+        "image_height": "medium",
+        "desktop_image_width": "medium",
+        "image_layout": "alternate-left",
+        "heading_size": "h1",
+        "text_style": "body",
+        "button_style": "secondary",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "row_color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "collection_list_LJPf46",
+    "banner",
+    "product-grid",
+    "multirow_nztBGT"
+  ]
+}

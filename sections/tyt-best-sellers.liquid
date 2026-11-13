@@ -1,0 +1,610 @@
+{% comment %}
+  TYT Best Sellers
+  Shopify Dawn 15.3.0
+  Product-connected cards
+{% endcomment %}
+<section
+  id="tyt-best-{{ section.id }}"
+  class="tyt-best"
+  style="
+    --tyt-best-cols: {{ section.settings.desktop_columns }};
+    --tyt-best-mobile: {{ section.settings.mobile_columns }};
+    --tyt-best-gap: {{ section.settings.card_gap }}px;
+    --tyt-best-top: {{ section.settings.padding_top }}px;
+    --tyt-best-bottom: {{ section.settings.padding_bottom }}px;
+    --tyt-best-bg: {{ section.settings.background_color }};
+    --tyt-best-accent: {{ section.settings.accent_color }};
+    --tyt-best-ratio: {{ section.settings.image_ratio }};
+  "
+>
+  <div class="tyt-best__container">
+    <div class="tyt-best__heading">
+      {% if section.settings.heading != blank %}
+        <h2>{{ section.settings.heading | escape }}</h2>
+      {% endif %}
+      {% if section.settings.subtitle != blank %}
+        <p>{{ section.settings.subtitle | escape }}</p>
+      {% endif %}
+    </div>
+    <div class="tyt-best__grid">
+      {% for block in section.blocks %}
+        {% assign product = block.settings.product %}
+        <div
+          class="tyt-best__card"
+          {{ block.shopify_attributes }}
+        >
+          {% if product != blank %}
+            <a
+              class="tyt-best__image-link"
+              href="{{ product.url }}"
+              aria-label="{{ product.title | escape }}"
+            >
+              <div class="tyt-best__image-wrap">
+                {% if product.featured_image != blank %}
+                  {{
+                    product.featured_image
+                    | image_url: width: 1000
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '240, 360, 480, 600, 800, 1000',
+                      sizes: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw',
+                      class: 'tyt-best__image'
+                  }}
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag }}
+                {% endif %}
+                {% if section.settings.show_sale_badge %}
+                  {% if product.compare_at_price > product.price %}
+                    <span class="tyt-best__badge">
+                      Sale
+                    </span>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </a>
+            <div class="tyt-best__details">
+              <h3>
+                <a href="{{ product.url }}">
+                  {{ product.title | escape }}
+                </a>
+              </h3>
+              {% if section.settings.show_rating %}
+                {% assign tyt_rating = product.metafields.reviews.rating.value %}
+                {% assign tyt_rating_count = product.metafields.reviews.rating_count.value | default: 0 | plus: 0 %}
+                {% if tyt_rating != blank and tyt_rating_count > 0 %}
+                  {% assign tyt_rating_value = tyt_rating.rating | plus: 0.0 %}
+                  {% assign tyt_rating_max = tyt_rating.scale_max | default: 5 | plus: 0.0 %}
+                  {% if tyt_rating_max > 0 %}
+                    {% assign tyt_rating_percent = tyt_rating_value | divided_by: tyt_rating_max | times: 100 | at_most: 100 | at_least: 0 %}
+                    <div class="tyt-best__rating" role="img" aria-label="Rated {{ tyt_rating_value | round: 1 }} out of {{ tyt_rating_max | round: 0 }} stars, {{ tyt_rating_count }} reviews">
+                      <span class="tyt-best__stars" aria-hidden="true">
+                        <span class="tyt-best__stars-base">★★★★★</span>
+                        <span class="tyt-best__stars-fill" style="width: {{ tyt_rating_percent }}%;">★★★★★</span>
+                      </span>
+                      <span class="tyt-best__rating-value">{{ tyt_rating_value | round: 1 }}</span>
+                      <span class="tyt-best__rating-count">({{ tyt_rating_count }})</span>
+                    </div>
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+              {% if section.settings.show_price %}
+                {% if section.settings.show_price_guarantee %}
+                  <div class="tyt-best__price-guarantee">
+                    {{ section.settings.price_guarantee_text | escape }}
+                  </div>
+                {% endif %}
+                <div class="tyt-best__price">
+                  <span class="tyt-best__current-price">
+                    {{ product.price | money }}
+                  </span>
+                  {% if product.compare_at_price > product.price %}
+                    <s class="tyt-best__old-price">
+                      {{ product.compare_at_price | money }}
+                    </s>
+                  {% endif %}
+                </div>
+              {% endif %}
+              {% if section.settings.show_button %}
+                <a
+                  class="tyt-best__button"
+                  href="{{ product.url }}"
+                >
+                  {{ section.settings.button_label | escape }}
+                  <span aria-hidden="true">&rarr;</span>
+                </a>
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="tyt-best__image-wrap">
+              {{ 'product-1' | placeholder_svg_tag }}
+            </div>
+            <div class="tyt-best__details">
+              <h3>Select a product</h3>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    {% if section.settings.collection_link != blank %}
+      <div class="tyt-best__footer">
+        <a href="{{ section.settings.collection_link }}">
+          {{ section.settings.collection_label | escape }}
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+<style>
+  #tyt-best-{{ section.id }} {
+    width: 100%;
+    padding-top: var(--tyt-best-top);
+    padding-bottom: var(--tyt-best-bottom);
+    background: var(--tyt-best-bg);
+  }
+  #tyt-best-{{ section.id }} *,
+  #tyt-best-{{ section.id }} *::before,
+  #tyt-best-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 20px;
+    min-width: 0;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__heading {
+    text-align: center;
+    margin-bottom: 26px;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__heading h2 {
+    font-family: var(--font-heading-family);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 8px;
+    color: #202020;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__heading p {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #666;
+    margin: 0;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__grid {
+    display: grid;
+    grid-template-columns:
+      repeat(var(--tyt-best-cols), minmax(0, 1fr));
+    gap: var(--tyt-best-gap);
+  }
+  #tyt-best-{{ section.id }} .tyt-best__card {
+    min-width: 0;
+    overflow: hidden;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__image-link {
+    display: block;
+    text-decoration: none;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__image-wrap {
+    width: 100%;
+    aspect-ratio: var(--tyt-best-ratio);
+    position: relative;
+    overflow: hidden;
+    background: #f7f7f7;
+    border-radius: 8px;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    transition: transform .3s ease;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__image-link:hover img {
+    transform: scale(1.04);
+  }
+  #tyt-best-{{ section.id }} .tyt-best__image-wrap > svg {
+    width: 100%;
+    height: 100%;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--tyt-best-accent);
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 3px;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__details {
+    padding: 14px 2px;
+    text-align: center;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__details h3 {
+    font-family: var(--font-heading-family);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0 0 10px;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__details h3 a {
+    text-decoration: none;
+    color: inherit;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__current-price {
+    font-size: 17px;
+    font-weight: 700;
+    color: #202020;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__old-price {
+    font-size: 13px;
+    color: #999;
+  }
+  /* Best Price Guarantee */
+  #tyt-best-{{ section.id }} .tyt-best__price-guarantee {
+    display: block;
+    margin: 0 0 5px;
+    color: var(--tyt-best-accent);
+    font-size: 12px;
+    line-height: 1.3;
+    font-weight: 800;
+    letter-spacing: 0.45px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  /* Shop Now Button */
+  #tyt-best-{{ section.id }} .tyt-best__button {
+    display: flex;
+    width: 100%;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 11px 16px;
+    border: 1px solid var(--tyt-best-accent);
+    border-radius: 5px;
+    background: var(--tyt-best-accent);
+    color: #ffffff;
+    font-size: 13px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: 0.55px;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color .2s ease, border-color .2s ease, transform .2s ease;
+  }
+
+  #tyt-best-{{ section.id }} .tyt-best__button:hover {
+    background: #202020;
+    border-color: #202020;
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+
+  #tyt-best-{{ section.id }} .tyt-best__button span {
+    display: inline-block;
+    transition: transform .2s ease;
+  }
+
+  #tyt-best-{{ section.id }} .tyt-best__button:hover span {
+    transform: translateX(3px);
+  }
+  #tyt-best-{{ section.id }} .tyt-best__footer {
+    text-align: center;
+    margin-top: 22px;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__footer a {
+    color: var(--tyt-best-accent);
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  #tyt-best-{{ section.id }} a:focus-visible {
+    outline: 2px solid var(--tyt-best-accent);
+    outline-offset: 3px;
+  }
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #tyt-best-{{ section.id }} .tyt-best__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media screen and (max-width: 749px) {
+    #tyt-best-{{ section.id }} .tyt-best__container {
+      padding: 0 12px;
+    }
+    #tyt-best-{{ section.id }} .tyt-best__grid {
+      grid-template-columns:
+        repeat(var(--tyt-best-mobile), minmax(0, 1fr));
+      gap: 12px;
+    }
+    #tyt-best-{{ section.id }} .tyt-best__heading h2 {
+      font-size: 26px;
+    }
+    #tyt-best-{{ section.id }} .tyt-best__details h3 {
+      font-size: 14px;
+    }
+    #tyt-best-{{ section.id }} .tyt-best__current-price {
+      font-size: 15px;
+    }
+    #tyt-best-{{ section.id }} .tyt-best__price-guarantee {
+      font-size: 10px;
+      letter-spacing: 0.3px;
+      margin-bottom: 4px;
+    }
+    #tyt-best-{{ section.id }} .tyt-best__button {
+      min-height: 40px;
+      padding: 10px 8px;
+      font-size: 11px;
+      gap: 6px;
+    }
+    #tyt-best-{{ section.id }} .tyt-best__details {
+      padding: 10px 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #tyt-best-{{ section.id }} .tyt-best__image {
+      transition: none;
+    }
+  }
+  #tyt-best-{{ section.id }} .tyt-best__rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__stars {
+    position: relative;
+    display: inline-block;
+    line-height: 1;
+    font-size: 16px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__stars-base {
+    color: #dddddd;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__stars-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #e8a317;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__rating-value {
+    color: #202020;
+    font-weight: 600;
+  }
+  #tyt-best-{{ section.id }} .tyt-best__rating-count {
+    color: #777777;
+  }
+</style>
+{% schema %}
+{
+  "name": "TYT Best Sellers",
+  "tag": "section",
+  "class": "tyt-best-sellers",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Title",
+      "default": "Best Sellers"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Discover our most popular towing essentials."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_columns",
+      "label": "Desktop columns",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "Mobile columns",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 column"
+        },
+        {
+          "value": "2",
+          "label": "2 columns"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image ratio",
+      "options": [
+        {
+          "value": "1/1",
+          "label": "Square"
+        },
+        {
+          "value": "5/4",
+          "label": "Landscape"
+        },
+        {
+          "value": "4/3",
+          "label": "Wide"
+        }
+      ],
+      "default": "1/1"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Card spacing",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Product display"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show product rating",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show product price",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price_guarantee",
+      "label": "Show Best Price Guarantee",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "price_guarantee_text",
+      "label": "Price guarantee text",
+      "default": "★ BEST PRICE GUARANTEE"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sale_badge",
+      "label": "Show sale badge",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show Shop Now link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "collection_link",
+      "label": "View all link"
+    },
+    {
+      "type": "text",
+      "id": "collection_label",
+      "label": "View all text",
+      "default": "View All Ball Mounts"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#D71920"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product Card",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select product"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "TYT Best Sellers",
+      "blocks": [
+        {
+          "type": "product_card"
+        },
+        {
+          "type": "product_card"
+        },
+        {
+          "type": "product_card"
+        },
+        {
+          "type": "product_card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
