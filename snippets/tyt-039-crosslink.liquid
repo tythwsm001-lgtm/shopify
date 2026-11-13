@@ -1,0 +1,75 @@
+<style>
+  .tyt-039-crosslink {
+    margin: 12px 0 16px;
+    width: 100%;
+  }
+  .tyt-039-crosslink__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 44px;
+    box-sizing: border-box;
+    padding: 6px 12px 6px 6px;
+    border: 1px solid #e6d4d5;
+    border-radius: 6px;
+    background: #fffafa;
+    color: #555;
+    text-decoration: none;
+  }
+  .tyt-039-crosslink__link:hover {
+    border-color: #b9b9b9;
+    background: #f5f5f5;
+  }
+  .tyt-039-crosslink__link:focus-visible {
+    outline: 2px solid #c9252c;
+    outline-offset: 3px;
+  }
+  .tyt-039-crosslink__title {
+    flex: 1;
+    min-width: 0;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .tyt-039-crosslink__title strong { color: #202020; font-weight: 600; }
+  .tyt-039-crosslink__image {
+    display: block;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 4px;
+  }
+  .tyt-039-crosslink__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: 600;
+    color: #c9252c;
+  }
+  .tyt-039-crosslink__link:hover .tyt-039-crosslink__action { text-decoration: underline; }
+  .tyt-039-crosslink__link:active { background: #eee; }
+  @media screen and (max-width: 749px) {
+    .tyt-039-crosslink { margin: 12px 0 16px; }
+    .tyt-039-crosslink__link { padding: 6px 10px 6px 6px; gap: 8px; }
+  }
+</style>
+
+{%- assign linked_hitch = all_products['tyt-adjustable-5-in-1-tri-ball-hitch-ball-mount-for-2-5-receiver'] -%}
+<div class="tyt-039-crosslink">
+  <a
+    class="tyt-039-crosslink__link"
+    href="https://www.tyttowing.com/products/tyt-adjustable-5-in-1-tri-ball-hitch-ball-mount-for-2-5-receiver?ref_sku=039&amp;ref_link=5in1_25in"
+    aria-label="Explore TYT 2.5 inch 5-in-1 Tri-Ball Hitch"
+  >
+    {%- if linked_hitch.featured_image != blank -%}
+      {{ linked_hitch.featured_image | image_url: width: 120 | image_tag: class: 'tyt-039-crosslink__image', widths: '40, 80, 120', sizes: '40px', width: 40, height: 40, loading: 'lazy', alt: '' }}
+    {%- endif -%}
+    <span class="tyt-039-crosslink__title">Need a <strong>2.5″ hitch?</strong></span>
+    <span class="tyt-039-crosslink__action">View <span aria-hidden="true">→</span></span>
+  </a>
+</div>
