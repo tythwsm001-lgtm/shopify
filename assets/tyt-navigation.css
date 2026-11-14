@@ -19,7 +19,33 @@
 .tyt-nav .header__menu-item { padding-left: 12px; padding-right: 12px; text-decoration: none; }
 .tyt-nav summary.header__menu-item { padding-right: 30px; }
 .tyt-nav summary .icon-caret { right: 12px; }
-.tyt-nav__item--deals > a { color: #c9252c !important; font-weight: 700 !important; }
+.tyt-nav > .list-menu > .tyt-nav__item--deals > .tyt-nav__black-friday {
+  position: relative;
+  gap: 5px;
+  min-height: 42px;
+  padding: 5px 15px 6px 8px;
+  border: 0;
+  border-radius: 0;
+  background: #fff;
+  color: #111;
+  font-weight: 700;
+  transition: background-color .2s ease;
+}
+.tyt-nav .tyt-nav__black-friday:hover { background: #f5f5f5; }
+.tyt-nav__deal-art { color: #111; font-family: 'Arial Black', Arial, sans-serif; font-size: 15px; font-style: italic; font-weight: 900; line-height: 1.2; letter-spacing: -.2px; text-transform: uppercase; }
+.tyt-nav__deal-word {
+  position: relative;
+  display: inline-block;
+  padding: 0;
+  color: #111;
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -.2px;
+  text-transform: uppercase;
+}
 .tyt-nav .tyt-nav__panel {
   min-width: 0;
   width: 540px;
@@ -48,6 +74,8 @@
 .tyt-nav__support-icon svg { display: block; width: 20px; height: 20px; fill: currentColor; }
 .tyt-nav a:focus-visible, .tyt-nav summary:focus-visible { outline: 2px solid var(--tyt-nav-accent); outline-offset: 2px; }
 @media screen and (min-width: 990px) {
+  .tyt-nav__item--deals { order: 1; }
+  .tyt-nav__item:last-child { order: 2; }
   .header:has(.tyt-nav) { min-height: 76px; box-sizing: border-box; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 24px; }
   .header:has(.tyt-nav) .header__inline-menu { margin-left: 0; justify-self: stretch; }
   .tyt-nav > .list-menu { display: flex; justify-content: center; gap: clamp(4px, 1vw, 16px); }
@@ -69,6 +97,8 @@
     row-gap: 0;
     padding-top: 4px;
     padding-bottom: 2px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
   .header:has(#TytNavPanel-ball-mounts) .header__heading-link { padding: 0 7.5px; }
   .header:has(#TytNavPanel-ball-mounts) .header__heading-logo-wrapper { display: flex; align-items: center; width: 70px; height: 44px; overflow: hidden; }
@@ -96,6 +126,7 @@
     font-size: 15px;
   }
   .tyt-nav > .list-menu > li > header-menu > details > summary { padding-right: 23px; }
+  .tyt-nav > .list-menu > .tyt-nav__item--deals > a { min-height: 36px; padding: 6px 10px; }
   .tyt-nav summary .icon-caret { right: 8px; }
   .tyt-nav .tyt-nav__panel,
   .tyt-nav .tyt-nav__panel--support {

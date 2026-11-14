@@ -1,5 +1,5 @@
 {%- comment -%}Visible top navigation on all screen sizes, with Dawn's native dropdown behavior.{%- endcomment -%}
-{%- assign groups = 'ball-mounts,towing-gear,hitch-guide,deals,support' | split: ',' -%}
+{%- assign groups = 'deals,ball-mounts,towing-gear,hitch-guide,support' | split: ',' -%}
   <nav class="header__inline-menu tyt-nav" aria-label="Main navigation">
     <ul class="list-menu list-menu--inline" role="list">
 {%- for group in groups -%}
@@ -13,7 +13,7 @@
         assign title = 'Hitch Guide'
         assign destination = 'pages/hitch-selection-guide'
       when 'deals'
-        assign title = 'Deals'
+        assign title = 'Black Friday Deal'
         assign destination = 'collections/deals'
       when 'support'
         assign title = 'Support'
@@ -22,7 +22,11 @@
   <li class="tyt-nav__item{% if group == 'deals' %} tyt-nav__item--deals{% endif %}">
     {%- if group == 'hitch-guide' or group == 'deals' -%}
       {%- assign target_url = routes.root_url | append: destination -%}
-      <a href="{{ target_url }}" class="header__menu-item list-menu__item link link--text focus-inset"{% if request.path == target_url %} aria-current="page"{% endif %}>{{ title }}</a>
+      <a href="{{ target_url }}" class="header__menu-item list-menu__item link link--text focus-inset{% if group == 'deals' %} tyt-nav__black-friday{% endif %}"{% if request.path == target_url %} aria-current="page"{% endif %}>
+        {%- if group == 'deals' -%}
+          <span class="tyt-nav__deal-art">Black Friday</span><span class="tyt-nav__deal-word">Deal</span>
+        {%- else -%}{{ title }}{%- endif -%}
+      </a>
     {%- else -%}
       <header-menu>
         <details id="Details-TytNav-{{ group }}">
