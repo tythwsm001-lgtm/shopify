@@ -54,6 +54,7 @@
           <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
         {%- endif -%}
       </div>
+      {% render 'tyt-receiver-fit-note', fit_items: cart.items %}
     </div>
   {%- endfor -%}
 {%- endif -%}

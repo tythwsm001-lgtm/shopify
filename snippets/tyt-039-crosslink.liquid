@@ -5,9 +5,6 @@
   assign ref_link = ref_link | default: '5in1_25in'
   assign linked_hitch = all_products[target_handle]
   assign linked_hitch_image = linked_hitch.featured_image
-  if image_index != blank
-    assign linked_hitch_image = linked_hitch.images[image_index] | default: linked_hitch.featured_image
-  endif
 -%}
 <style>
   .tyt-039-crosslink {

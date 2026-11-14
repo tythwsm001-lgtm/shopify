@@ -13,6 +13,7 @@
 {% enddoc %}
 <div {{ block.shopify_attributes }}>
   {%- if product != blank -%}
+    {%- render 'tyt-receiver-fit-note', fit_product: product -%}
     {%- liquid
       assign gift_card_recipient_feature_active = false
       if block.settings.show_gift_card_recipient and product.gift_card?

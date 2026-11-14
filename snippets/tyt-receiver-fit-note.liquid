@@ -1,0 +1,34 @@
+{%- liquid
+  assign show_receiver_note = false
+  assign ball_mount_collections = 'ball-mounts,2-receiver-hitches,2-5-receiver-hitches,dual-ball-hitches,tri-ball-hitches' | split: ','
+  if fit_product != blank
+    for product_collection in fit_product.collections
+      if ball_mount_collections contains product_collection.handle
+        assign show_receiver_note = true
+        break
+      endif
+    endfor
+  elsif fit_items != blank
+    for fit_item in fit_items
+      for product_collection in fit_item.product.collections
+        if ball_mount_collections contains product_collection.handle
+          assign show_receiver_note = true
+          break
+        endif
+      endfor
+      if show_receiver_note
+        break
+      endif
+    endfor
+  endif
+-%}
+{%- if show_receiver_note -%}
+  {{ 'tyt-receiver-fit-note.css' | asset_url | stylesheet_tag }}
+  <aside class="tyt-receiver-fit-note" aria-label="Receiver size reminder">
+    <svg class="tyt-receiver-fit-note__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M7 12h10m-7-3-3 3 3 3m4-6 3 3-3 3"/></svg>
+    <div>
+      <strong>Before you buy: check your receiver size</strong>
+      <p>Measure the <b>inside width and height</b> of your vehicle’s receiver opening and confirm they match the receiver size listed for your ball mount. Use the inside measurement, not the outside dimensions. Vehicle model alone does not confirm fit.</p>
+    </div>
+  </aside>
+{%- endif -%}

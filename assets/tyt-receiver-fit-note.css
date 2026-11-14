@@ -1,0 +1,12 @@
+.tyt-receiver-fit-note { display: flex; align-items: flex-start; gap: 10px; margin: 12px 0 16px; padding: 12px; border: 1px solid #ead4b0; border-left: 3px solid #ad6710; border-radius: 4px; background: #fffaf1; color: #332b20; text-align: left; }
+.tyt-receiver-fit-note__icon { flex: 0 0 22px; width: 22px; height: 22px; color: #92530b; }
+.tyt-receiver-fit-note strong { display: block; font-size: 14px; font-weight: 700; line-height: 1.4; }
+.tyt-receiver-fit-note p { margin: 5px 0 0; font-size: 13px; line-height: 1.5; letter-spacing: 0; }
+.tyt-receiver-fit-note b { font-weight: 700; }
+.cart-notification-product {
+  flex-wrap: wrap;
+}
+
+.cart-notification-product > .tyt-receiver-fit-note {
+  flex-basis: 100%;
+}
