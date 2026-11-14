@@ -44,17 +44,16 @@ class TytBundleBuilder extends HTMLElement {
 
   updateTotal() {
     const selections = this.selections;
-    const complete = selections.length === this.slots.length;
-    this.button.disabled = this.busy || !complete;
-    this.output.textContent = complete
-      ? 'Bundle subtotal: ' + this.money.format(selections.reduce((total, option) => total + Number(option.dataset.price), 0) / 100)
-      : selections.length + ' of ' + this.slots.length + ' items selected';
+    this.button.disabled = this.busy || selections.length === 0;
+    this.output.textContent = selections.length
+      ? 'Subtotal: ' + this.money.format(selections.reduce((total, option) => total + Number(option.dataset.price), 0) / 100)
+      : 'Select at least one item to see your subtotal.';
   }
 
   async buy(event) {
     event.preventDefault();
     const selections = this.selections;
-    if (this.busy || selections.length !== this.slots.length) return;
+    if (this.busy || selections.length === 0) return;
     this.busy = true;
     this.updateTotal();
     this.error.hidden = true;

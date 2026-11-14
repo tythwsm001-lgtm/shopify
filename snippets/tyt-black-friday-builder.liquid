@@ -10,11 +10,12 @@
       <div>
         <p class="tyt-builder__campaign">BLACK FRIDAY</p>
         <h1 id="TYTBuilderTitle-{{ section_id }}">Build Your Towing Bundle</h1>
-        <p>Choose one item from each category.</p>
+        <p>Choose any items you need. Each category is optional.</p>
       </div>
-      <a class="tyt-builder__individual" href="#TYTDeals-{{ section_id }}">
-        Shop individual deals <span aria-hidden="true">↓</span>
-      </a>
+      <nav class="tyt-builder__size-links" aria-label="Shop by receiver size">
+        <a class="tyt-builder__individual" href="#TYTReceiver-{{ section_id }}-2">Shop 2″ <span aria-hidden="true">↓</span></a>
+        <a class="tyt-builder__individual" href="#TYTReceiver-{{ section_id }}-2-5">Shop 2.5″ <span aria-hidden="true">↓</span></a>
+      </nav>
     </header>
     <tyt-bundle-builder data-cart-add="{{ routes.cart_add_url }}.js" data-currency="{{ cart.currency.iso_code | default: shop.currency }}" data-locale="{{ request.locale.iso_code }}">
       <form>
@@ -37,9 +38,21 @@
                   {{ category_parts.first | escape }}
                 {% endif %}
               </legend>
-              <select id="{{ category_id }}-product" aria-label="{{ category_parts.first | escape }}" data-bundle-product required disabled>
-                <option value="">Choose a product</option>
+              <select id="{{ category_id }}-product" aria-label="{{ category_parts.first | escape }}" data-bundle-product disabled>
+                <option value="">Skip this item</option>
+                {% assign has_default_product = false %}
+                {% assign option_groups = 'all' | split: '|' %}
+                {% if category_parts.last == 'ball-mounts' %}
+                  {% assign option_groups = '2|2.5|other' | split: '|' %}
+                {% endif %}
+                {% for option_group in option_groups %}
+                {%- capture group_options -%}
                 {% for bundle_item in category_collection.products limit: category_limit %}
+                  {% if option_group != 'all' %}
+                    {%- capture option_receiver -%}{%- render 'tyt-deal-receiver-size', product: bundle_item -%}{%- endcapture -%}
+                    {% assign option_receiver = option_receiver | strip %}
+                    {% if option_receiver != option_group %}{% continue %}{% endif %}
+                  {% endif %}
                   {% if bundle_item.available and bundle_item.requires_selling_plan != true %}
                     {% for bundle_variant in bundle_item.variants %}
                       {% assign variant_name = bundle_variant.title | downcase %}
@@ -54,7 +67,15 @@
                           assign product_label = bundle_item.title | remove_first: 'TYT '
                           case category_parts.last
                             when 'ball-mounts'
-                              assign product_label = product_label | replace: 'Adjustable Trailer Hitch Ball Mount', 'Adjustable Mount' | replace: 'Adjustable Dual-Ball Hitch', 'Dual-Ball' | replace: 'Adjustable 5-in-1 Ball Mount', '5-in-1 Mount' | replace: ' for ', ' · ' | remove: ' Receiver'
+                              assign mount_name = product_label | split: ' for ' | first
+                              case mount_name
+                                when 'Adjustable Trailer Hitch Ball Mount', '22K Adjustable Dual-Ball Hitch'
+                                  assign product_label = 'Dual-Ball · Gold'
+                                when '22K GTW Adjustable Dual-Ball Hitch'
+                                  assign product_label = 'Dual-Ball · Black'
+                                when 'Adjustable 5-in-1 Ball Mount'
+                                  assign product_label = '5-in-1 Mount'
+                              endcase
                             when 'kinetic-rope'
                               assign product_label = product_label | replace: 'Kinetic Recovery Rope Kit', 'Kit' | remove: ' Kinetic Recovery Rope'
                             when 'ratchet-straps'
@@ -66,11 +87,22 @@
                               endif
                           endcase
                         -%}
-                        <option value="{{ bundle_variant.id }}" data-price="{{ bundle_variant.price }}" data-title="{{ bundle_item.title | escape }}"{% if preview_image %} data-image="{{ preview_image | image_url: width: 480 | escape }}"{% endif %}>{{ product_label | escape }}</option>
+                        <option value="{{ bundle_variant.id }}" data-price="{{ bundle_variant.price }}" data-title="{{ bundle_item.title | escape }}"{% if preview_image %} data-image="{{ preview_image | image_url: width: 480 | escape }}"{% endif %}{% unless has_default_product %} selected{% endunless %}>{{ product_label | escape }}</option>
+                        {% assign has_default_product = true %}
                         {% break %}
                       {% endif %}
                     {% endfor %}
                   {% endif %}
+                {% endfor %}
+                {%- endcapture -%}
+                {% assign group_options = group_options | strip %}
+                {% if group_options != blank %}
+                  {% if option_group == 'all' %}
+                    {{ group_options }}
+                  {% else %}
+                    <optgroup label="{% if option_group == 'other' %}Other fitments{% else %}{{ option_group }}″ Receiver{% endif %}">{{ group_options }}</optgroup>
+                  {% endif %}
+                {% endif %}
                 {% endfor %}
               </select>
               <div class="tyt-builder__preview" hidden>
@@ -81,8 +113,8 @@
         </div>
         <p class="tyt-builder__fit">Match the ball mount and extension to your receiver’s inside dimensions. Check each item’s towing rating before use.</p>
         <div class="tyt-builder__checkout">
-          <output aria-live="polite">Select all four items to see your total.</output>
-          <button type="submit" disabled>Buy Bundle <span aria-hidden="true">→</span></button>
+          <output aria-live="polite">Select at least one item to see your subtotal.</output>
+          <button type="submit" disabled>Check Out <span aria-hidden="true">→</span></button>
         </div>
         <p class="tyt-builder__error" role="alert" hidden></p>
         <noscript><p>Enable JavaScript to build your bundle, or shop individual deals below.</p></noscript>

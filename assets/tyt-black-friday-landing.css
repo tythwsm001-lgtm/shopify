@@ -84,6 +84,32 @@
 .tyt-deals__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 2vw, 24px); }
 .tyt-deals__bundles { margin-bottom: clamp(26px, 5vw, 56px); }
 .tyt-deals__bundles .tyt-deals__intro { border-color: var(--deal-red); }
+.tyt-deals__receiver-group + .tyt-deals__receiver-group { margin-top: clamp(22px, 4vw, 40px); }
+.tyt-deals__receiver-group { scroll-margin-top: 150px; }
+.tyt-deals__receiver-group > h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 12px;
+  padding: 7px 12px 7px 7px;
+  border: 1px solid var(--deal-border);
+  border-radius: 5px;
+  background: var(--deal-white);
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 800;
+  line-height: 1.2;
+}
+.tyt-deals__receiver-size {
+  flex: none;
+  min-width: 2.65em;
+  padding: .25em .32em;
+  border-radius: 3px;
+  background: var(--deal-red);
+  color: var(--deal-white);
+  text-align: center;
+  font-size: clamp(20px, 2.6vw, 28px);
+  font-variant-numeric: tabular-nums;
+}
 .tyt-deals__card {
   display: flex;
   flex-direction: column;
@@ -193,6 +219,7 @@
 .tyt-builder__header h1 { color: inherit; font-size: clamp(27px, 4vw, 58px); line-height: 1.05; font-weight: 900; margin: 4px 0 8px; }
 .tyt-builder__header p { margin: 0; }
 .tyt-builder__campaign { color: #ff6068; font-size: 12px; font-weight: 900; letter-spacing: .14em; }
+.tyt-builder__size-links { display: flex; flex-wrap: wrap; gap: 8px; }
 .tyt-builder__individual {
   display: inline-flex;
   align-items: center;

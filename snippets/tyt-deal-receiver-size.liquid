@@ -1,0 +1,7 @@
+{%- assign receiver_entry = product.metafields.custom.receiver_size.value | first -%}
+{%- assign receiver_key = receiver_entry.label.value | strip | remove: '"' | remove: '″' | remove: '”' | replace: '2-1/2', '2.5' -%}
+{%- if receiver_key == '2' or receiver_key == '2.5' -%}
+  {{- receiver_key -}}
+{%- else -%}
+  other
+{%- endif -%}

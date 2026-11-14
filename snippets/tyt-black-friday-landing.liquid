@@ -30,13 +30,35 @@
       <h2 id="TYTDealsTitle-{{ section_id }}">Featured deals</h2>
       <p><strong>Check receiver fit:</strong> Measure the inside width and height of your receiver opening before buying a ball mount.</p>
     </div>
-      <div class="tyt-deals__grid">
-        {% for deal_product in deal_collection.products limit: 6 %}
-          {% render 'tyt-black-friday-deal-card', deal_product: deal_product, section_id: section_id %}
-        {% else %}
-          <p>There are no deals available right now.</p>
-        {% endfor %}
-      </div>
+      {% if deal_collection.products_count == 0 %}
+        <p>There are no deals available right now.</p>
+      {% endif %}
+      {% assign receiver_groups = '2|2.5|other' | split: '|' %}
+      {% for receiver_group in receiver_groups %}
+        {%- capture receiver_cards -%}
+          {% for deal_product in deal_collection.products limit: 6 %}
+            {%- capture receiver_key -%}{%- render 'tyt-deal-receiver-size', product: deal_product -%}{%- endcapture -%}
+            {%- assign receiver_key = receiver_key | strip -%}
+            {% if receiver_key == receiver_group %}
+              {% render 'tyt-black-friday-deal-card', deal_product: deal_product, section_id: section_id %}
+            {% endif %}
+          {% endfor %}
+        {%- endcapture -%}
+        {% assign receiver_cards = receiver_cards | strip %}
+        {% if receiver_cards != blank %}
+          <section id="TYTReceiver-{{ section_id }}-{{ receiver_group | replace: '.', '-' }}" class="tyt-deals__receiver-group" aria-labelledby="TYTReceiverTitle-{{ section_id }}-{{ forloop.index }}">
+            <h3 id="TYTReceiverTitle-{{ section_id }}-{{ forloop.index }}">
+              {% if receiver_group == 'other' %}
+                Other fitments
+              {% else %}
+                <span class="tyt-deals__receiver-size">{{ receiver_group }}″</span>
+                <span>Receiver Ball Mounts</span>
+              {% endif %}
+            </h3>
+            <div class="tyt-deals__grid">{{ receiver_cards }}</div>
+          </section>
+        {% endif %}
+      {% endfor %}
     </section>
   </div>
 </div>
