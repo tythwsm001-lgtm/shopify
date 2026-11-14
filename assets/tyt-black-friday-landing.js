@@ -58,9 +58,23 @@ class TytBundleBuilder extends HTMLElement {
   updateTotal() {
     const selections = this.selections;
     this.button.disabled = this.busy || selections.length === 0;
-    this.output.textContent = selections.length
-      ? 'Subtotal: ' + this.money.format(selections.reduce((total, option) => total + Number(option.dataset.price), 0) / 100)
-      : 'Select at least one item to see your subtotal.';
+    this.output.querySelector('[data-total-empty]').hidden = selections.length > 0;
+    this.output.querySelector('[data-total-values]').hidden = selections.length === 0;
+    if (!selections.length) return;
+
+    const totals = selections.reduce((sum, option) => {
+      const price = Number(option.dataset.price);
+      sum.price += price;
+      sum.compare += Math.max(price, Number(option.dataset.comparePrice || price));
+      return sum;
+    }, { price: 0, compare: 0 });
+    const savings = totals.compare - totals.price;
+    const compare = this.output.querySelector('[data-total-compare]');
+    const saving = this.output.querySelector('[data-total-savings]');
+    this.output.querySelector('[data-total-price]').textContent = this.money.format(totals.price / 100);
+    compare.hidden = saving.hidden = savings <= 0;
+    compare.textContent = this.money.format(totals.compare / 100);
+    saving.textContent = 'Save ' + this.money.format(savings / 100);
   }
 
   async buy(event) {

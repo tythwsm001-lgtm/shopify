@@ -218,7 +218,18 @@
 .tyt-builder__header { display: flex; justify-content: space-between; align-items: end; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
 .tyt-builder__header h1 { color: inherit; font-size: clamp(27px, 4vw, 58px); line-height: 1.05; font-weight: 900; margin: 4px 0 8px; }
 .tyt-builder__header p { margin: 0; }
-.tyt-builder__campaign { color: #ff6068; font-size: 12px; font-weight: 900; letter-spacing: .14em; }
+.tyt-builder__header .tyt-builder__campaign {
+  display: inline-block;
+  margin-bottom: 7px;
+  padding: 5px 24px 5px 10px;
+  background: var(--deal-red);
+  color: var(--deal-white);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+  font-size: clamp(13px, 2vw, 17px);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: .08em;
+}
 .tyt-builder__size-links { display: flex; flex-wrap: wrap; gap: 8px; }
 .tyt-builder__individual {
   display: inline-flex;
@@ -300,6 +311,28 @@
 .tyt-builder__fit { font-size: 13px; margin: 12px 0; }
 .tyt-builder__checkout { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding-top: 12px; border-top: 1px solid var(--deal-muted); }
 .tyt-builder__checkout output { font-weight: 800; }
+.tyt-builder__subtotal-label {
+  display: block;
+  margin-bottom: 3px;
+  color: #dedbd7;
+  font-size: 12px;
+}
+.tyt-builder__amounts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  font-variant-numeric: tabular-nums;
+}
+.tyt-builder__amounts strong { font-size: clamp(24px, 4vw, 34px); line-height: 1.1; }
+.tyt-builder__amounts s { color: #c1bdb9; font-size: 14px; font-weight: 500; }
+.tyt-builder__amounts [data-total-savings] {
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--deal-red);
+  font-size: 12px;
+  white-space: nowrap;
+}
 .tyt-builder__checkout button { min-height: 44px; padding: 8px 18px; border: 0; border-radius: 3px; background: var(--deal-red); color: inherit; font: inherit; font-weight: 800; cursor: pointer; }
 .tyt-builder__checkout button:disabled { background: var(--deal-muted); cursor: default; }
 .tyt-builder__error { color: #ffb4b8; }

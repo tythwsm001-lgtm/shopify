@@ -86,12 +86,14 @@
                     assign option_label = 'Ball Mount Only (Black)'
                   when 'adjustable dual ball mount with 1 x 10 retractable ratchet straps (4pcs)', 'adjustable tri ball mount with 1 x 10 retractable ratchet straps (4pcs)'
                     assign option_label = '+ Ratchet Straps (4 × 1″ × 10′)'
-                  when 'adjustable tri ball mount with 12 hitch extender'
+                  when 'adjustable tri ball mount with 12 hitch extender', 'dual ball hitch (2 receiver) + 12 hitch extender'
                     assign option_label = '+ 12″ Hitch Extender'
-                  when 'adjustable tri ball mount with kinetic recovery rope(1 x 30)'
+                  when 'adjustable tri ball mount with kinetic recovery rope(1 x 30)', '22k dual ball hitch (2.5 receiver) + 1 x 30 kinetic rope', 'dual ball hitch (2 receiver) + 1 x 30 kinetic rope'
                     assign option_label = '+ Kinetic Rope (1″ × 30′)'
-                  when 'black dual ball hitch (2.5 receiver) + 1 x 30 kinetic rope'
-                    assign option_label = 'Black Mount + Kinetic Rope (1″ × 30′)'
+                  when 'black dual ball hitch (2.5 receiver) + 1 x 30 kinetic rope', 'black dual ball hitch (2 receiver) + 1 x 30 kinetic rope'
+                    assign option_label = '+ Kinetic Rope (1″ × 30′) · Black'
+                  when 'black dual ball hitch (2 receiver) + 12 hitch extender'
+                    assign option_label = 'Black Mount + 12″ Hitch Extender'
                 endcase
               %}
               <input
@@ -119,7 +121,7 @@
           </fieldset>
         {% endif %}
         <input type="hidden" name="quantity" value="{{ deal_variant.quantity_rule.min | default: 1 }}">
-        <button type="submit">Buy Now <span aria-hidden="true">→</span></button>
+        <button type="submit">Check Out <span aria-hidden="true">→</span></button>
       </form>
     {% else %}
       <p class="tyt-deals__sold-out">Sold out</p>

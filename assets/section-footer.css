@@ -6,6 +6,47 @@
   border-top: none;
 }
 
+.footer.tyt-footer {
+  position: relative;
+  isolation: isolate;
+  border-top: 2px solid #bd1420;
+}
+
+.tyt-footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(var(--color-foreground), .035) 2px 3px, transparent 3px 5px);
+  mask-image: linear-gradient(105deg, #000, transparent 48%, #000);
+  pointer-events: none;
+}
+
+.tyt-footer__watermark {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: grid;
+  place-items: center end;
+  padding-inline: clamp(12px, 6vw, 100px);
+  pointer-events: none;
+}
+
+.tyt-footer__watermark img {
+  display: block;
+  width: min(52%, 480px);
+  height: auto;
+  opacity: .065;
+  filter: grayscale(1);
+}
+
+@media screen and (max-width: 749px) {
+  .tyt-footer__watermark img {
+    width: min(70%, 300px);
+    opacity: .05;
+  }
+}
+
 .footer__content-top {
   padding-bottom: 5rem;
   display: block;
@@ -288,6 +329,57 @@
 
 .footer__content-bottom-wrapper--center {
   justify-content: center;
+}
+
+.tyt-footer .footer__content-bottom {
+  padding-block: 1.6rem 0;
+  background: rgba(var(--color-foreground), 0.035);
+}
+
+.tyt-footer .tyt-footer__utility {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+
+.tyt-footer__utility .footer__localization {
+  padding: 0;
+  justify-content: flex-start;
+}
+
+.tyt-footer__utility .footer__localization h2 { margin: 0 0 .35rem; }
+.tyt-footer__utility .footer__payment { margin: 0; }
+.tyt-footer__utility .list-payment { padding: 0; justify-content: flex-end; }
+.tyt-footer__utility .list-payment__item { padding: .25rem; }
+
+.tyt-footer .tyt-footer__legal .footer__copyright {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .65rem 1.6rem;
+  width: 100%;
+  padding: 1rem 0;
+  margin: 1rem 0 0;
+  border-top: 1px solid rgba(var(--color-foreground), .12);
+  text-align: left;
+}
+
+.tyt-footer__legal .policies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem 1.2rem;
+  margin: 0;
+}
+
+.tyt-footer__legal .policies li::before { display: none; }
+.tyt-footer__legal .policies a { padding: 0; }
+
+@media screen and (max-width: 749px) {
+  .tyt-footer .tyt-footer__utility { align-items: start; }
+  .tyt-footer__utility .list-payment { justify-content: flex-start; }
 }
 
 .footer__copyright {

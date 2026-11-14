@@ -27,7 +27,13 @@
   }
 {%- endstyle -%}
 
-<footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+<footer class="footer tyt-footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  {%- assign tyt_footer_mark = settings.brand_image | default: settings.logo -%}
+  {%- if tyt_footer_mark != blank -%}
+    <div class="tyt-footer__watermark" aria-hidden="true">
+      {{ tyt_footer_mark | image_url: width: 640 | image_tag: alt: '', loading: 'lazy' }}
+    </div>
+  {%- endif -%}
   {%- liquid
     assign has_social_icons = true
     if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
@@ -95,7 +101,24 @@
                               href="{{ link.url }}"
                               class="link link--text list-menu__item list-menu__item--link{% if link.active %} list-menu__item--active{% endif %}"
                             >
-                              {{ link.title | escape }}
+                              {%- if link.type == 'collection_link' and link.object.handle == 'ball-mounts' or link.url == '/collections/ball-mounts' -%}
+                                All Ball Mounts
+                              {%- else -%}
+                                {%- assign footer_link_key = link.title | strip | downcase -%}
+                                {%- case footer_link_key -%}
+                                  {%- when '2″ receiver hitches' -%}2″ Receiver Hitches
+                                  {%- when '2.5″ receiver hitches' -%}2.5″ Receiver Hitches
+                                  {%- when 'dual-ball hitches' -%}Dual-Ball Hitches
+                                  {%- when 'tri-ball hitches' -%}Tri-Ball Hitches
+                                  {%- when 'search' -%}Search
+                                  {%- when 'terms of serivce', 'terms of service' -%}Terms of Service
+                                  {%- when 'shipping policy' -%}Shipping Policy
+                                  {%- when 'refund & refund policy', 'refund policy' -%}Refund Policy
+                                  {%- when 'privacy policy' -%}Privacy Policy
+                                  {%- when 'contact us' -%}Contact Us
+                                  {%- else -%}{{ link.title | escape }}
+                                {%- endcase -%}
+                              {%- endif -%}
                             </a>
                           </li>
                         {%- endfor -%}
@@ -256,7 +279,7 @@
       data-cascade
     {% endif %}
   >
-    <div class="footer__content-bottom-wrapper page-width">
+    <div class="footer__content-bottom-wrapper tyt-footer__utility page-width">
       <div class="footer__column footer__localization isolate">
         {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
           <localization-form>
@@ -297,7 +320,7 @@
         {%- endif -%}
       </div>
     </div>
-    <div class="footer__content-bottom-wrapper page-width{% if section.settings.enable_country_selector == false and section.settings.enable_language_selector == false %} footer__content-bottom-wrapper--center{% endif %}">
+    <div class="footer__content-bottom-wrapper tyt-footer__legal page-width">
       <div class="footer__copyright caption">
         <small class="copyright__content"
           >&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url -}}
