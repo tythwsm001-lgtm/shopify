@@ -13,6 +13,7 @@ class TytBundleBuilder extends HTMLElement {
     this.form.addEventListener('change', (event) => {
       if (!event.target.matches('[data-bundle-product]')) return;
       this.updatePreview(event.target.closest('fieldset'));
+      this.updateExtension();
       this.updateTotal();
     });
     this.form.addEventListener('submit', (event) => this.buy(event));
@@ -22,11 +23,23 @@ class TytBundleBuilder extends HTMLElement {
       if (product.disabled) product.options[0].textContent = 'No products available';
       this.updatePreview(slot);
     }
+    this.updateExtension();
     this.updateTotal();
   }
 
+  updateExtension() {
+    const mount = this.querySelector('[data-bundle-category="ball-mounts"] select');
+    const slot = this.querySelector('[data-bundle-category="hitch-extension-1"]');
+    const extension = slot.querySelector('select');
+    const incompatible = mount.selectedOptions[0]?.dataset.receiver === '2.5';
+    if (incompatible) extension.value = '';
+    extension.disabled = incompatible || extension.options.length < 2;
+    slot.querySelector('[data-extension-warning]').hidden = !incompatible;
+    this.updatePreview(slot);
+  }
+
   get selections() {
-    return this.slots.map((slot) => slot.querySelector('[data-bundle-product]').selectedOptions[0])
+    return [...this.querySelectorAll('[data-bundle-product]:enabled')].map((select) => select.selectedOptions[0])
       .filter((option) => option?.value);
   }
 
@@ -52,6 +65,8 @@ class TytBundleBuilder extends HTMLElement {
 
   async buy(event) {
     event.preventDefault();
+    this.updateExtension();
+    this.updateTotal();
     const selections = this.selections;
     if (this.busy || selections.length === 0) return;
     this.busy = true;

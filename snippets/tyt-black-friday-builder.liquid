@@ -1,9 +1,9 @@
 {% doc %}
-  Renders the four-category Black Friday bundle builder.
+  Renders the Black Friday bundle builder.
   @param {string} section_id - The host section ID.
   @param {collection} deal_collection - Source of the six featured ball mounts.
 {% enddoc %}
-{% assign bundle_categories = 'Ball Mount|ball-mounts,Kinetic Recovery Rope|kinetic-rope,Ratchet Straps|ratchet-straps,Hitch Extension|hitch-extension-1' | split: ',' %}
+{% assign bundle_categories = 'Ball Mount|ball-mounts,Kinetic Recovery Rope|kinetic-rope,Ratchet Straps|ratchet-straps,Hitch Extension|hitch-extension-1,Hand Winch|hand-winch,Trailer Jack|trailer-jack' | split: ',' %}
 <section class="tyt-builder" aria-labelledby="TYTBuilderTitle-{{ section_id }}">
   <div class="page-width tyt-builder__inner">
     <header class="tyt-builder__header">
@@ -22,6 +22,12 @@
         <div class="tyt-builder__grid">
           {% for category in bundle_categories %}
             {% assign category_parts = category | split: '|' %}
+            {% if category_parts.last == 'hand-winch' %}
+              </div>
+              <details class="tyt-builder__extras">
+                <summary>Hand Winches &amp; Trailer Jacks <span>Optional</span></summary>
+                <div class="tyt-builder__grid tyt-builder__extras-grid">
+            {% endif %}
             {% assign category_collection = collections[category_parts.last] %}
             {% assign category_limit = 50 %}
             {% if category_parts.last == 'ball-mounts' %}
@@ -29,7 +35,7 @@
               {% assign category_limit = 6 %}
             {% endif %}
             {% assign category_id = section_id | append: '-bundle-' | append: forloop.index %}
-            <fieldset class="tyt-builder__slot">
+            <fieldset class="tyt-builder__slot" data-bundle-category="{{ category_parts.last }}">
               <legend>
                 {% if category_parts.last == 'kinetic-rope' %}
                   <span class="tyt-builder__wide-label">Kinetic Recovery Rope</span>
@@ -41,6 +47,9 @@
               <select id="{{ category_id }}-product" aria-label="{{ category_parts.first | escape }}" data-bundle-product disabled>
                 <option value="">Skip this item</option>
                 {% assign has_default_product = false %}
+                {% if category_parts.last == 'hand-winch' or category_parts.last == 'trailer-jack' %}
+                  {% assign has_default_product = true %}
+                {% endif %}
                 {% assign option_groups = 'all' | split: '|' %}
                 {% if category_parts.last == 'ball-mounts' %}
                   {% assign option_groups = '2|2.5|other' | split: '|' %}
@@ -80,6 +89,22 @@
                               assign product_label = product_label | replace: 'Kinetic Recovery Rope Kit', 'Kit' | remove: ' Kinetic Recovery Rope'
                             when 'ratchet-straps'
                               assign product_label = product_label | replace: 'Retractable Ratchet Straps', 'Retractable'
+                            when 'hand-winch'
+                              assign product_label = product_label | split: ',' | first | replace: '1200LB Boat Trailer Strap Winch with 8M Black Rope', '1,200 lb · Black Rope' | replace: '1600lb Boat Trailer Winch with 8M Red Strap', '1,600 lb · Red Strap' | replace: '600LB Boat Trailer Winch with Black Polyster Strap', '600 lb · Black Strap' | replace: '600LB Boat Trailer Winch with 6M Steel Wire', '600 lb · Steel Cable' | replace: '600LB Boat Trailer Winch with Red Nylon Strap', '600 lb · Red Strap'
+                            when 'trailer-jack'
+                              assign jack_model = product_label | split: ' – ' | first | split: ' - ' | first
+                              case jack_model
+                                when '5000 lbs A-Frame Trailer Jack'
+                                  assign product_label = '5,000 lb · A-Frame · 15″'
+                                when '5000 lbs Weld-On Swivel Trailer Jack'
+                                  assign product_label = '5,000 lb · Weld-On Swivel · 15″'
+                                when '8000 lbs Square Weld-On Trailer Jack'
+                                  assign product_label = '8,000 lb · Square Weld-On · 15″'
+                                when '5000 lbs Swivel Trailer Jack'
+                                  assign product_label = '5,000 lb · Pipe-Mount Swivel · 10″'
+                                when '2000 lbs Swivel Dual-Wheel Trailer Jack'
+                                  assign product_label = '2,000 lb · Dual-Wheel Swivel · 12″'
+                              endcase
                             when 'hitch-extension-1'
                               assign product_label = product_label | split: ',' | first | split: '，' | first | replace: 'Trailer Hitch Extension for 2 inch Receiver Tube Extender', 'Extension · 2″' | replace: 'Trailer Hitch Extension', 'Extension' | replace: 'Hitch Extender for 2" Receiver', 'Extension · 2″'
                               if product_label == '18" Extension' and bundle_item.title contains 'Fits 2 inch Receiver'
@@ -87,7 +112,7 @@
                               endif
                           endcase
                         -%}
-                        <option value="{{ bundle_variant.id }}" data-price="{{ bundle_variant.price }}" data-title="{{ bundle_item.title | escape }}"{% if preview_image %} data-image="{{ preview_image | image_url: width: 480 | escape }}"{% endif %}{% unless has_default_product %} selected{% endunless %}>{{ product_label | escape }}</option>
+                        <option value="{{ bundle_variant.id }}" data-price="{{ bundle_variant.price }}" data-title="{{ bundle_item.title | escape }}"{% if category_parts.last == 'ball-mounts' %} data-receiver="{{ option_group }}"{% endif %}{% if preview_image %} data-image="{{ preview_image | image_url: width: 480 | escape }}"{% endif %}{% unless has_default_product %} selected{% endunless %}>{{ product_label | escape }}</option>
                         {% assign has_default_product = true %}
                         {% break %}
                       {% endif %}
@@ -105,12 +130,16 @@
                 {% endif %}
                 {% endfor %}
               </select>
+              {% if category_parts.last == 'hitch-extension-1' %}
+                <p class="tyt-builder__fit" data-extension-warning role="status" hidden>These hitch extensions fit 2″ receivers only.</p>
+              {% endif %}
               <div class="tyt-builder__preview" hidden>
                 <img alt="" width="480" height="480">
               </div>
             </fieldset>
           {% endfor %}
-        </div>
+                </div>
+              </details>
         <p class="tyt-builder__fit">Match the ball mount and extension to your receiver’s inside dimensions. Check each item’s towing rating before use.</p>
         <div class="tyt-builder__checkout">
           <output aria-live="polite">Select at least one item to see your subtotal.</output>
