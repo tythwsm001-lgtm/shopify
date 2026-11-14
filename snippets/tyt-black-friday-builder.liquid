@@ -29,7 +29,14 @@
             {% endif %}
             {% assign category_id = section_id | append: '-bundle-' | append: forloop.index %}
             <fieldset class="tyt-builder__slot">
-              <legend>{{ category_parts.first | escape }}</legend>
+              <legend>
+                {% if category_parts.last == 'kinetic-rope' %}
+                  <span class="tyt-builder__wide-label">Kinetic Recovery Rope</span>
+                  <span class="tyt-builder__compact-label">Recovery Rope</span>
+                {% else %}
+                  {{ category_parts.first | escape }}
+                {% endif %}
+              </legend>
               <select id="{{ category_id }}-product" aria-label="{{ category_parts.first | escape }}" data-bundle-product required disabled>
                 <option value="">Choose a product</option>
                 {% for bundle_item in category_collection.products limit: category_limit %}
