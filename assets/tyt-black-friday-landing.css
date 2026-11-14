@@ -213,7 +213,16 @@
   .tyt-deals__specs > div { padding: 5px; }
 }
 
-.tyt-builder { color: var(--deal-white); background: var(--deal-ink); }
+.tyt-builder {
+  --deal-stripe-edge: #a51924;
+  --deal-stripe-fill: #63121a;
+  --deal-stripe-glow: #43131a;
+  color: var(--deal-white);
+  background:
+    linear-gradient(112deg, transparent 0 76%, var(--deal-stripe-edge) 76% 76.35%, var(--deal-stripe-fill) 76.35% 81%, transparent 81%),
+    radial-gradient(ellipse at 100% 0, var(--deal-stripe-glow), transparent 62%),
+    var(--deal-ink);
+}
 .tyt-builder__inner { padding-block: clamp(20px, 4vw, 48px); }
 .tyt-builder__header { display: flex; justify-content: space-between; align-items: end; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
 .tyt-builder__header h1 { color: inherit; font-size: clamp(27px, 4vw, 58px); line-height: 1.05; font-weight: 900; margin: 4px 0 8px; }
@@ -267,7 +276,14 @@
 }
 .tyt-builder__extras summary span { margin-left: 6px; font-weight: 400; }
 .tyt-builder__extras-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 8px; }
-.tyt-builder__slot { min-width: 0; margin: 0; padding: 10px; border: 1px solid var(--deal-border); border-radius: 4px; }
+.tyt-builder__slot {
+  min-width: 0;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid var(--deal-border);
+  border-radius: 4px;
+  background: var(--deal-ink);
+}
 .tyt-builder__slot legend { padding: 0 5px; font-size: 15px; font-weight: 800; }
 .tyt-builder__compact-label { display: none; }
 .tyt-builder__slot select {
@@ -340,6 +356,12 @@
   .tyt-builder__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 749px) {
+  .tyt-builder {
+    background:
+      linear-gradient(105deg, transparent 0 84%, var(--deal-stripe-edge) 84% 84.4%, var(--deal-stripe-fill) 84.4% 88%, transparent 88%),
+      radial-gradient(ellipse at 100% 0, var(--deal-stripe-glow), transparent 60%),
+      var(--deal-ink);
+  }
   .tyt-builder__header { margin-bottom: 14px; }
   .tyt-builder__grid { gap: 10px; }
   .tyt-builder__slot {
