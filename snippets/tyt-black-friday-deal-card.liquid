@@ -1,0 +1,128 @@
+{% doc %}
+  Renders a campaign product and its direct checkout form.
+  @param {product} deal_product - The product to display.
+  @param {string} section_id - The host section ID.
+{% enddoc %}
+{%- liquid
+  assign deal_variant = deal_product.selected_or_first_available_variant
+  assign variant_id = 'TYTDealVariant-' | append: section_id | append: '-' | append: deal_product.id
+  assign short_title = deal_product.title
+  if short_title contains '5-in-1 Ball Mount'
+    assign short_title = '5-in-1 Ball Mount'
+  elsif short_title contains '22K'
+    assign short_title = '22K Dual-Ball Hitch'
+  elsif short_title == 'TYT Adjustable Trailer Hitch Ball Mount for 2" Receiver'
+    assign short_title = 'Adjustable Ball Mount'
+  endif
+  assign receiver_sizes = deal_product.metafields.custom.receiver_size.value
+  assign ball_sizes = deal_product.metafields.custom.ball_size.value
+  assign towing_capacity = deal_product.metafields.custom.towing_capacity.value
+  assign drop_rise = deal_product.metafields.custom.drop_rise.value
+  assign max_saving = 0
+  for deal_option in deal_product.variants
+    if deal_option.available and deal_option.compare_at_price > deal_option.price
+      assign saving = deal_option.compare_at_price | minus: deal_option.price
+      if saving > max_saving
+        assign max_saving = saving
+      endif
+    endif
+  endfor
+-%}
+{%- capture deal_specs -%}
+{% if receiver_sizes != blank or ball_sizes != blank or towing_capacity != blank or drop_rise != blank %}
+      <dl class="tyt-deals__specs">
+        {% if receiver_sizes != blank %}
+          <div><dt>Receiver Size</dt><dd>{% for size in receiver_sizes %}{{ size.label.value | escape }}{% unless forloop.last %}, {% endunless %}{% endfor %}</dd></div>
+        {% endif %}
+        {% if towing_capacity != blank %}
+          <div><dt>Towing Capacity</dt><dd>{{ towing_capacity | escape }}</dd></div>
+        {% endif %}
+        {% if drop_rise != blank %}
+          <div><dt>Drop / Rise</dt><dd>{{ drop_rise | escape }}</dd></div>
+        {% endif %}
+        {% if ball_sizes != blank %}
+          <div><dt>Ball Sizes</dt><dd>{% for size in ball_sizes %}{{ size.label.value | escape }}{% unless forloop.last %}, {% endunless %}{% endfor %}</dd></div>
+        {% endif %}
+      </dl>
+    {% endif %}
+{%- endcapture -%}
+<article class="tyt-deals__card">
+  <div class="tyt-deals__visual">
+    <a href="{{ deal_product.url }}" class="tyt-deals__photo" aria-label="{{ deal_product.title | escape }}">
+    {% if deal_product.featured_image %}
+      {{ deal_product.featured_image | image_url: width: 640 | image_tag: widths: '240, 360, 480, 640', sizes: '(min-width: 990px) 33vw, (min-width: 550px) 50vw, 35vw', loading: 'lazy' }}
+    {% endif %}
+  </a>
+  </div>
+  <div class="tyt-deals__card-body">
+    <div class="tyt-deals__card-summary">
+    <h3><a href="{{ deal_product.url }}" aria-label="{{ deal_product.title | escape }}">{{ short_title | escape }}</a></h3>
+    {{ deal_specs }}
+    {% if max_saving > 0 %}
+      <p class="tyt-deals__saving">Save{% unless deal_product.has_only_default_variant %} up to{% endunless %} {{ max_saving | money_without_trailing_zeros }}</p>
+    {% endif %}
+    <div class="tyt-deals__price" aria-live="polite">
+      <div data-deal-default-price>{% render 'price', product: deal_product, show_compare_at_price: true %}</div>
+      <div data-deal-selected-price hidden><s></s> <strong></strong></div>
+    </div>
+    </div>
+    {% if deal_product.available %}
+      <form method="post" action="{{ routes.cart_add_url }}" class="tyt-deals__buy">
+        <input type="hidden" name="return_to" value="/checkout">
+        {% if deal_product.has_only_default_variant %}
+          <input type="hidden" name="id" value="{{ deal_variant.id }}">
+        {% else %}
+          <fieldset class="tyt-deals__options">
+            <legend>Choose your option</legend>
+            {% for option_variant in deal_product.variants %}
+              {% assign option_id = variant_id | append: '-' | append: option_variant.id %}
+              {% liquid
+                assign option_label = option_variant.title
+                assign option_key = option_variant.title | downcase | remove: '"' | remove: "'"
+                case option_key
+                  when 'adjustable dual ball mount', 'adjustable tri ball mount'
+                    assign option_label = 'Ball Mount Only'
+                  when 'adjustable dual ball mount（black）'
+                    assign option_label = 'Ball Mount Only (Black)'
+                  when 'adjustable dual ball mount with 1 x 10 retractable ratchet straps (4pcs)', 'adjustable tri ball mount with 1 x 10 retractable ratchet straps (4pcs)'
+                    assign option_label = '+ Ratchet Straps (4 × 1″ × 10′)'
+                  when 'adjustable tri ball mount with 12 hitch extender'
+                    assign option_label = '+ 12″ Hitch Extender'
+                  when 'adjustable tri ball mount with kinetic recovery rope(1 x 30)'
+                    assign option_label = '+ Kinetic Rope (1″ × 30′)'
+                  when 'black dual ball hitch (2.5 receiver) + 1 x 30 kinetic rope'
+                    assign option_label = 'Black Mount + Kinetic Rope (1″ × 30′)'
+                endcase
+              %}
+              <input
+                type="radio"
+                name="id"
+                id="{{ option_id }}"
+                value="{{ option_variant.id }}"
+                required
+                data-min-quantity="{{ option_variant.quantity_rule.min | default: 1 }}"
+                data-price="{{ option_variant.price | money_with_currency | escape }}"
+                {% if option_variant.compare_at_price > option_variant.price %}
+                  data-compare-price="{{ option_variant.compare_at_price | money_with_currency | escape }}"
+                {% endif %}
+                {% unless option_variant.available %}disabled{% endunless %}
+              >
+              <label for="{{ option_id }}">
+                <span>{{ option_label | escape }}</span>
+                {% if option_variant.available %}
+                  <span class="tyt-deals__option-price">{{ option_variant.price | money }}</span>
+                {% else %}
+                  <span class="tyt-deals__option-price">Sold out</span>
+                {% endif %}
+              </label>
+            {% endfor %}
+          </fieldset>
+        {% endif %}
+        <input type="hidden" name="quantity" value="{{ deal_variant.quantity_rule.min | default: 1 }}">
+        <button type="submit">Buy Now <span aria-hidden="true">→</span></button>
+      </form>
+    {% else %}
+      <p class="tyt-deals__sold-out">Sold out</p>
+    {% endif %}
+  </div>
+</article>

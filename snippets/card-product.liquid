@@ -16,6 +16,17 @@
 
   {%- liquid
     assign ratio = 1
+    assign show_bf_badge = false
+    assign bf_now = 'now' | date: '%s' | plus: 0
+    assign bf_end = '2026-11-28T07:59:59Z' | date: '%s' | plus: 0
+    if card_product.available and card_product.featured_media and bf_now < bf_end
+      for bf_variant in card_product.variants
+        if bf_variant.available and bf_variant.compare_at_price > bf_variant.price
+          assign show_bf_badge = true
+          break
+        endif
+      endfor
+    endif
 
     if card_product.featured_media and media_aspect_ratio == 'portrait'
       assign ratio = 0.8
@@ -31,8 +42,7 @@
   <product-component
     view-event-payload="{{ card_product | standard_event_data: 'view', context: product_view_context | escape }}"
   >
-    <div class="card-wrapper product-card-wrapper underline-links-hover{% if horizontal_class %} tyt-ball-mount-card{% endif %}">
-
+    <div class="card-wrapper product-card-wrapper underline-links-hover{% if horizontal_class %} tyt-ball-mount-card{% endif %}{% if show_bf_badge %} tyt-bf-card{% endif %}">
       <div
         class="
           card card--{{ settings.card_style }}
@@ -108,6 +118,13 @@
               </div>
             </div>
 
+          {%- endif -%}
+
+          {%- if show_bf_badge -%}
+            <div class="tyt-bf-badge">
+              <span class="tyt-bf-badge__title">BLACK FRIDAY</span>
+              <span class="tyt-bf-badge__deal">DEAL</span>
+            </div>
           {%- endif -%}
 
           <div class="card__content">

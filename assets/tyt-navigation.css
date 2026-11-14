@@ -32,6 +32,23 @@
   transition: background-color .2s ease;
 }
 .tyt-nav .tyt-nav__black-friday:hover { background: #f5f5f5; }
+.tyt-nav__deal-heat {
+  position: relative;
+  display: inline-grid;
+  place-items: end center;
+  flex: 0 0 20px;
+  height: 23px;
+  background: linear-gradient(160deg, #ff8a00, #e31924 67%);
+  clip-path: polygon(51% 0, 72% 25%, 71% 43%, 86% 31%, 98% 57%, 98% 74%, 86% 90%, 67% 100%, 34% 100%, 13% 90%, 2% 72%, 7% 50%, 22% 31%, 31% 51%, 43% 29%);
+}
+.tyt-nav__deal-heat::after {
+  content: '';
+  width: 9px;
+  height: 11px;
+  margin-bottom: 2px;
+  background: #ffd15b;
+  clip-path: polygon(57% 0, 96% 57%, 100% 77%, 76% 100%, 25% 100%, 0 77%, 6% 55%, 25% 30%, 32% 57%);
+}
 .tyt-nav__deal-art { color: #111; font-family: 'Arial Black', Arial, sans-serif; font-size: 15px; font-style: italic; font-weight: 900; line-height: 1.2; letter-spacing: -.2px; text-transform: uppercase; }
 .tyt-nav__deal-word {
   position: relative;

@@ -1,0 +1,85 @@
+{% doc %}
+  Renders the four-category Black Friday bundle builder.
+  @param {string} section_id - The host section ID.
+  @param {collection} deal_collection - Source of the six featured ball mounts.
+{% enddoc %}
+{% assign bundle_categories = 'Ball Mount|ball-mounts,Kinetic Recovery Rope|kinetic-rope,Ratchet Straps|ratchet-straps,Hitch Extension|hitch-extension-1' | split: ',' %}
+<section class="tyt-builder" aria-labelledby="TYTBuilderTitle-{{ section_id }}">
+  <div class="page-width tyt-builder__inner">
+    <header class="tyt-builder__header">
+      <div>
+        <p class="tyt-builder__campaign">BLACK FRIDAY</p>
+        <h1 id="TYTBuilderTitle-{{ section_id }}">Build Your Towing Bundle</h1>
+        <p>Choose one item from each category.</p>
+      </div>
+      <a class="tyt-builder__individual" href="#TYTDeals-{{ section_id }}">
+        Shop individual deals <span aria-hidden="true">↓</span>
+      </a>
+    </header>
+    <tyt-bundle-builder data-cart-add="{{ routes.cart_add_url }}.js" data-currency="{{ cart.currency.iso_code | default: shop.currency }}" data-locale="{{ request.locale.iso_code }}">
+      <form>
+        <div class="tyt-builder__grid">
+          {% for category in bundle_categories %}
+            {% assign category_parts = category | split: '|' %}
+            {% assign category_collection = collections[category_parts.last] %}
+            {% assign category_limit = 50 %}
+            {% if category_parts.last == 'ball-mounts' %}
+              {% assign category_collection = deal_collection %}
+              {% assign category_limit = 6 %}
+            {% endif %}
+            {% assign category_id = section_id | append: '-bundle-' | append: forloop.index %}
+            <fieldset class="tyt-builder__slot">
+              <legend>{{ category_parts.first | escape }}</legend>
+              <select id="{{ category_id }}-product" aria-label="{{ category_parts.first | escape }}" data-bundle-product required disabled>
+                <option value="">Choose a product</option>
+                {% for bundle_item in category_collection.products limit: category_limit %}
+                  {% if bundle_item.available and bundle_item.requires_selling_plan != true %}
+                    {% for bundle_variant in bundle_item.variants %}
+                      {% assign variant_name = bundle_variant.title | downcase %}
+                      {% if category_parts.last == 'ball-mounts' %}
+                        {% if variant_name contains ' with ' or variant_name contains ' + ' %}
+                          {% continue %}
+                        {% endif %}
+                      {% endif %}
+                      {% if bundle_variant.available and bundle_variant.quantity_rule.min <= 1 %}
+                        {% assign preview_image = bundle_item.featured_image %}
+                        {%- liquid
+                          assign product_label = bundle_item.title | remove_first: 'TYT '
+                          case category_parts.last
+                            when 'ball-mounts'
+                              assign product_label = product_label | replace: 'Adjustable Trailer Hitch Ball Mount', 'Adjustable Mount' | replace: 'Adjustable Dual-Ball Hitch', 'Dual-Ball' | replace: 'Adjustable 5-in-1 Ball Mount', '5-in-1 Mount' | replace: ' for ', ' · ' | remove: ' Receiver'
+                            when 'kinetic-rope'
+                              assign product_label = product_label | replace: 'Kinetic Recovery Rope Kit', 'Kit' | remove: ' Kinetic Recovery Rope'
+                            when 'ratchet-straps'
+                              assign product_label = product_label | replace: 'Retractable Ratchet Straps', 'Retractable'
+                            when 'hitch-extension-1'
+                              assign product_label = product_label | split: ',' | first | split: '，' | first | replace: 'Trailer Hitch Extension for 2 inch Receiver Tube Extender', 'Extension · 2″' | replace: 'Trailer Hitch Extension', 'Extension' | replace: 'Hitch Extender for 2" Receiver', 'Extension · 2″'
+                              if product_label == '18" Extension' and bundle_item.title contains 'Fits 2 inch Receiver'
+                                assign product_label = '18″ Extension · 2″'
+                              endif
+                          endcase
+                        -%}
+                        <option value="{{ bundle_variant.id }}" data-price="{{ bundle_variant.price }}" data-title="{{ bundle_item.title | escape }}"{% if preview_image %} data-image="{{ preview_image | image_url: width: 480 | escape }}"{% endif %}>{{ product_label | escape }}</option>
+                        {% break %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                {% endfor %}
+              </select>
+              <div class="tyt-builder__preview" hidden>
+                <img alt="" width="480" height="480">
+              </div>
+            </fieldset>
+          {% endfor %}
+        </div>
+        <p class="tyt-builder__fit">Match the ball mount and extension to your receiver’s inside dimensions. Check each item’s towing rating before use.</p>
+        <div class="tyt-builder__checkout">
+          <output aria-live="polite">Select all four items to see your total.</output>
+          <button type="submit" disabled>Buy Bundle <span aria-hidden="true">→</span></button>
+        </div>
+        <p class="tyt-builder__error" role="alert" hidden></p>
+        <noscript><p>Enable JavaScript to build your bundle, or shop individual deals below.</p></noscript>
+      </form>
+    </tyt-bundle-builder>
+  </div>
+</section>

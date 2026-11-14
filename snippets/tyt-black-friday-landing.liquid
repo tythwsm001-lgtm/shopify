@@ -1,0 +1,42 @@
+{% doc %}
+  Renders the TYT campaign landing page on the existing deals collection.
+  @param {collection} deal_collection - The collection to display.
+  @param {collection} [bundle_collection] - Optional bundle offers.
+  @param {string} section_id - The host section ID.
+{% enddoc %}
+{{ 'tyt-black-friday-landing.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'tyt-black-friday-landing.js' | asset_url }}" defer></script>
+
+<div class="tyt-deals">
+  {% render 'tyt-black-friday-builder', section_id: section_id, deal_collection: deal_collection %}
+
+  <div id="TYTDeals-{{ section_id }}" class="page-width tyt-deals__body">
+    {% if bundle_collection != blank and bundle_collection.handle != deal_collection.handle and bundle_collection.products_count > 0 %}
+      <section class="tyt-deals__bundles" aria-labelledby="TYTBundleTitle-{{ section_id }}">
+        <div class="tyt-deals__intro">
+          <h2 id="TYTBundleTitle-{{ section_id }}">Bundle deals</h2>
+        </div>
+        <div class="tyt-deals__grid">
+          {% assign bundle_section_id = section_id | append: '-bundle' %}
+          {% for bundle_product in bundle_collection.products limit: 6 %}
+            {% render 'tyt-black-friday-deal-card', deal_product: bundle_product, section_id: bundle_section_id %}
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+    <section aria-labelledby="TYTDealsTitle-{{ section_id }}">
+    <div class="tyt-deals__intro">
+      <h2 id="TYTDealsTitle-{{ section_id }}">Featured deals</h2>
+      <p><strong>Check receiver fit:</strong> Measure the inside width and height of your receiver opening before buying a ball mount.</p>
+    </div>
+      <div class="tyt-deals__grid">
+        {% for deal_product in deal_collection.products limit: 6 %}
+          {% render 'tyt-black-friday-deal-card', deal_product: deal_product, section_id: section_id %}
+        {% else %}
+          <p>There are no deals available right now.</p>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+</div>

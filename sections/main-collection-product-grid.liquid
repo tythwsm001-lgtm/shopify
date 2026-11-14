@@ -1,3 +1,6 @@
+{%- if collection.handle == 'deals' -%}
+  {%- render 'tyt-black-friday-landing', deal_collection: collection, bundle_collection: section.settings.black_friday_bundle_collection, section_id: section.id -%}
+{%- else -%}
 {%- capture tyt_subcollection -%}{%- render 'tyt-ball-mount-subcollection', collection_handle: collection.handle -%}{%- endcapture -%}
 {%- liquid
   assign tyt_ball_mount_layout = false
@@ -320,12 +323,19 @@
 
   </div>
 </collection-component>
+{%- endif -%}
 
 {% schema %}
 {
   "name": "t:sections.main-collection-product-grid.name",
   "class": "section",
   "settings": [
+    {
+      "type": "collection",
+      "id": "black_friday_bundle_collection",
+      "label": "Black Friday bundles",
+      "info": "Shown above the six featured products on the Black Friday deals page."
+    },
     {
       "type": "range",
       "id": "products_per_page",
