@@ -158,12 +158,14 @@
                             <a href="{{ item.url }}" class="cart-item__name h4 break">
                               {{- item.product.title | escape -}}
                             </a>
+                            {% render 'tyt-receiver-badge', product: item.product %}
                             {%- assign cart_disclosure_modal_id = 'CartDisclosureModal-drawer-' | append: item.key | replace: ':', '-' -%}
                             {%- render 'cart-disclosure-indicator',
                               product: item.product,
                               modal_id: cart_disclosure_modal_id
                             -%}
                           </div>
+                          {% render 'tyt-receiver-fit-note', fit_product: item.product %}
 
                           {%- if item.original_price != item.final_price -%}
                             <div class="cart-item__discounted-prices">

@@ -13,8 +13,8 @@
         <p>Choose any items you need. Each category is optional.</p>
       </div>
       <nav class="tyt-builder__size-links" aria-label="Shop by receiver size">
-        <a class="tyt-builder__individual" href="#TYTReceiver-{{ section_id }}-2">Shop 2″ <span aria-hidden="true">↓</span></a>
-        <a class="tyt-builder__individual" href="#TYTReceiver-{{ section_id }}-2-5">Shop 2.5″ <span aria-hidden="true">↓</span></a>
+        <a class="tyt-builder__individual" data-tyt-fit="2" href="#TYTReceiver-{{ section_id }}-2">Shop 2″ <span aria-hidden="true">↓</span></a>
+        <a class="tyt-builder__individual" data-tyt-fit="2.5" href="#TYTReceiver-{{ section_id }}-2-5">Shop 2.5″ <span aria-hidden="true">↓</span></a>
       </nav>
     </header>
     <tyt-bundle-builder data-cart-add="{{ routes.cart_add_url }}.js" data-currency="{{ cart.currency.iso_code | default: shop.currency }}" data-locale="{{ request.locale.iso_code }}">
@@ -137,11 +137,15 @@
               <div class="tyt-builder__preview" hidden>
                 <img alt="" width="480" height="480">
               </div>
+              {% if category_parts.last == 'ball-mounts' %}
+                <span class="tyt-fit-badge" data-bundle-fit aria-live="polite" hidden></span>
+              {% endif %}
             </fieldset>
           {% endfor %}
                 </div>
               </details>
-        <p class="tyt-builder__fit">Match the ball mount and extension to your receiver’s inside dimensions. Check each item’s towing rating before use.</p>
+        {% render 'tyt-receiver-fit-note', always_show: true %}
+        <p class="tyt-builder__fit">If adding a hitch extension, check its fit and towing rating too.</p>
         <div class="tyt-builder__checkout">
           <output aria-live="polite" class="tyt-builder__totals">
             <span data-total-empty>Select at least one item to see your subtotal.</span>

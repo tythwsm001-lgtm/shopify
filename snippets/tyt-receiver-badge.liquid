@@ -1,0 +1,4 @@
+{%- capture size_key -%}{%- render 'tyt-deal-receiver-size', product: product -%}{%- endcapture -%}
+{%- if size_key == '2' or size_key == '2.5' -%}
+  <span class="tyt-fit-badge{% if show_fits %} tyt-fit-badge--product{% endif %}" data-tyt-fit="{{ size_key }}">{% if show_fits %}Fits a {% endif %}{{ size_key }}″ Receiver</span>
+{%- endif -%}

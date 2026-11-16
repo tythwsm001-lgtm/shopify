@@ -29,7 +29,7 @@
         {%- endif -%}
         <li>
           <a class="tyt-nav__link{% if nav_image != blank %} tyt-nav__link--image{% endif %}{% if group == 'support' %} tyt-nav__link--support{% endif %}" href="{{ item_url }}"{% if request.path == item_url %} aria-current="page"{% endif %}>
-            <span>{{ fields[0] | escape }}</span>
+            <span{% case fields[1] %}{% when 'collections/2-receiver-hitches' %} class="tyt-fit-badge" data-tyt-fit="2"{% when 'collections/2-5-receiver-hitches' %} class="tyt-fit-badge" data-tyt-fit="2.5"{% endcase %}>{{ fields[0] | escape }}</span>
             {%- if group == 'support' -%}
               <span class="tyt-nav__support-icon" aria-hidden="true">
                 {%- case fields[1] -%}

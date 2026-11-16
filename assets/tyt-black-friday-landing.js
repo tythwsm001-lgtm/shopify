@@ -46,6 +46,13 @@ class TytBundleBuilder extends HTMLElement {
   updatePreview(slot) {
     if (!slot) return;
     const product = slot.querySelector('[data-bundle-product]').selectedOptions[0];
+    const fitBadge = slot.querySelector('[data-bundle-fit]');
+    if (fitBadge) {
+      const size = product?.dataset.receiver;
+      fitBadge.hidden = size !== '2' && size !== '2.5';
+      fitBadge.dataset.tytFit = fitBadge.hidden ? '' : size;
+      fitBadge.textContent = fitBadge.hidden ? '' : size + '″ Receiver';
+    }
     const preview = slot.querySelector('.tyt-builder__preview');
     const image = preview.querySelector('img');
     const source = product?.dataset.image;

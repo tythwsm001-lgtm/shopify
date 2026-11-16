@@ -118,6 +118,7 @@
           >
             {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
+            {%- assign receiver_banner_shown = false -%}
             {%- for block in section.blocks -%}
               {%- case block.type -%}
                 {%- when '@app' -%}
@@ -138,6 +139,10 @@
                       </h2>
                     </a>
                   </div>
+                  {% unless receiver_banner_shown %}
+                    {% render 'tyt-receiver-badge', product: product, show_fits: true %}
+                    {% assign receiver_banner_shown = true %}
+                  {% endunless %}
                 {%- when 'price' -%}
                   <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                     {%- render 'price',
@@ -242,6 +247,10 @@
                   </p>
                 {%- when 'custom_liquid' -%}
                   {{ block.settings.custom_liquid }}
+                  {% if receiver_banner_shown == false and block.settings.custom_liquid contains 'tyt-title-desktop__heading' %}
+                    {% render 'tyt-receiver-badge', product: product, show_fits: true %}
+                    {% assign receiver_banner_shown = true %}
+                  {% endif %}
                 {%- when 'collapsible_tab' -%}
                   <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                     <details id="Details-{{ block.id }}-{{ section.id }}">
@@ -515,6 +524,10 @@
                     surface: 'product_page'
                   -%}
                 {%- when 'variant_picker' -%}
+                  {% unless receiver_banner_shown %}
+                    {% render 'tyt-receiver-badge', product: product, show_fits: true %}
+                    {% assign receiver_banner_shown = true %}
+                  {% endunless %}
                   {% render 'product-variant-picker',
                     product: product,
                     block: block,
@@ -529,6 +542,27 @@
                       ref_sku: '054',
                       ref_link: '039_2in'
                     %}
+                  {%- else -%}
+                    {%- liquid
+                      assign paired_handle = blank
+                      case product.handle
+                        when 'tyt-adjustable-truck-trailer-hitch-for-2-inch-receiver-6-drop-rise-tow-hitch-with-dual-balls-2-2-5-16gold-includes-two-pin-locks-hitch-tightener'
+                          assign paired_handle = 'tyt-adjustable-truck-trailer-hitch-for-2-5-inch-receiver-6-drop-rise-tow-hitch-with-dual-balls-2-2-5-16gold-includes-two-pin-locks-hitch-tightener'
+                          assign paired_size = '2.5'
+                        when 'tyt-adjustable-truck-trailer-hitch-for-2-5-inch-receiver-6-drop-rise-tow-hitch-with-dual-balls-2-2-5-16gold-includes-two-pin-locks-hitch-tightener'
+                          assign paired_handle = 'tyt-adjustable-truck-trailer-hitch-for-2-inch-receiver-6-drop-rise-tow-hitch-with-dual-balls-2-2-5-16gold-includes-two-pin-locks-hitch-tightener'
+                          assign paired_size = '2'
+                        when 'tyt-adjustable-heavy-duty-trailer-hitch-ball-mount-for-2-inch-receiver'
+                          assign paired_handle = 'tyt-adjustable-heavy-duty-trailer-hitch-ball-mount-for-2-5-receiver'
+                          assign paired_size = '2.5'
+                        when 'tyt-adjustable-heavy-duty-trailer-hitch-ball-mount-for-2-5-receiver'
+                          assign paired_handle = 'tyt-adjustable-heavy-duty-trailer-hitch-ball-mount-for-2-inch-receiver'
+                          assign paired_size = '2'
+                      endcase
+                      if paired_handle != blank
+                        render 'tyt-039-crosslink', target_handle: paired_handle, receiver_size: paired_size, untracked: true
+                      endif
+                    -%}
                   {%- endif -%}
                 {%- when 'buy_buttons' -%}
                   {%- render 'buy-buttons',

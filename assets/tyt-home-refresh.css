@@ -1,0 +1,93 @@
+/* Hallmark · pre-emit critique: P4 H5 E4 S5 R5 V4 */
+.tyt-home {
+  --home-ink: #171717;
+  --home-paper: #fff;
+  --home-surface: #f4f3f1;
+  --home-line: #dedbd7;
+  --home-red: #bd1420;
+}
+
+.tyt-home-fit {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 1460px;
+  margin: 12px auto 0;
+  padding-inline: clamp(12px, 3vw, 24px);
+  gap: 8px;
+}
+
+.tyt-home-fit a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 8px 12px;
+  border: 1px solid var(--home-line);
+  border-radius: 4px;
+  color: var(--home-ink);
+  background: var(--home-paper);
+  font-size: 14px;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.tyt-home-fit a:hover { background: var(--home-surface); border-color: var(--home-red); }
+.tyt-home-fit a:focus-visible { outline: 2px solid var(--home-red); outline-offset: 2px; }
+.tyt-home-fit strong { color: var(--home-red); font-size: 19px; }
+.tyt-home-fit [aria-hidden] { margin-left: auto; color: var(--home-red); }
+
+.tyt-home section[id^='tyt-category-'] .tyt-category__header,
+.tyt-home section[id^='tyt-best-'] .tyt-best__heading,
+.tyt-home section[id^='tyt-app-'] .tyt-app__heading {
+  text-align: left;
+  border-bottom: 1px solid var(--home-line);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.tyt-home section[id^='tyt-category-'] .tyt-category__header h2,
+.tyt-home section[id^='tyt-best-'] .tyt-best__heading h2,
+.tyt-home section[id^='tyt-app-'] .tyt-app__heading h2 {
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 850;
+  letter-spacing: -.025em;
+}
+
+.tyt-home section[id^='tyt-category-'] .tyt-category__grid {
+  grid-auto-flow: row;
+  grid-auto-columns: auto;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  overflow: visible;
+  scroll-snap-type: none;
+}
+
+.tyt-home section[id^='tyt-category-'] .tyt-category__image-wrap {
+  aspect-ratio: 5 / 3;
+}
+
+.tyt-home section[id^='tyt-category-'] .tyt-category__content,
+.tyt-home section[id^='tyt-best-'] .tyt-best__details,
+.tyt-home section[id^='tyt-app-'] .tyt-app__content {
+  text-align: left;
+}
+
+@media (max-width: 749px) {
+  .tyt-home-fit { gap: 6px; }
+  .tyt-home-fit a {
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 2px 5px;
+    padding: 6px 7px;
+    font-size: 11px;
+  }
+  .tyt-home-fit strong { font-size: 15px; }
+  .tyt-home-fit [aria-hidden] { display: none; }
+  .tyt-home section[id^='tyt-category-'] .tyt-category__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .tyt-home section[id^='tyt-category-'] .tyt-category__content h3 {
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+}

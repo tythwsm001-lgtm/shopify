@@ -67,10 +67,10 @@
   }
 </style>
 
-<div class="tyt-039-crosslink">
+<div class="tyt-039-crosslink" data-tyt-fit="{{ receiver_size | escape }}">
   <a
     class="tyt-039-crosslink__link"
-    href="https://www.tyttowing.com/products/{{ target_handle | escape }}?ref_sku={{ ref_sku | url_encode }}&amp;ref_link={{ ref_link | url_encode }}"
+    href="{{ routes.root_url }}products/{{ target_handle | escape }}{% unless untracked %}?ref_sku={{ ref_sku | url_encode }}&amp;ref_link={{ ref_link | url_encode }}{% endunless %}"
     aria-label="Explore TYT {{ receiver_size | escape }}-inch receiver hitch"
   >
     {%- if linked_hitch_image != blank -%}

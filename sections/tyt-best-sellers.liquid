@@ -63,6 +63,7 @@
               </div>
             </a>
             <div class="tyt-best__details">
+              {% render 'tyt-receiver-badge', product: product %}
               <h3>
                 <a href="{{ product.url }}">
                   {{ product.title | escape }}

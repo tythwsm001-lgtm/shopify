@@ -2,6 +2,7 @@
   Renders a campaign product and its direct checkout form.
   @param {product} deal_product - The product to display.
   @param {string} section_id - The host section ID.
+  @param {boolean} [has_group_fit_note] - Whether the receiver group already displays a measurement reminder.
 {% enddoc %}
 {%- liquid
   assign deal_variant = deal_product.selected_or_first_available_variant
@@ -56,7 +57,20 @@
   </div>
   <div class="tyt-deals__card-body">
     <div class="tyt-deals__card-summary">
+    {% render 'tyt-receiver-badge', product: deal_product %}
     <h3><a href="{{ deal_product.url }}" aria-label="{{ deal_product.title | escape }}">{{ short_title | escape }}</a></h3>
+    {%- liquid
+      assign deal_rating = deal_product.metafields.reviews.rating.value
+      assign deal_review_count = deal_product.metafields.reviews.rating_count.value | default: 0
+      assign deal_rating_max = deal_rating.scale_max | default: 5 | times: 1.0
+    -%}
+    {% if deal_rating != blank and deal_review_count > 0 and deal_rating_max > 0 %}
+      {% assign deal_rating_fill = deal_rating.rating | divided_by: deal_rating_max | times: 100 | at_least: 0 | at_most: 100 %}
+      <div class="tyt-deals__rating" role="img" aria-label="{{ deal_rating.rating | round: 1 }} out of {{ deal_rating_max | round: 1 }} stars, {{ deal_review_count }} reviews">
+        <span class="tyt-deals__stars" style="--deal-rating-fill: {{ deal_rating_fill }}%;" aria-hidden="true">★★★★★</span>
+        <span aria-hidden="true"><strong>{{ deal_rating.rating | round: 1 }}</strong> ({{ deal_review_count }})</span>
+      </div>
+    {% endif %}
     {{ deal_specs }}
     {% if max_saving > 0 %}
       <p class="tyt-deals__saving">Save{% unless deal_product.has_only_default_variant %} up to{% endunless %} {{ max_saving | money_without_trailing_zeros }}</p>
@@ -121,6 +135,9 @@
           </fieldset>
         {% endif %}
         <input type="hidden" name="quantity" value="{{ deal_variant.quantity_rule.min | default: 1 }}">
+        {% unless has_group_fit_note %}
+          {% render 'tyt-receiver-fit-note', fit_product: deal_product %}
+        {% endunless %}
         <button type="submit">Check Out <span aria-hidden="true">→</span></button>
       </form>
     {% else %}
