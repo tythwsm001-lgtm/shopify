@@ -1,6 +1,20 @@
+{%- liquid
+  assign tyt_refresh_mount = false
+  assign tyt_mount_collections = 'ball-mounts,2-receiver-hitches,2-5-receiver-hitches,dual-ball-hitches,tri-ball-hitches' | split: ','
+  assign tyt_optimized_templates = 'pp3pl30039,pp3pl30054,pp3pl30049,pp3pl30050,tc09ty001,tc09ty002' | split: ','
+  assign tyt_template_key = template.suffix | downcase
+  unless tyt_optimized_templates contains tyt_template_key
+    for product_collection in product.collections
+      if tyt_mount_collections contains product_collection.handle
+        assign tyt_refresh_mount = true
+        break
+      endif
+    endfor
+  endunless
+-%}
 <product-info
   id="MainProduct-{{ section.id }}"
-  class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
+  class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}{% if tyt_refresh_mount %} tyt-ballmount-refresh{% endif %}"
   data-section="{{ section.id }}"
   data-product-id="{{ product.id }}"
   data-update-url="true"
@@ -15,6 +29,7 @@
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+  {% if tyt_refresh_mount %}{{ 'tyt-ball-mount-product.css' | asset_url | stylesheet_tag }}{% endif %}
 
   {% unless product.has_only_default_variant %}
     {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
@@ -109,6 +124,7 @@
     <div class="page-width">
       <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
         <div class="grid__item product__media-wrapper">
+          {% if tyt_refresh_mount %}{% render 'tyt-ball-mount-heading', product: product, surface: 'mobile' %}{% endif %}
           {% render 'product-media-gallery', variant_images: variant_images %}
         </div>
         <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -119,7 +135,19 @@
             {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
             {%- assign receiver_banner_shown = false -%}
+            {%- assign tyt_mount_link_shown = false -%}
+            {% if tyt_refresh_mount %}{% render 'tyt-ball-mount-heading', product: product, surface: 'desktop' %}{% endif %}
             {%- for block in section.blocks -%}
+              {% if tyt_refresh_mount %}
+                {% if block.type == 'title' or block.type == 'text' or block.type == 'rating' %}{% continue %}{% endif %}
+                {% if block.type == '@app' and block.id contains 'loox_rating' %}{% continue %}{% endif %}
+                {% if block.type == 'custom_liquid' %}
+                  {% assign tyt_subtitle_text = product.metafields.custom.product_subtitle.value | escape | strip %}
+                  {% assign tyt_custom_text = block.settings.custom_liquid | strip_html | strip %}
+                  {% if tyt_subtitle_text != blank and tyt_custom_text == tyt_subtitle_text %}{% continue %}{% endif %}
+                  {% if block.settings.custom_liquid contains 'product_subtitle' or block.settings.custom_liquid contains 'tyt-title-desktop' %}{% continue %}{% endif %}
+                {% endif %}
+              {% endif %}
               {%- case block.type -%}
                 {%- when '@app' -%}
                   {% render block %}
@@ -144,6 +172,12 @@
                     {% assign receiver_banner_shown = true %}
                   {% endunless %}
                 {%- when 'price' -%}
+                  {% if tyt_refresh_mount and tyt_mount_link_shown == false %}
+                    {% render 'tyt-receiver-badge', product: product, show_fits: true %}
+                    {% assign receiver_banner_shown = true %}
+                    {% render 'tyt-ball-mount-recommendation', product: product %}
+                    {% assign tyt_mount_link_shown = true %}
+                  {% endif %}
                   <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                     {%- render 'price',
                       product: product,
@@ -231,9 +265,13 @@
                   </p>
                 {%- when 'description' -%}
                   {%- if product.description != blank -%}
+                    {% if tyt_refresh_mount %}
+                      <details class="tyt-mount-details" {{ block.shopify_attributes }}><summary>Product Details</summary><div class="rte">{{ product.description }}</div></details>
+                    {% else %}
                     <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
                       {{ product.description }}
                     </div>
+                    {% endif %}
                   {%- endif -%}
                 {%- when 'sku' -%}
                   <p
@@ -533,7 +571,9 @@
                     block: block,
                     product_form_id: product_form_id
                   %}
-                  {%- if product.handle == 'tyt-adjustable-tri-ball-hitch-for-2-receiver-with-tow-hook-shackle' -%}
+                  {%- if tyt_refresh_mount -%}
+                    {% unless tyt_mount_link_shown %}{% render 'tyt-ball-mount-recommendation', product: product %}{% assign tyt_mount_link_shown = true %}{% endunless %}
+                  {%- elsif product.handle == 'tyt-adjustable-tri-ball-hitch-for-2-receiver-with-tow-hook-shackle' -%}
                     {% render 'tyt-039-crosslink' %}
                   {%- elsif product.handle == 'tyt-adjustable-5-in-1-tri-ball-hitch-ball-mount-for-2-5-receiver' -%}
                     {% render 'tyt-039-crosslink',
@@ -825,6 +865,7 @@
     </div>
   </product-component>
 </product-info>
+{% if tyt_refresh_mount %}<div id="tyt-mount-reviews" class="tyt-mount-reviews-anchor"></div>{% endif %}
 
 {% schema %}
 {

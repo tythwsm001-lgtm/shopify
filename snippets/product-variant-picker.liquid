@@ -10,6 +10,24 @@
   {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 {%- enddoc -%}
 {%- unless product.has_only_default_variant -%}
+  {%- capture tyt_package_fit -%}{%- render 'tyt-deal-receiver-size', product: product -%}{%- endcapture -%}
+  {%- assign tyt_package_cards = false -%}
+  {%- liquid
+    assign tyt_is_ball_mount = false
+    assign tyt_mount_collections = 'ball-mounts,2-receiver-hitches,2-5-receiver-hitches,dual-ball-hitches,tri-ball-hitches' | split: ','
+    for product_collection in product.collections
+      if tyt_mount_collections contains product_collection.handle
+        assign tyt_is_ball_mount = true
+        break
+      endif
+    endfor
+  -%}
+  {%- if product.options.size == 1 and tyt_is_ball_mount -%}
+    {%- if tyt_package_fit == '2' or tyt_package_fit == '2.5' -%}
+      {%- assign tyt_package_cards = true -%}
+      {{ 'tyt-product-options.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+  {%- endif -%}
   <variant-selects
     id="variant-selects-{{ section.id }}"
     data-section="{{ section.id }}"
@@ -48,12 +66,13 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
+        <fieldset class="js product-form__input product-form__input--pill{% if tyt_package_cards %} tyt-package-options{% endif %}"{% if tyt_package_cards %} data-tyt-fit="{{ tyt_package_fit }}"{% endif %}>
+          <legend class="form__label">{% if tyt_package_cards %}Choose Your Package{% else %}{{ option.name }}{% endif %}</legend>
           {% render 'product-variant-options',
             option: option,
             block: block,
-            picker_type: picker_type
+            picker_type: picker_type,
+            tyt_package_cards: tyt_package_cards
           %}
         </fieldset>
       {%- else -%}

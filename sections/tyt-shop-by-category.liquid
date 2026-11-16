@@ -49,6 +49,14 @@
           assign category_title = block.settings.title
           assign category_link = block.settings.link
           assign image_alt = block.settings.image_alt
+          assign receiver_size = blank
+          if request.page_type == 'index'
+            if category_link contains '/2-5-receiver-hitches'
+              assign receiver_size = '2.5'
+            elsif category_link contains '/2-receiver-hitches'
+              assign receiver_size = '2'
+            endif
+          endif
 
           if image_alt == blank
             assign image_alt = category_title
@@ -56,7 +64,8 @@
         %}
 
         <div
-          class="tyt-category__card"
+          class="tyt-category__card{% if receiver_size != blank %} tyt-category__card--receiver tyt-category__card--{{ receiver_size | replace: '.', '-' }}{% endif %}"
+          {% if receiver_size != blank %}data-tyt-fit="{{ receiver_size }}"{% endif %}
           {{ block.shopify_attributes }}
         >
 
@@ -87,6 +96,10 @@
                   <div class="tyt-category__placeholder">
                     {{ 'product-1' | placeholder_svg_tag }}
                   </div>
+                {% endif %}
+
+                {% if receiver_size != blank %}
+                  <span class="tyt-category__size-label" aria-hidden="true">{{ receiver_size }}″ Receiver</span>
                 {% endif %}
 
               </div>

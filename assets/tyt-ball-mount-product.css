@@ -1,0 +1,34 @@
+/* Hallmark · pre-emit critique: P4 H5 E4 S5 R5 V4 */
+product-info.tyt-ballmount-refresh {
+  --mount-ink: #202020;
+  --mount-muted: #737373;
+  --mount-line: #e0e0e0;
+  --mount-star: #f5a623;
+  --mount-star-base: #e2e2e2;
+  padding-top: 12px;
+}
+.tyt-mount-heading { margin: 0 0 16px; }
+.tyt-mount-heading :is(h1,h2) { color: var(--mount-ink); font-size: clamp(26px, 2.6vw, 38px); font-weight: 500; line-height: 1.25; letter-spacing: -.02em; margin: 0 0 8px; overflow-wrap: anywhere; }
+.tyt-mount-heading__subtitle { font-size: 14px; color: var(--mount-muted); line-height: 1.5; margin: 0 0 8px; }
+.tyt-mount-heading__rating { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 7px; font-size: 13px; line-height: 1.4; color: var(--mount-muted); text-decoration: none; }
+.tyt-mount-heading__rating strong { color: var(--mount-ink); }
+.tyt-mount-heading__rating:hover { text-decoration: underline; }
+.tyt-mount-heading__rating:focus-visible { outline: 2px solid var(--mount-ink); outline-offset: 3px; }
+.tyt-mount-heading__stars { display: inline-block; position: relative; color: var(--mount-star-base); font-size: 19px; line-height: 1; letter-spacing: 1px; white-space: nowrap; }
+.tyt-mount-heading__fill { position: absolute; top: 0; left: 0; color: var(--mount-star); overflow: hidden; }
+.tyt-mount-heading--mobile { display: none; }
+.tyt-ballmount-refresh .tyt-fit-badge--product { margin-top: 0; }
+.tyt-ballmount-refresh .product__info-container > .tyt-039-crosslink { margin-block: 12px 16px; }
+.tyt-ballmount-refresh .tyt-mount-details { border-block: 1px solid var(--mount-line); padding-block: 16px; margin-block: 20px; }
+.tyt-mount-details summary { display: flex; align-items: center; justify-content: space-between; cursor: pointer; color: var(--mount-ink); font-size: 15px; font-weight: 700; list-style: none; }
+.tyt-mount-details summary::-webkit-details-marker { display: none; }
+.tyt-mount-details summary::after { content: '+'; font-size: 22px; font-weight: 400; }
+.tyt-mount-details[open] summary::after { content: '−'; }
+.tyt-mount-details .rte { padding-top: 14px; font-size: 14px; line-height: 1.65; overflow-wrap: anywhere; }
+.tyt-mount-details img { max-width: 100%; height: auto; }
+@media (max-width: 749px) {
+  .tyt-mount-heading--mobile { display: block; margin-bottom: 14px; }
+  .tyt-mount-heading--desktop { display: none; }
+  .tyt-mount-heading h1 { font-size: 22px; font-weight: 700; line-height: 1.3; }
+  .tyt-mount-heading__subtitle { font-size: 13px; }
+}

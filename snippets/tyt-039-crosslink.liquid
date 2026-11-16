@@ -40,6 +40,7 @@
     line-height: 1.5;
   }
   .tyt-039-crosslink__title strong { color: #202020; font-weight: 600; }
+  .tyt-039-crosslink__eyebrow { display: block; margin-bottom: 3px; font-size: 10px; font-weight: 750; letter-spacing: .5px; }
   .tyt-039-crosslink__image {
     display: block;
     flex: 0 0 40px;
@@ -71,12 +72,12 @@
   <a
     class="tyt-039-crosslink__link"
     href="{{ routes.root_url }}products/{{ target_handle | escape }}{% unless untracked %}?ref_sku={{ ref_sku | url_encode }}&amp;ref_link={{ ref_link | url_encode }}{% endunless %}"
-    aria-label="Explore TYT {{ receiver_size | escape }}-inch receiver hitch"
+    aria-label="{% if bestseller %}Explore our best-selling TYT 5-in-1 ball mount for 2-inch receivers{% else %}Explore TYT {{ receiver_size | escape }}-inch receiver hitch{% endif %}"
   >
     {%- if linked_hitch_image != blank -%}
       {{ linked_hitch_image | image_url: width: 120 | image_tag: class: 'tyt-039-crosslink__image', widths: '40, 80, 120', sizes: '40px', width: 40, height: 40, loading: 'lazy', alt: '' }}
     {%- endif -%}
-    <span class="tyt-039-crosslink__title">Need a <strong>{{ receiver_size | escape }}″ hitch?</strong></span>
+    <span class="tyt-039-crosslink__title">{% if bestseller %}<small class="tyt-039-crosslink__eyebrow">BEST SELLER · 2″ RECEIVER</small><strong>Explore our 5-in-1 Ball Mount</strong>{% else %}Need a <strong>{{ receiver_size | escape }}″ hitch?</strong>{% endif %}</span>
     <span class="tyt-039-crosslink__action">View <span aria-hidden="true">→</span></span>
   </a>
 </div>

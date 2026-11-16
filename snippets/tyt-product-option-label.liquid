@@ -1,0 +1,21 @@
+{%- liquid
+  assign option_label = value
+  assign option_key = value | downcase | remove: '"' | remove: "'"
+  case option_key
+    when 'adjustable dual ball mount', 'adjustable tri ball mount'
+      assign option_label = 'Ball Mount Only'
+    when 'adjustable dual ball mount（black）'
+      assign option_label = 'Ball Mount Only · Black'
+    when 'adjustable dual ball mount with 1 x 10 retractable ratchet straps (4pcs)', 'adjustable tri ball mount with 1 x 10 retractable ratchet straps (4pcs)'
+      assign option_label = 'Mount + Ratchet Straps (4PCS)'
+    when 'adjustable tri ball mount with 12 hitch extender', 'dual ball hitch (2 receiver) + 12 hitch extender'
+      assign option_label = 'Mount + 12″ Hitch Extender'
+    when 'black dual ball hitch (2 receiver) + 12 hitch extender'
+      assign option_label = 'Black Mount + 12″ Hitch Extender'
+    when 'adjustable tri ball mount with kinetic recovery rope(1 x 30)', '22k dual ball hitch (2.5 receiver) + 1 x 30 kinetic rope', 'dual ball hitch (2 receiver) + 1 x 30 kinetic rope'
+      assign option_label = 'Mount + Kinetic Rope (1″ × 30′)'
+    when 'black dual ball hitch (2.5 receiver) + 1 x 30 kinetic rope', 'black dual ball hitch (2 receiver) + 1 x 30 kinetic rope'
+      assign option_label = 'Black Mount + Kinetic Rope (1″ × 30′)'
+  endcase
+-%}
+{{- option_label | escape -}}

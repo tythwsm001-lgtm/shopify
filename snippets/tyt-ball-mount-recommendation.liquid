@@ -1,0 +1,16 @@
+{%- liquid
+  assign paired_handle = blank
+  case product.handle
+    when 'tyt-adjustable-truck-trailer-hitch-for-2-inch-receiver-6-drop-rise-tow-hitch-with-dual-balls-includes-two-pin-locks-hitch-tightener-2-2-5-16'
+      assign paired_handle = 'tyt-adjustable-truck-trailer-hitch-for-2-5-inch-receiver-6-drop-rise-tow-hitch-with-dual-balls-2-2-5-16-includes-two-pin-locks-hitch-tightener'
+      assign paired_size = '2.5'
+    when 'tyt-adjustable-truck-trailer-hitch-for-2-5-inch-receiver-6-drop-rise-tow-hitch-with-dual-balls-2-2-5-16-includes-two-pin-locks-hitch-tightener'
+      assign paired_handle = 'tyt-adjustable-truck-trailer-hitch-for-2-inch-receiver-6-drop-rise-tow-hitch-with-dual-balls-includes-two-pin-locks-hitch-tightener-2-2-5-16'
+      assign paired_size = '2'
+  endcase
+  if paired_handle != blank
+    render 'tyt-039-crosslink', target_handle: paired_handle, receiver_size: paired_size, untracked: true
+  else
+    render 'tyt-039-crosslink', target_handle: 'tyt-adjustable-tri-ball-hitch-for-2-receiver-with-tow-hook-shackle', receiver_size: '2', untracked: true, bestseller: true
+  endif
+-%}

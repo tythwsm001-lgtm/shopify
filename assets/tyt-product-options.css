@@ -1,0 +1,40 @@
+/* Hallmark · pre-emit critique: P4 H5 E4 S5 R5 V4 */
+.product-form__input--pill.tyt-package-options {
+  --package-ink: #20242b;
+  --package-line: #d6dbe2;
+  --package-paper: #fff;
+  --package-muted: #6a717c;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 100%;
+  width: 100%;
+  margin-bottom: 18px;
+}
+.tyt-package-options .form__label { font-size: 13px; font-weight: 700; color: var(--package-ink); margin-bottom: 10px; letter-spacing: 0; }
+.product-form__input--pill.tyt-package-options input[type='radio'] + label {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px;
+  min-height: 58px; width: 100%; margin: 0; padding: 12px 14px 12px 42px;
+  border: 1px solid var(--package-line); border-radius: 6px; background: var(--package-paper);
+  color: var(--package-ink); font-size: 13px; line-height: 1.45; letter-spacing: 0; text-align: left;
+  box-sizing: border-box; box-shadow: none;
+}
+.tyt-package-options__name { min-width: 0; font-weight: 550; }
+.tyt-package-options__price { white-space: nowrap; font-weight: 750; font-size: 13px; }
+.product-form__input--pill.tyt-package-options input[type='radio'] + label::before { content: none; }
+.product-form__input--pill.tyt-package-options input[type='radio'] + label::after {
+  content: ''; position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  width: 16px; height: 16px; box-sizing: border-box; border: 1.5px solid var(--package-line); border-radius: 50%; background: var(--package-paper);
+}
+.product-form__input--pill.tyt-package-options input[type='radio']:checked + label {
+  border-color: var(--tyt-fit-color); background: var(--tyt-fit-tint); color: var(--package-ink); box-shadow: inset 0 0 0 1px var(--tyt-fit-color);
+}
+.product-form__input--pill.tyt-package-options input[type='radio']:checked + label::after { border: 5px solid var(--tyt-fit-color); }
+.product-form__input--pill.tyt-package-options input[type='radio']:not(.disabled) + label:hover { border-color: var(--tyt-fit-color); }
+.product-form__input--pill.tyt-package-options input[type='radio']:focus-visible + label { outline: 2px solid var(--tyt-fit-color); outline-offset: 3px; }
+.product-form__input--pill.tyt-package-options input[type='radio'].disabled + label,
+.product-form__input--pill.tyt-package-options input[type='radio']:disabled + label { color: var(--package-muted); border-color: var(--package-line); background: var(--package-paper); box-shadow: none; }
+@media (max-width: 749px) {
+  .product-form__input--pill.tyt-package-options input[type='radio'] + label { padding: 11px 12px 11px 38px; gap: 8px; }
+  .product-form__input--pill.tyt-package-options input[type='radio'] + label::after { left: 12px; }
+}

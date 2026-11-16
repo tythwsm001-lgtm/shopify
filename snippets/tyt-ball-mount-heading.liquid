@@ -1,0 +1,22 @@
+{%- liquid
+  assign rating = product.metafields.reviews.rating.value
+  assign rating_count = product.metafields.reviews.rating_count.value | default: 0 | plus: 0
+  assign rating_max = rating.scale_max | default: 5 | plus: 0
+  assign rating_value = 0
+  if rating != blank and rating_max > 0
+    assign rating_value = rating.rating | times: 5.0 | divided_by: rating_max
+  endif
+  assign rating_percent = rating_value | times: 20 | at_least: 0 | at_most: 100
+-%}
+<header class="tyt-mount-heading tyt-mount-heading--{{ surface }}">
+  {% if surface == 'mobile' %}<h1>{{ product.title | escape }}</h1>{% else %}<h2>{{ product.title | escape }}</h2>{% endif %}
+  {% if product.metafields.custom.product_subtitle.value != blank %}
+    <p class="tyt-mount-heading__subtitle">{{ product.metafields.custom.product_subtitle.value | escape }}</p>
+  {% endif %}
+  {% if rating != blank and rating_count > 0 %}
+    <a class="tyt-mount-heading__rating" href="#tyt-mount-reviews" aria-label="Rated {{ rating_value | round: 1 }} out of 5 from {{ rating_count }} reviews">
+      <span class="tyt-mount-heading__stars" aria-hidden="true"><span>★★★★★</span><span class="tyt-mount-heading__fill" style="width:{{ rating_percent }}%">★★★★★</span></span>
+      <strong>{{ rating_value | round: 1 }}</strong><span>({{ rating_count }} reviews)</span>
+    </a>
+  {% endif %}
+</header>

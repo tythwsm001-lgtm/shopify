@@ -56,7 +56,12 @@
                 {% if section.settings.show_sale_badge %}
                   {% if product.compare_at_price > product.price %}
                     <span class="tyt-best__badge">
-                      Sale
+                      {% if request.page_type == 'index' %}
+                        {% assign tyt_saving_percent = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
+                        Save {{ tyt_saving_percent }}%
+                      {% else %}
+                        Sale
+                      {% endif %}
                     </span>
                   {% endif %}
                 {% endif %}

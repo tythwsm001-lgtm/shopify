@@ -78,11 +78,6 @@
 </section>
 {% if request.page_type == 'index' %}
   {{ 'tyt-home-refresh.css' | asset_url | stylesheet_tag }}
-  <nav class="tyt-home-fit" aria-label="Shop by receiver size">
-    <a data-tyt-fit="2" href="{{ routes.root_url }}collections/2-receiver-hitches"><strong>2″</strong><span>Ball Mounts</span><span aria-hidden="true">→</span></a>
-    <a data-tyt-fit="2.5" href="{{ routes.root_url }}collections/2-5-receiver-hitches"><strong>2.5″</strong><span>Ball Mounts</span><span aria-hidden="true">→</span></a>
-    <a href="{{ routes.root_url }}pages/hitch-selection-guide"><span>Hitch Guide</span><span aria-hidden="true">→</span></a>
-  </nav>
 {% endif %}
 
 <style>

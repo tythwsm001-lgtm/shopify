@@ -4,6 +4,7 @@
   @param {product_option} option - The product option whose values are rendered.
   @param {string} picker_type - The picker markup to render: `swatch`, `button`, `dropdown`, or `swatch_dropdown`.
   @param {block} [block] - The variant-picker block, required for swatch settings.
+  @param {boolean} [tyt_package_cards] - Display ball mount package labels and variant prices.
   @param {object} [section] - The current product section context, supplied implicitly when rendered from that section and used to namespace option inputs.
 
   @example
@@ -89,7 +90,12 @@
       {{ input_dataset }}
     >
     <label for="{{ input_id }}">
-      {{ value -}}
+      {% if tyt_package_cards %}
+        <span class="tyt-package-options__name">{% render 'tyt-product-option-label', value: value %}</span>
+        {% if value.variant != blank %}<span class="tyt-package-options__price">{{ value.variant.price | money }}</span>{% endif %}
+      {% else %}
+        {{ value -}}
+      {% endif %}
       {{ label_unavailable }}
     </label>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
