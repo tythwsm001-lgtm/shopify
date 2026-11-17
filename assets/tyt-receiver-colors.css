@@ -1,5 +1,5 @@
-[data-tyt-fit="2"] { --tyt-fit-color: #173e79; --tyt-fit-tint: #edf4ff; }
-[data-tyt-fit="2.5"] { --tyt-fit-color: #552783; --tyt-fit-tint: #f4edff; }
+[data-tyt-fit="2"] { --tyt-fit-color: #244766; --tyt-fit-tint: #eef3f7; }
+[data-tyt-fit="2.5"] { --tyt-fit-color: #9a4b16; --tyt-fit-tint: #fff3e8; }
 
 .tyt-fit-badge {
   display: inline-block;
