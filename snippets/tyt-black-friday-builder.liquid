@@ -3,7 +3,7 @@
   @param {string} section_id - The host section ID.
   @param {collection} deal_collection - Source of the six featured ball mounts.
 {% enddoc %}
-{% assign bundle_categories = 'Ball Mount|ball-mounts,Kinetic Recovery Rope|kinetic-rope,Ratchet Straps|ratchet-straps,Hitch Extension|hitch-extension-1,Hand Winch|hand-winch,Trailer Jack|trailer-jack' | split: ',' %}
+{% assign bundle_categories = 'Ball Mount|ball-mounts,Kinetic Recovery Rope|kinetic-rope,Ratchet Straps|ratchet-straps,Hitch Extension|hitch-extenders,Hand Winch|hand-winch,Trailer Jack|trailer-jack' | split: ',' %}
 <section class="tyt-builder" aria-labelledby="TYTBuilderTitle-{{ section_id }}">
   <div class="page-width tyt-builder__inner">
     <header class="tyt-builder__header">
@@ -105,7 +105,7 @@
                                 when '2000 lbs Swivel Dual-Wheel Trailer Jack'
                                   assign product_label = '2,000 lb · Dual-Wheel Swivel · 12″'
                               endcase
-                            when 'hitch-extension-1'
+                            when 'hitch-extenders'
                               assign product_label = product_label | split: ',' | first | split: '，' | first | replace: 'Trailer Hitch Extension for 2 inch Receiver Tube Extender', 'Extension · 2″' | replace: 'Trailer Hitch Extension', 'Extension' | replace: 'Hitch Extender for 2" Receiver', 'Extension · 2″'
                               assign product_label = product_label | replace: '-Inch Extension', '″ Extension' | replace: '" Extension', '″ Extension'
                               if product_label == '18″ Extension' and bundle_item.title contains 'Fits 2 inch Receiver'
@@ -131,7 +131,7 @@
                 {% endif %}
                 {% endfor %}
               </select>
-              {% if category_parts.last == 'hitch-extension-1' %}
+              {% if category_parts.last == 'hitch-extenders' %}
                 <p class="tyt-builder__fit" data-extension-warning role="status" hidden>These hitch extensions fit 2″ receivers only.</p>
               {% endif %}
               <div class="tyt-builder__preview" hidden>

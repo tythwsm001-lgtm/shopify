@@ -29,7 +29,7 @@ class TytBundleBuilder extends HTMLElement {
 
   updateExtension() {
     const mount = this.querySelector('[data-bundle-category="ball-mounts"] select');
-    const slot = this.querySelector('[data-bundle-category="hitch-extension-1"]');
+    const slot = this.querySelector('[data-bundle-category="hitch-extenders"]');
     const extension = slot.querySelector('select');
     const incompatible = mount.selectedOptions[0]?.dataset.receiver === '2.5';
     if (incompatible) extension.value = '';
