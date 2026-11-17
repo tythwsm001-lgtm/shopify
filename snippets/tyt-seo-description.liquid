@@ -1,0 +1,12 @@
+{%- liquid
+  assign seo_description = page_description | strip_html | strip_newlines | strip
+  assign seo_description = seo_description | replace: '&amp;', '&' | replace: '&quot;', '"' | replace: '&#39;', "'"
+  if request.page_type == 'product'
+    if seo_description == blank
+      assign seo_description = product.description | strip_html | strip_newlines | strip | truncate: 160
+    endif
+  elsif request.page_type == 'index' and seo_description == 'Trailer hitch, jack, hand winch'
+    assign seo_description = 'Shop TYT ball mounts for 2-inch and 2.5-inch receivers, recovery ropes, ratchet straps, trailer jacks and hand winches. Find gear for your next tow.'
+  endif
+-%}
+{{- seo_description -}}

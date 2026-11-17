@@ -22,11 +22,15 @@
       {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
     </title>
 
-    {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
+    {%- capture tyt_seo_description -%}{%- render 'tyt-seo-description' -%}{%- endcapture -%}
+    {% if tyt_seo_description != blank %}
+      <meta name="description" content="{{ tyt_seo_description | escape }}">
     {% endif %}
 
-    {% render 'meta-tags' %}
+    {% render 'meta-tags', seo_description: tyt_seo_description %}
+    {% if request.page_type == '404' or request.page_type == 'search' %}
+      <meta name="robots" content="noindex,follow">
+    {% endif %}
 
     <script type="module">
       import * as StandardEvents from 'https://cdn.shopify.com/storefront/standard-events.js';

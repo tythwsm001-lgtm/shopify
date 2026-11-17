@@ -1,23 +1,24 @@
-<style type="text/css">
-  .template-404 .title + * {
-    margin-top: 1rem;
-  }
-
-  @media screen and (min-width: 750px) {
-    .template-404 .title + * {
-      margin-top: 2rem;
-    }
-  }
-</style>
-
-<div class="template-404 page-width page-margin center">
-  <p>
-    {{ 'templates.404.subtext' | t }}
-  </p>
-  <h1 class="title">
-    {{ 'templates.404.title' | t }}
-  </h1>
-  <a href="{{ routes.all_products_collection_url }}" class="button">
-    {{ 'general.continue_shopping' | t }}
-  </a>
-</div>
+{{ 'tyt-not-found.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'tyt-not-found.js' | asset_url }}" defer="defer"></script>
+{%- liquid
+  assign ball_mount_collection = collections['ball-mounts']
+  assign recovery_url = ball_mount_collection.url | default: routes.all_products_collection_url
+-%}
+<tyt-not-found class="tyt-not-found page-width" data-target="{{ recovery_url | escape }}" data-seconds="5"{% if request.design_mode %} data-editor{% endif %}>
+  <p class="tyt-not-found__code">404 · ROAD ENDS HERE</p>
+  <h1>{{ 'templates.404.title' | t }}</h1>
+  <p class="tyt-not-found__description">This link may be outdated or the page may have moved. Let’s get you back to the right towing gear.</p>
+  <div class="tyt-not-found__actions">
+    <a class="tyt-not-found__primary" href="{{ recovery_url }}">{% if ball_mount_collection != blank %}Shop Ball Mounts{% else %}Shop All Products{% endif %} <span aria-hidden="true">→</span></a>
+    <a class="tyt-not-found__secondary" href="{{ routes.root_url }}">Back to Home</a>
+  </div>
+  <div class="tyt-not-found__countdown" data-countdown hidden>
+    <p data-countdown-message>Taking you to {% if ball_mount_collection != blank %}Ball Mounts{% else %}all products{% endif %} in <strong data-seconds-left>5</strong> seconds.</p>
+    <button type="button" data-cancel>Stay on this page</button>
+    <p class="visually-hidden" data-countdown-status role="status"></p>
+  </div>
+  <form action="{{ routes.search_url }}" method="get" role="search" class="tyt-not-found__search">
+    <label for="TYTRecoverySearch-{{ section.id }}">Looking for something specific?</label>
+    <div><input id="TYTRecoverySearch-{{ section.id }}" type="search" name="q" placeholder="Search products" autocomplete="off"><button type="submit">Search</button></div>
+  </form>
+</tyt-not-found>

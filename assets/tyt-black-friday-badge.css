@@ -1,27 +1,27 @@
-/* Hallmark: component critique P4 H5 E5 S5 R5 V4. Static TYT campaign label. */
+/* Hallmark: component critique P4 H5 E5 S5 R5 V4. Joined campaign label above media. */
 .tyt-bf-card {
   --bf-ink: #111111;
   --bf-red: #dc111b;
   --bf-paper: #ffffff;
   --bf-font: var(--font-body-family);
 }
-.tyt-bf-badge {
+.tyt-bf-card .card {
+  position: relative;
+  padding-top: 24px;
+}
+.tyt-bf-card__campaign {
   position: absolute;
-  z-index: 3;
-  top: 4px;
+  top: 0;
   left: 4px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: max-content;
-  max-width: 100%;
+  align-items: center;
+  height: 24px;
   color: var(--bf-paper);
   font-family: var(--bf-font);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 800;
-  font-style: normal;
-  line-height: 14px;
-  letter-spacing: .2px;
+  line-height: 16px;
+  letter-spacing: .3px;
   white-space: nowrap;
   pointer-events: none;
 }
@@ -30,11 +30,16 @@
   padding: 0 10px 0 5px;
   clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
 }
-.tyt-bf-badge__title { background: var(--bf-ink); }
+.tyt-bf-badge__title {
+  padding-right: 6px;
+  background: var(--bf-ink);
+  clip-path: none;
+}
 .tyt-bf-badge__deal { background: var(--bf-red); }
 
 @media screen and (max-width: 749px) {
-  .tyt-bf-badge { font-size: 8px; line-height: 12px; }
+  .tyt-bf-card .card { padding-top: 22px; }
+  .tyt-bf-card__campaign { height: 22px; font-size: 9px; line-height: 15px; }
 }
 /* Keep Dawn's accessible sale labels without a duplicate visual badge. */
 .tyt-bf-card .card__badge .badge {

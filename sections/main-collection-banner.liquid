@@ -1,5 +1,5 @@
 {%- capture tyt_subcollection -%}{%- render 'tyt-ball-mount-subcollection', collection_handle: collection.handle -%}{%- endcapture -%}
-{%- unless request.page_type == 'collection' and tyt_subcollection == 'true' -%}
+{%- unless collection.handle contains 'ball-mount' or tyt_subcollection == 'true' -%}
 {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
 
