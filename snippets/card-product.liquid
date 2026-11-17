@@ -280,6 +280,11 @@
                 assign towing_capacity = card_product.metafields.custom.towing_capacity.value
                 assign drop_rise = card_product.metafields.custom.drop_rise.value
               %}
+              {%- capture card_receiver_key -%}{%- render 'tyt-deal-receiver-size', product: card_product -%}{%- endcapture -%}
+              {% comment %}The colored receiver badge already shows these sizes; retain the row for other sizes.{% endcomment %}
+              {% if card_receiver_key == '2' or card_receiver_key == '2.5' %}
+                {% assign receiver_size_list = nil %}
+              {% endif %}
 
               {% if horizontal_class %}
                 {% if receiver_size_list != blank or ball_size_list != blank or towing_capacity != blank or drop_rise != blank %}
