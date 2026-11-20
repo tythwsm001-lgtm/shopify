@@ -7,7 +7,7 @@
 -%}
 <section
   id="tyt-banner-{{ section.id }}"
-  class="tyt-banner"
+  class="tyt-banner{% if section.settings.desktop_ratio == 'auto' %} tyt-banner--fit-desktop{% endif %}"
   style="--tyt-banner-desktop-ratio: {{ section.settings.desktop_ratio }}; --tyt-banner-mobile-ratio: {{ section.settings.mobile_ratio }}; --tyt-banner-max-width: {{ section.settings.max_width }}px; --tyt-banner-arrow-color: {{ section.settings.arrow_color }}; --tyt-banner-dot-color: {{ section.settings.dot_color }};"
   data-autoplay="{{ section.settings.autoplay }}"
   data-interval="{{ section.settings.interval | times: 1000 }}"
@@ -19,9 +19,22 @@
       <div class="tyt-banner__track">
         {%- for block in section.blocks -%}
           {%- assign desktop_image = block.settings.image -%}
-          {%- assign mobile_image = block.settings.mobile_image | default: desktop_image -%}
+          {%- assign desktop_source = block.settings.desktop_image_url -%}
+          {%- if desktop_source == blank and block.settings.desktop_asset != blank -%}
+            {%- assign desktop_source = block.settings.desktop_asset | asset_url -%}
+          {%- endif -%}
+          {%- assign mobile_image = block.settings.mobile_image -%}
+          {%- capture mobile_source -%}
+            {%- if mobile_image != blank -%}
+              <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1100 }} 1100w, {{ mobile_image | image_url: width: 1500 }} 1500w" sizes="100vw">
+            {%- elsif block.settings.mobile_image_url != blank -%}
+              <source media="(max-width: 749px)" srcset="{{ block.settings.mobile_image_url | escape }}">
+            {%- elsif desktop_image == blank and block.settings.mobile_asset != blank -%}
+              <source media="(max-width: 749px)" srcset="{{ block.settings.mobile_asset | asset_url }}">
+            {%- endif -%}
+          {%- endcapture -%}
           <div
-            class="tyt-banner__slide"
+            class="tyt-banner__slide{% if desktop_image == blank and desktop_source != blank %} tyt-banner__slide--asset{% endif %}"
             data-slide="{{ forloop.index0 }}"
             data-block-id="{{ block.id }}"
             role="group"
@@ -37,9 +50,7 @@
             {%- endif -%}
               {%- if desktop_image != blank -%}
                 <picture>
-                  {%- if block.settings.mobile_image != blank -%}
-                    <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1100 }} 1100w, {{ mobile_image | image_url: width: 1500 }} 1500w" sizes="100vw">
-                  {%- endif -%}
+                  {{ mobile_source }}
                   <img
                     src="{{ desktop_image | image_url: width: 1800 }}"
                     srcset="{{ desktop_image | image_url: width: 750 }} 750w, {{ desktop_image | image_url: width: 1100 }} 1100w, {{ desktop_image | image_url: width: 1500 }} 1500w, {{ desktop_image | image_url: width: 1800 }} 1800w, {{ desktop_image | image_url: width: 2200 }} 2200w, {{ desktop_image | image_url: width: 2600 }} 2600w"
@@ -51,15 +62,11 @@
                     class="tyt-banner__image"
                   >
                 </picture>
-              {%- elsif block.settings.desktop_asset != blank -%}
+              {%- elsif desktop_source != blank -%}
                 <picture>
-                  {%- if block.settings.mobile_asset != blank -%}
-                    <source media="(max-width: 749px)" srcset="{{ block.settings.mobile_asset | asset_url }}">
-                  {%- endif -%}
+                  {{ mobile_source }}
                   <img
-                    src="{{ block.settings.desktop_asset | asset_url }}"
-                    width="1672"
-                    height="941"
+                    src="{{ desktop_source | escape }}"
                     alt="{{ block.settings.image_alt | escape }}"
                     {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}
                     class="tyt-banner__image"
@@ -113,6 +120,22 @@
   #tyt-banner-{{ section.id }} .tyt-banner__dot.is-active span { background:var(--tyt-banner-dot-color); }
   #tyt-banner-{{ section.id }} button:focus-visible,
   #tyt-banner-{{ section.id }} a:focus-visible { outline:3px solid #dc2626; outline-offset:-3px; }
+  @media (min-width:750px) {
+    #tyt-banner-{{ section.id }}.tyt-banner--fit-desktop {
+      --tyt-banner-desktop-height: clamp(160px, 100svh - 180px, 70svh);
+      --tyt-banner-matte: #141414;
+    }
+    #tyt-banner-{{ section.id }}.tyt-banner--fit-desktop .tyt-banner__image-link {
+      aspect-ratio: 2.55 / 1;
+      max-height: var(--tyt-banner-desktop-height);
+    }
+    #tyt-banner-{{ section.id }}.tyt-banner--fit-desktop .tyt-banner__slide--asset .tyt-banner__image-link {
+      background: var(--tyt-banner-matte);
+    }
+    #tyt-banner-{{ section.id }}.tyt-banner--fit-desktop .tyt-banner__slide--asset .tyt-banner__image {
+      object-fit: contain;
+    }
+  }
   @media (max-width:749px) {
     #tyt-banner-{{ section.id }} .tyt-banner__image-link { aspect-ratio:var(--tyt-banner-mobile-ratio); }
     #tyt-banner-{{ section.id }} .tyt-banner__arrow { width:34px; height:34px; font-size:18px; }
@@ -196,7 +219,9 @@
   "blocks": [
     {"type":"slide","name":"Banner slide","settings":[
       {"type":"image_picker","id":"image","label":"Desktop banner image"},
+      {"type":"url","id":"desktop_image_url","label":"Desktop banner image URL","info":"Used when no desktop image is selected."},
       {"type":"image_picker","id":"mobile_image","label":"Mobile banner image (optional)"},
+      {"type":"url","id":"mobile_image_url","label":"Mobile banner image URL","info":"Used when no mobile image is selected."},
       {"type":"text","id":"desktop_asset","label":"Desktop theme image filename","info":"Fallback when no desktop image is selected."},
       {"type":"text","id":"mobile_asset","label":"Mobile theme image filename","info":"Fallback mobile image stored in theme assets."},
       {"type":"text","id":"image_alt","label":"Image description (alt text)"},

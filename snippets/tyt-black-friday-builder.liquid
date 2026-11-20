@@ -4,6 +4,8 @@
   @param {collection} deal_collection - Source of the six featured ball mounts.
 {% enddoc %}
 {% assign bundle_categories = 'Ball Mount|ball-mounts,Kinetic Recovery Rope|kinetic-rope,Ratchet Straps|ratchet-straps,Hitch Extension|hitch-extenders,Hand Winch|hand-winch,Trailer Jack|trailer-jack' | split: ',' %}
+{% comment %}The shared collection also contains adapters. Only these 2-inch extensions belong in the bundle.{% endcomment %}
+{% assign bundle_extension_handles = 'tyt-7-inch-hitch-extender-for-2-receiver-trailer-hitch-extension,tyt-12-trailer-hitch-extension-for-2-inch-receiver-tube-extender-includes-2-sets-of-5-8-premium-hitch-pin-5000-lbs-gtw-500-lbs-tw,tyt-18-trailer-hitch-extension-fits-2-inch-receiver-tube-with-5-8-advanced-hitch-pin-2-pack-3500-lbs-gtw-350-lbs-tw' | split: ',' %}
 <section class="tyt-builder" aria-labelledby="TYTBuilderTitle-{{ section_id }}">
   <div class="page-width tyt-builder__inner">
     <header class="tyt-builder__header">
@@ -33,6 +35,8 @@
             {% if category_parts.last == 'ball-mounts' %}
               {% assign category_collection = deal_collection %}
               {% assign category_limit = 6 %}
+            {% elsif category_parts.last == 'hitch-extenders' %}
+              {% assign category_collection = collections['hitch-extenders-adapters'] | default: category_collection %}
             {% endif %}
             {% assign category_id = section_id | append: '-bundle-' | append: forloop.index %}
             <fieldset class="tyt-builder__slot" data-bundle-category="{{ category_parts.last }}">
@@ -57,6 +61,9 @@
                 {% for option_group in option_groups %}
                 {%- capture group_options -%}
                 {% for bundle_item in category_collection.products limit: category_limit %}
+                  {% if category_parts.last == 'hitch-extenders' %}
+                    {% unless bundle_extension_handles contains bundle_item.handle %}{% continue %}{% endunless %}
+                  {% endif %}
                   {% if option_group != 'all' %}
                     {%- capture option_receiver -%}{%- render 'tyt-deal-receiver-size', product: bundle_item -%}{%- endcapture -%}
                     {% assign option_receiver = option_receiver | strip %}
