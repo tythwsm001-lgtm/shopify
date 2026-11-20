@@ -1,44 +1,42 @@
-{%- comment -%}Visible top navigation on all screen sizes, with Dawn's native dropdown behavior.{%- endcomment -%}
-{%- assign groups = 'deals,ball-mounts,towing-gear,hitch-guide,support' | split: ',' -%}
-  <nav class="header__inline-menu tyt-nav" aria-label="Main navigation">
-    <ul class="list-menu list-menu--inline" role="list">
-{%- for group in groups -%}
-  {%- liquid
-    case group
-      when 'ball-mounts'
-        assign title = 'Ball Mounts'
-      when 'towing-gear'
-        assign title = 'Towing Gear'
-      when 'hitch-guide'
-        assign title = 'Hitch Guide'
-        assign destination = 'pages/hitch-selection-guide'
-      when 'deals'
-        assign title = 'Black Friday Deal'
-        assign destination = 'collections/deals'
-      when 'support'
-        assign title = 'Support'
-    endcase
-  -%}
-  <li class="tyt-nav__item{% if group == 'deals' %} tyt-nav__item--deals{% endif %}">
-    {%- if group == 'hitch-guide' or group == 'deals' -%}
-      {%- assign target_url = routes.root_url | append: destination -%}
-      <a href="{{ target_url }}" class="header__menu-item list-menu__item link link--text focus-inset{% if group == 'deals' %} tyt-nav__black-friday{% endif %}"{% if request.path == target_url %} aria-current="page"{% endif %}>
-        {%- if group == 'deals' -%}
-          <span class="tyt-nav__deal-heat" aria-hidden="true"></span>
-          <span class="tyt-nav__deal-art">Black Friday</span><span class="tyt-nav__deal-word">Deal</span>
-        {%- else -%}{{ title }}{%- endif -%}
-      </a>
-    {%- else -%}
-      <header-menu>
-        <details id="Details-TytNav-{{ group }}">
-          <summary class="header__menu-item list-menu__item link focus-inset" aria-controls="TytNavPanel-{{ group }}">{{ title }}{{ 'icon-caret.svg' | inline_asset_content }}</summary>
-          <ul id="TytNavPanel-{{ group }}" class="header__submenu tyt-nav__panel tyt-nav__panel--{{ group }} list-menu list-menu--disclosure color-{{ section.settings.menu_color_scheme }} gradient caption-large motion-reduce global-settings-popup" role="list" tabindex="-1">
-            {% render 'tyt-navigation-links', group: group %}
-          </ul>
-        </details>
-      </header-menu>
-    {%- endif -%}
-  </li>
-{%- endfor -%}
-    </ul>
-  </nav>
+{%- comment -%}Use the selected Shopify menu on every screen size; keep Dawn dropdown behavior.{%- endcomment -%}
+<nav class="header__inline-menu tyt-nav" aria-label="Main navigation" data-menu-handle="{{ section.settings.menu.handle | escape }}">
+  <ul class="list-menu list-menu--inline" role="list">
+    {%- for menu_link in section.settings.menu.links -%}
+      {%- liquid
+        assign is_campaign = false
+        if menu_link.url contains '/collections/deals'
+          assign is_campaign = true
+        endif
+        assign panel_key = section.id | append: '-' | append: forloop.index
+        assign menu_title_key = menu_link.title | handleize
+      -%}
+      <li class="tyt-nav__item{% if is_campaign %} tyt-nav__item--deals{% endif %}">
+        {%- if menu_link.links == blank -%}
+          <a href="{{ menu_link.url }}" class="header__menu-item list-menu__item link link--text focus-inset{% if is_campaign %} tyt-nav__black-friday{% endif %}"{% if menu_link.current %} aria-current="page"{% endif %}>
+            {%- if is_campaign -%}
+              <span class="tyt-nav__deal-heat" aria-hidden="true"></span>
+              <span class="tyt-nav__deal-art">{{ menu_link.title | escape }}</span>
+            {%- else -%}{{ menu_link.title | escape }}{%- endif -%}
+          </a>
+        {%- else -%}
+          <header-menu>
+            <details id="Details-TytNav-{{ panel_key }}">
+              <summary class="header__menu-item list-menu__item link focus-inset" aria-controls="TytNavPanel-{{ panel_key }}">
+                {%- if menu_title_key == 'hitch-trailer-accessories' -%}
+                  <span class="tyt-nav__label-full">{{ menu_link.title | escape }}</span>
+                  <span class="tyt-nav__label-short">Accessories</span>
+                {%- else -%}
+                  {{ menu_link.title | escape }}
+                {%- endif -%}
+                {{ 'icon-caret.svg' | inline_asset_content }}
+              </summary>
+              <ul id="TytNavPanel-{{ panel_key }}" class="header__submenu tyt-nav__panel tyt-nav__panel--{{ menu_link.handle }}{% if menu_link.links.size <= 3 and menu_link.levels == 1 %} tyt-nav__panel--compact{% endif %} list-menu list-menu--disclosure color-{{ section.settings.menu_color_scheme }} gradient caption-large motion-reduce global-settings-popup" role="list" tabindex="-1">
+                {% render 'tyt-navigation-links', links: menu_link.links %}
+              </ul>
+            </details>
+          </header-menu>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</nav>

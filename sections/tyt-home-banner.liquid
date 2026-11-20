@@ -51,6 +51,20 @@
                     class="tyt-banner__image"
                   >
                 </picture>
+              {%- elsif block.settings.desktop_asset != blank -%}
+                <picture>
+                  {%- if block.settings.mobile_asset != blank -%}
+                    <source media="(max-width: 749px)" srcset="{{ block.settings.mobile_asset | asset_url }}">
+                  {%- endif -%}
+                  <img
+                    src="{{ block.settings.desktop_asset | asset_url }}"
+                    width="1672"
+                    height="941"
+                    alt="{{ block.settings.image_alt | escape }}"
+                    {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}
+                    class="tyt-banner__image"
+                  >
+                </picture>
               {%- else -%}
                 {{ 'lifestyle-1' | placeholder_svg_tag: 'tyt-banner__placeholder' }}
               {%- endif -%}
@@ -183,6 +197,8 @@
     {"type":"slide","name":"Banner slide","settings":[
       {"type":"image_picker","id":"image","label":"Desktop banner image"},
       {"type":"image_picker","id":"mobile_image","label":"Mobile banner image (optional)"},
+      {"type":"text","id":"desktop_asset","label":"Desktop theme image filename","info":"Fallback when no desktop image is selected."},
+      {"type":"text","id":"mobile_asset","label":"Mobile theme image filename","info":"Fallback mobile image stored in theme assets."},
       {"type":"text","id":"image_alt","label":"Image description (alt text)"},
       {"type":"url","id":"link","label":"Destination link"},
       {"type":"text","id":"link_label","label":"Accessible link label","default":"View featured product"}

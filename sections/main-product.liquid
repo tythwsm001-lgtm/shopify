@@ -26,6 +26,7 @@
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
+  {{ 'tyt-price-guarantee.css' | asset_url | stylesheet_tag }}
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
@@ -186,6 +187,11 @@
                       price_class: 'price--large'
                     -%}
                   </div>
+                  {%- if block.settings.show_price_guarantee and block.settings.price_guarantee_text != blank -%}
+                    <p class="tyt-price-guarantee">
+                      <span>{{ block.settings.price_guarantee_text | escape }}</span>
+                    </p>
+                  {%- endif -%}
                   {%- if product.quantity_price_breaks_configured? -%}
                     <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
                       <span>{{ 'products.product.volume_pricing.note' | t }}</span>
@@ -916,7 +922,21 @@
     {
       "type": "price",
       "name": "t:sections.main-product.blocks.price.name",
-      "limit": 1
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_price_guarantee",
+          "default": true,
+          "label": "Show price guarantee"
+        },
+        {
+          "type": "text",
+          "id": "price_guarantee_text",
+          "default": "Black Friday Price Is Live — No Need to Wait. Subscriber codes still stack.",
+          "label": "Price guarantee text"
+        }
+      ]
     },
     {
       "type": "sku",

@@ -1,0 +1,40 @@
+{% doc %}
+  Render a menu destination with an optional product thumbnail or support icon.
+  @param {link} menu_link - Shopify menu link.
+{% enddoc %}
+{%- liquid
+  assign nav_image = nil
+  assign receiver_size = ''
+  assign support_icon = ''
+  if menu_link.type == 'collection_link'
+    assign nav_collection = menu_link.object
+    assign nav_image = nav_collection.image | default: nav_collection.products.first.featured_image
+    case nav_collection.handle
+      when '2-receiver-hitches'
+        assign receiver_size = '2'
+      when '2-5-receiver-hitches'
+        assign receiver_size = '2.5'
+    endcase
+  elsif menu_link.type == 'product_link'
+    assign nav_image = menu_link.object.featured_image
+  endif
+  if nav_image == blank
+    if menu_link.url contains '/policies/shipping-policy'
+      assign support_icon = 'icon-truck.svg'
+    elsif menu_link.url contains '/policies/refund-policy'
+      assign support_icon = 'icon-return.svg'
+    elsif menu_link.url contains '/pages/contact'
+      assign support_icon = 'icon-chat-bubble.svg'
+    elsif menu_link.type == 'page_link'
+      assign support_icon = 'icon-info.svg'
+    endif
+  endif
+-%}
+<a class="tyt-nav__link{% if nav_image != blank %} tyt-nav__link--image{% elsif support_icon != blank %} tyt-nav__link--support{% endif %}" href="{{ menu_link.url }}"{% if menu_link.current %} aria-current="page"{% endif %}>
+  <span{% if receiver_size != blank %} class="tyt-fit-badge" data-tyt-fit="{{ receiver_size }}"{% endif %}>{{ menu_link.title | escape }}</span>
+  {%- if nav_image != blank -%}
+    {{ nav_image | image_url: width: 120 | image_tag: class: 'tyt-nav__image', width: 40, height: 40, sizes: '40px', widths: '40, 80, 120', loading: 'lazy', alt: '' }}
+  {%- elsif support_icon != blank -%}
+    <span class="tyt-nav__support-icon" aria-hidden="true">{{ support_icon | inline_asset_content }}</span>
+  {%- endif -%}
+</a>
