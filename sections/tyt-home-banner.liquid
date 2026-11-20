@@ -7,7 +7,7 @@
 -%}
 <section
   id="tyt-banner-{{ section.id }}"
-  class="tyt-banner{% if section.settings.desktop_ratio == 'auto' %} tyt-banner--fit-desktop{% endif %}"
+  class="tyt-banner"
   style="--tyt-banner-desktop-ratio: {{ section.settings.desktop_ratio }}; --tyt-banner-mobile-ratio: {{ section.settings.mobile_ratio }}; --tyt-banner-max-width: {{ section.settings.max_width }}px; --tyt-banner-arrow-color: {{ section.settings.arrow_color }}; --tyt-banner-dot-color: {{ section.settings.dot_color }};"
   data-autoplay="{{ section.settings.autoplay }}"
   data-interval="{{ section.settings.interval | times: 1000 }}"
@@ -34,7 +34,7 @@
             {%- endif -%}
           {%- endcapture -%}
           <div
-            class="tyt-banner__slide{% if desktop_image == blank and desktop_source != blank %} tyt-banner__slide--asset{% endif %}"
+            class="tyt-banner__slide{% if block.settings.short_desktop %} tyt-banner__slide--short{% endif %}"
             data-slide="{{ forloop.index0 }}"
             data-block-id="{{ block.id }}"
             role="group"
@@ -121,18 +121,17 @@
   #tyt-banner-{{ section.id }} button:focus-visible,
   #tyt-banner-{{ section.id }} a:focus-visible { outline:3px solid #dc2626; outline-offset:-3px; }
   @media (min-width:750px) {
-    #tyt-banner-{{ section.id }}.tyt-banner--fit-desktop {
-      --tyt-banner-desktop-height: clamp(160px, 100svh - 180px, 70svh);
-      --tyt-banner-matte: #141414;
+    #tyt-banner-{{ section.id }} .tyt-banner__outer {
+      container-type: inline-size;
     }
-    #tyt-banner-{{ section.id }}.tyt-banner--fit-desktop .tyt-banner__image-link {
-      aspect-ratio: 2.55 / 1;
-      max-height: var(--tyt-banner-desktop-height);
+    #tyt-banner-{{ section.id }} .tyt-banner__viewport {
+      --tyt-banner-short-height: min(750px, calc(100cqw * 786 / 2002));
     }
-    #tyt-banner-{{ section.id }}.tyt-banner--fit-desktop .tyt-banner__slide--asset .tyt-banner__image-link {
-      background: var(--tyt-banner-matte);
+    #tyt-banner-{{ section.id }} .tyt-banner__viewport:has(.tyt-banner__slide--short:not([inert])),
+    #tyt-banner-{{ section.id }} .tyt-banner__slide--short .tyt-banner__image-link {
+      height: var(--tyt-banner-short-height);
     }
-    #tyt-banner-{{ section.id }}.tyt-banner--fit-desktop .tyt-banner__slide--asset .tyt-banner__image {
+    #tyt-banner-{{ section.id }} .tyt-banner__slide--short .tyt-banner__image {
       object-fit: contain;
     }
   }
@@ -220,6 +219,7 @@
     {"type":"slide","name":"Banner slide","settings":[
       {"type":"image_picker","id":"image","label":"Desktop banner image"},
       {"type":"url","id":"desktop_image_url","label":"Desktop banner image URL","info":"Used when no desktop image is selected."},
+      {"type":"checkbox","id":"short_desktop","label":"Use short desktop banner","info":"For wide images near a 2.55:1 ratio. Maximum height is 750 px.","default":false},
       {"type":"image_picker","id":"mobile_image","label":"Mobile banner image (optional)"},
       {"type":"url","id":"mobile_image_url","label":"Mobile banner image URL","info":"Used when no mobile image is selected."},
       {"type":"text","id":"desktop_asset","label":"Desktop theme image filename","info":"Fallback when no desktop image is selected."},
