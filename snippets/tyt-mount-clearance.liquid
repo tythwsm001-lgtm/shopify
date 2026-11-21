@@ -1,0 +1,54 @@
+{%- liquid
+  assign collection_handles = product.collections | map: 'handle'
+  assign clearance_handle = blank
+  if collection_handles contains 'ball-mounts' or collection_handles contains '2-receiver-hitches' or collection_handles contains '2-5-receiver-hitches'
+    capture receiver_size
+      render 'tyt-deal-receiver-size', product: product
+    endcapture
+    assign receiver_size = receiver_size | strip
+    assign receiver_entries = product.metafields.custom.receiver_size.value
+    if receiver_size == 'other' and receiver_entries == blank
+      if collection_handles contains '2-5-receiver-hitches' or product.handle contains '-2-5-receiver' or product.handle contains '-2-5-inch-receiver'
+        assign receiver_size = '2.5'
+      elsif collection_handles contains '2-receiver-hitches' or product.handle contains '-2-inch-receiver' or product.handle contains '-fits-2-receiver' or product.handle contains '-2-in-receiver'
+        assign receiver_size = '2'
+      endif
+    endif
+    case receiver_size
+      when '2'
+        assign clearance_handle = 'tyt-adjustable-truck-trailer-hitch-for-2-inch-receiver-6-drop-rise-tow-hitch-with-dual-balls-2-2-5-16gold-includes-two-pin-locks-hitch-tightener'
+      when '2.5'
+        assign clearance_handle = 'tyt-adjustable-truck-trailer-hitch-for-2-5-inch-receiver-6-drop-rise-tow-hitch-with-dual-balls-2-2-5-16gold-includes-two-pin-locks-hitch-tightener'
+    endcase
+  endif
+  if clearance_handle != blank
+    assign clearance_product = all_products[clearance_handle]
+  endif
+-%}
+{%- if clearance_product.available -%}
+{{ 'tyt-mount-clearance.css' | asset_url | stylesheet_tag }}
+<tyt-black-friday-countdown class="tyt-mount-clearance" data-end="{% render 'tyt-black-friday-deadline' %}" data-hide-on-end hidden>
+  <div class="tyt-mount-clearance__product">
+    {%- if clearance_product.featured_image != blank -%}
+      {{ clearance_product.featured_image | image_url: width: 216 | image_tag: class: 'tyt-mount-clearance__image', widths: '72, 144, 216', sizes: '72px', width: 72, height: 72, loading: 'lazy', alt: '' }}
+    {%- endif -%}
+    <div class="tyt-mount-clearance__copy">
+      <span class="tyt-mount-clearance__badge">Clearance Sale</span>
+      <strong class="tyt-mount-clearance__title">Save $20 with code SALE</strong>
+      {%- if product.handle == clearance_handle -%}
+        <span>Enter SALE at checkout to save $20 on this item.</span>
+      {%- else -%}
+        <span>TYT {{ receiver_size }}″ Gold Dual-Ball Mount · Enter code at checkout.</span>
+      {%- endif -%}
+      <div class="tyt-mount-clearance__timer" role="timer" aria-live="off">
+        <span>Ends in</span>
+        <span class="tyt-mount-clearance__digits"><b data-days>--</b>d <b data-hours>--</b>h <b data-minutes>--</b>m <b data-seconds>--</b>s</span>
+      </div>
+    </div>
+  </div>
+  {%- unless product.handle == clearance_handle -%}
+    <a class="tyt-mount-clearance__link" href="{{ clearance_product.url }}">Shop Clearance <span aria-hidden="true">→</span></a>
+  {%- endunless -%}
+</tyt-black-friday-countdown>
+<script src="{{ 'tyt-black-friday-countdown.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}

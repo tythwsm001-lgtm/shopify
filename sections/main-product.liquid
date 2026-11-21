@@ -611,6 +611,7 @@
                     -%}
                   {%- endif -%}
                 {%- when 'buy_buttons' -%}
+                  {% render 'tyt-mount-clearance', product: product %}
                   {%- render 'buy-buttons',
                     block: block,
                     product: product,

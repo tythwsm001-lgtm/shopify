@@ -1,0 +1,77 @@
+.tyt-mount-clearance {
+  --clearance-red: #b71323;
+  --clearance-paper: #fff4f4;
+  --clearance-ink: #242424;
+  --clearance-white: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 14px;
+  margin-block: 16px;
+  padding: 12px;
+  border: 1px solid var(--clearance-red);
+  border-inline-start-width: 4px;
+  border-radius: 5px;
+  background: var(--clearance-paper);
+  color: var(--clearance-ink);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.tyt-mount-clearance__product {
+  display: flex;
+  flex: 1 1 265px;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.tyt-mount-clearance__image {
+  flex: 0 0 72px;
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  border-radius: 4px;
+  background: var(--clearance-white);
+}
+.tyt-mount-clearance__copy { min-width: 0; }
+.tyt-mount-clearance__badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--clearance-red);
+  color: var(--clearance-white);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.tyt-mount-clearance__title { display: block; color: var(--clearance-red); font-size: 18px; }
+.tyt-mount-clearance[hidden] { display: none; }
+.tyt-mount-clearance__timer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 6px;
+  margin-top: 4px;
+  color: var(--clearance-red);
+  font-size: 12px;
+  font-weight: 600;
+}
+.tyt-mount-clearance__digits { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.tyt-mount-clearance__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding-inline: 12px;
+  border-radius: 3px;
+  background: var(--clearance-red);
+  color: var(--clearance-white);
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.tyt-mount-clearance__link:hover,
+.tyt-mount-clearance__link:active { text-decoration: underline; }
+.tyt-mount-clearance__link:focus-visible { outline: 2px solid var(--clearance-red); outline-offset: 3px; }
