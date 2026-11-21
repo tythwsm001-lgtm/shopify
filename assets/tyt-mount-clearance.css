@@ -1,67 +1,119 @@
 .tyt-mount-clearance {
-  --clearance-red: #b71323;
-  --clearance-paper: #fff4f4;
-  --clearance-ink: #242424;
+  --clearance-red: #be1428;
+  --clearance-dark: #19191c;
+  --clearance-deep-red: #34171c;
+  --clearance-line: #754047;
   --clearance-white: #fff;
+  --clearance-muted: #eadcdf;
+  --clearance-timer: #ffc4ca;
+  display: block;
+  margin-block: 16px;
+  padding: 14px;
+  border: 1px solid var(--clearance-line);
+  border-inline-start: 4px solid var(--clearance-red);
+  border-radius: 6px;
+  background: linear-gradient(110deg, var(--clearance-deep-red), var(--clearance-dark) 65%);
+  color: var(--clearance-white);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tyt-mount-clearance[hidden] { display: none; }
+
+.tyt-mount-clearance__offer,
+.tyt-mount-clearance__footer {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 10px 14px;
-  margin-block: 16px;
-  padding: 12px;
-  border: 1px solid var(--clearance-red);
-  border-inline-start-width: 4px;
-  border-radius: 5px;
-  background: var(--clearance-paper);
-  color: var(--clearance-ink);
-  font-size: 13px;
-  line-height: 1.5;
+  gap: 8px 14px;
+}
+
+.tyt-mount-clearance__badge {
+  display: inline-block;
+  padding: 3px 7px;
+  border-radius: 3px;
+  background: var(--clearance-red);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.tyt-mount-clearance__title {
+  display: block;
+  margin-top: 3px;
+  font-size: clamp(27px, 4vw, 34px);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.tyt-mount-clearance__code {
+  display: grid;
+  gap: 1px;
+  min-width: 100px;
+  padding: 5px 10px;
+  border: 2px solid var(--clearance-red);
+  border-radius: 4px;
+  background: var(--clearance-white);
+  color: var(--clearance-dark);
+  text-align: center;
+}
+.tyt-mount-clearance__code span { font-size: 10px; font-weight: 700; }
+.tyt-mount-clearance__code strong {
+  color: var(--clearance-red);
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  line-height: 1.08;
+}
+
+.tyt-mount-clearance__detail {
+  margin: 7px 0 10px;
+  color: var(--clearance-muted);
 }
 
 .tyt-mount-clearance__product {
   display: flex;
-  flex: 1 1 265px;
   align-items: center;
   gap: 10px;
-  min-width: 0;
 }
+
 .tyt-mount-clearance__image {
-  flex: 0 0 72px;
-  width: 72px;
-  height: 72px;
-  object-fit: contain;
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
   border-radius: 4px;
   background: var(--clearance-white);
+  object-fit: contain;
 }
-.tyt-mount-clearance__copy { min-width: 0; }
-.tyt-mount-clearance__badge {
-  display: inline-block;
-  padding: 2px 7px;
-  border-radius: 3px;
-  background: var(--clearance-red);
-  color: var(--clearance-white);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .06em;
-  text-transform: uppercase;
+
+.tyt-mount-clearance__footer {
+  padding-top: 8px;
+  border-top: 1px solid var(--clearance-line);
 }
-.tyt-mount-clearance__title { display: block; color: var(--clearance-red); font-size: 18px; }
-.tyt-mount-clearance[hidden] { display: none; }
+
+.tyt-mount-clearance__offer + .tyt-mount-clearance__footer {
+  margin-top: 10px;
+}
 .tyt-mount-clearance__timer {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 6px;
-  margin-top: 4px;
-  color: var(--clearance-red);
+  align-items: baseline;
+  gap: 0 7px;
   font-size: 12px;
-  font-weight: 600;
 }
-.tyt-mount-clearance__digits { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tyt-mount-clearance__digits {
+  color: var(--clearance-timer);
+  white-space: nowrap;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
 
 .tyt-mount-clearance__link {
   display: inline-flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
   min-height: 44px;
   padding-inline: 12px;
@@ -74,4 +126,8 @@
 }
 .tyt-mount-clearance__link:hover,
 .tyt-mount-clearance__link:active { text-decoration: underline; }
-.tyt-mount-clearance__link:focus-visible { outline: 2px solid var(--clearance-red); outline-offset: 3px; }
+.tyt-mount-clearance__link:focus-visible { outline: 2px solid var(--clearance-white); outline-offset: 3px; }
+
+@media (max-width: 749px) {
+  .tyt-mount-clearance__link { flex: 1 0 100%; box-sizing: border-box; }
+}
