@@ -92,20 +92,37 @@
 .tyt-nav__support-icon svg { display: block; width: 20px; height: 20px; fill: currentColor; }
 .tyt-nav a:focus-visible, .tyt-nav summary:focus-visible { outline: 2px solid var(--tyt-nav-accent); outline-offset: 2px; }
 @media screen and (min-width: 990px) {
-
-
-  header.header.header--has-menu:not(.drawer-menu):has(.tyt-nav) { min-height: 76px; box-sizing: border-box; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 24px; }
+  header.header.header--has-menu:not(.drawer-menu):has(.tyt-nav) {
+    min-height: 76px;
+    box-sizing: border-box;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: clamp(12px, calc(12px + (100vw - 990px) / 30), 24px);
+    padding-inline: clamp(18px, calc(18px + (100vw - 990px) / 8), 50px);
+  }
   header.header.header--has-menu:not(.drawer-menu):has(.tyt-nav) .header__inline-menu { margin-left: 0; justify-self: stretch; }
-  .tyt-nav > .list-menu { display: flex; justify-content: center; gap: clamp(4px, 1vw, 16px); }
+  .tyt-nav > .list-menu {
+    display: flex;
+    justify-content: center;
+    gap: clamp(0px, calc((100vw - 990px) / 28), 16px);
+  }
   .tyt-nav > .list-menu > li > a,
-  .tyt-nav > .list-menu > li > header-menu > details > summary { font-size: 16px; }
-}
-@media screen and (min-width: 990px) and (max-width: 1100px) {
-  header.header.header--has-menu:not(.drawer-menu):has(.tyt-nav) { column-gap: 12px; }
-  .tyt-nav > .list-menu { gap: 0; }
-  .tyt-nav .header__menu-item { padding-left: 8px; padding-right: 8px; font-size: 13px !important; }
-  .tyt-nav summary.header__menu-item { padding-right: 24px; }
-  .tyt-nav summary .icon-caret { right: 8px; }
+  .tyt-nav > .list-menu > li > header-menu > details > summary {
+    padding-inline: clamp(8px, calc(8px + (100vw - 990px) / 90), 12px);
+    font-size: clamp(13px, calc(13px + (100vw - 990px) / 120), 16px);
+  }
+  .tyt-nav > .list-menu > li > header-menu > details > summary {
+    padding-right: clamp(22px, calc(22px + (100vw - 990px) / 45), 30px);
+  }
+  .tyt-nav summary .icon-caret { right: clamp(7px, calc(7px + (100vw - 990px) / 72), 12px); }
+  .tyt-nav > .list-menu > .tyt-nav__item--deals > .tyt-nav__black-friday {
+    padding-left: clamp(6px, calc(6px + (100vw - 990px) / 180), 8px);
+    padding-right: clamp(6px, calc(6px + (100vw - 990px) / 40), 15px);
+  }
+  .tyt-nav__deal-art { font-size: clamp(14px, calc(14px + (100vw - 990px) / 360), 15px); }
+  .tyt-nav__deal-heat {
+    flex-basis: clamp(17px, calc(17px + (100vw - 990px) / 120), 20px);
+    height: clamp(20px, calc(20px + (100vw - 990px) / 120), 23px);
+  }
 }
 @media screen and (max-width: 989px) {
   header.header.header--has-menu:not(.drawer-menu):has(.tyt-nav) {
