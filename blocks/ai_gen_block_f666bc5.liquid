@@ -57,6 +57,17 @@
     display: flex;
   }
 
+  .ai-youtube-showcase__video-item-{{ ai_gen_id }}:only-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: min(100%, 760px);
+  }
+
+  .ai-youtube-showcase__carousel-wrapper-{{ ai_gen_id }}:has(.ai-youtube-showcase__video-item-{{ ai_gen_id }}:only-child)
+    .ai-youtube-showcase__nav-button-{{ ai_gen_id }} {
+    display: none;
+  }
+
   .ai-youtube-showcase__video-wrapper-{{ ai_gen_id }} {
     position: relative;
     width: 100%;

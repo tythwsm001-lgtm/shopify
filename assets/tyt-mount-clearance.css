@@ -131,3 +131,17 @@
 @media (max-width: 749px) {
   .tyt-mount-clearance__link { flex: 1 0 100%; box-sizing: border-box; }
 }
+
+.tyt-mount-clearance {
+  --clearance-deep-red: #103529;
+  --clearance-dark: #14221d;
+  --clearance-line: #7d704c;
+  --clearance-muted: #e9e5d7;
+  --clearance-timer: #ffe1a3;
+  border-inline-start-color: #d6b36d;
+}
+
+.tyt-mount-clearance__badge {
+  background: #eed59e;
+  color: #163629;
+}

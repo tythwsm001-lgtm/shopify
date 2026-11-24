@@ -241,3 +241,40 @@
   .tyt-nav__deal-heat { flex-basis: 14px; height: 17px; }
   .tyt-nav__deal-heat::after { width: 7px; height: 8px; }
 }
+
+.tyt-nav__item--christmas .header__menu-item { color: #174536; white-space: nowrap; }
+
+@media (min-width: 990px) {
+  .tyt-nav > .list-menu:has(> .tyt-nav__item--christmas) { flex-wrap: wrap; row-gap: 0; }
+}
+
+@media (max-width: 599px) {
+  .tyt-nav > .list-menu:has(> .tyt-nav__item--christmas):has(> li:nth-child(6):last-child) {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .tyt-nav > .list-menu > .tyt-nav__item--deals .tyt-nav__deal-art {
+    white-space: normal;
+    text-align: center;
+  }
+  .tyt-nav__item--christmas .header__menu-item { white-space: normal; text-align: center; }
+}
+
+.tyt-nav__christmas-badge {
+  display: inline-block;
+  padding: 3px 7px;
+  border: 1px solid #c8a45e;
+  border-radius: 999px;
+  background: #174536;
+  color: #fff6df;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+}
+
+a:is(:hover, :focus-visible) > .tyt-nav__christmas-badge {
+  background: #235e49;
+}

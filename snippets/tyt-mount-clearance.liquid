@@ -30,7 +30,7 @@
 <tyt-black-friday-countdown class="tyt-mount-clearance" data-end="{% render 'tyt-black-friday-deadline' %}" data-hide-on-end hidden>
   <div class="tyt-mount-clearance__offer">
     <div>
-      <span class="tyt-mount-clearance__badge">Clearance Sale</span>
+      <span class="tyt-mount-clearance__badge"><span aria-hidden="true">&#127873;</span> Get Christmas Gift-Ready</span>
       <strong class="tyt-mount-clearance__title">$20 OFF</strong>
     </div>
     <div class="tyt-mount-clearance__code">
@@ -52,7 +52,7 @@
       <span class="tyt-mount-clearance__digits"><b data-days>--</b>d <b data-hours>--</b>h <b data-minutes>--</b>m <b data-seconds>--</b>s</span>
     </div>
     {%- unless product.handle == clearance_handle -%}
-      <a class="tyt-mount-clearance__link" href="{{ clearance_product.url }}">Shop Clearance <span aria-hidden="true">→</span></a>
+      <a class="tyt-mount-clearance__link" href="{{ clearance_product.url }}">Shop the Gift <span aria-hidden="true">→</span></a>
     {%- endunless -%}
   </div>
 </tyt-black-friday-countdown>

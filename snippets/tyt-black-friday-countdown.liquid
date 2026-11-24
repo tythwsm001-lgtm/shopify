@@ -1,5 +1,5 @@
 {{ 'tyt-black-friday-countdown.css' | asset_url | stylesheet_tag }}
-<tyt-black-friday-countdown data-end="{% render 'tyt-black-friday-deadline' %}">
+<tyt-black-friday-countdown data-end="{% render 'tyt-black-friday-deadline' %}"{% if footer_promo %} id="black-friday-footer" data-hide-on-end hidden{% endif %}>
   <a class="tyt-bf-bar" href="{{ routes.root_url }}collections/deals">
     <span class="tyt-bf-bar__offer"><span aria-hidden="true">⚡</span> <strong>BLACK FRIDAY</strong> <span data-live-label>IS LIVE</span><span class="tyt-bf-bar__saving"> · UP TO <strong>42% OFF</strong></span></span>
     <span class="tyt-bf-bar__countdown" role="timer" aria-live="off" aria-label="Black Friday ends November 27, 2026 at 11:59 PM Pacific Standard Time">
