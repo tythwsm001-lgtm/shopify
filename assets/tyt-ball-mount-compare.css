@@ -1,0 +1,60 @@
+.tyt-compare {
+  --compare-ink: #1b2530;
+  --compare-line: #d8dee4;
+  --compare-white: #fff;
+  --compare-steel: #26485f;
+  --compare-orange: #a24e20;
+  --compare-paper: #f1f4f6;
+  --compare-highlight: #fff2dc;
+  padding-block: clamp(28px, 5vw, 64px);
+  color: var(--compare-ink);
+}
+
+.tyt-compare__header { max-width: 720px; }
+.tyt-compare h1, .tyt-compare h2 { margin: 0; color: inherit; }
+.tyt-compare h1 { font-size: clamp(30px, 4.5vw, 56px); line-height: 1.08; }
+.tyt-compare__header p { margin: 10px 0 18px; }
+.tyt-compare__sizes { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.tyt-compare__sizes a, .tyt-compare__table td a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 4px 10px;
+  border: 1px solid var(--compare-line);
+  border-radius: 4px;
+  color: var(--compare-ink);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.tyt-compare__sizes a:hover, .tyt-compare__table td a:hover { text-decoration: underline; }
+.tyt-compare :is(a, [tabindex]):focus-visible { outline: 2px solid var(--compare-steel); outline-offset: 2px; }
+.tyt-compare__group { scroll-margin-top: 180px; }
+.tyt-compare__group h2 { margin-bottom: 10px; font-size: clamp(20px, 3vw, 32px); }
+.tyt-compare__group--two-half { display: none; }
+.tyt-compare:has(.tyt-compare__group--two-half:target, .tyt-compare__group--two-half :target) .tyt-compare__group--two { display: none; }
+.tyt-compare:has(.tyt-compare__group--two-half:target, .tyt-compare__group--two-half :target) .tyt-compare__group--two-half { display: block; }
+.tyt-compare:not(:has(.tyt-compare__group--two-half:target, .tyt-compare__group--two-half :target)) .tyt-compare__size--two { background: var(--compare-steel); color: var(--compare-white); }
+.tyt-compare:has(.tyt-compare__group--two-half:target, .tyt-compare__group--two-half :target) .tyt-compare__size--two-half { background: var(--compare-orange); color: var(--compare-white); }
+
+.tyt-compare__scroll { overflow: auto; border: 1px solid var(--compare-line); border-radius: 6px; }
+.tyt-compare__scroll-note { display: none; margin: 0 0 8px; font-size: 13px; }
+.tyt-compare__table { width: 100%; min-width: 525px; border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: clamp(12px, 1.6vw, 15px); }
+.tyt-compare__table :is(th, td) { padding: clamp(8px, 1.5vw, 18px); border-bottom: 1px solid var(--compare-line); text-align: left; }
+.tyt-compare__table :is(th, td) + :is(th, td) { border-inline-start: 1px solid var(--compare-line); }
+.tyt-compare__table tr > th:first-child { position: sticky; inset-inline-start: 0; width: 18%; background: var(--compare-paper); z-index: 1; }
+.tyt-compare__table thead th { vertical-align: bottom; scroll-margin-top: 180px; }
+.tyt-compare__table thead img { display: block; width: min(100%, 160px); height: auto; aspect-ratio: 1; object-fit: contain; margin-bottom: 8px; }
+.tyt-compare__table :target,
+.tyt-compare__table:has(#compare-049:target) .tyt-compare__cell--049,
+.tyt-compare__table:has(#compare-001:target) .tyt-compare__cell--001,
+.tyt-compare__table:has(#compare-039:target) .tyt-compare__cell--039,
+.tyt-compare__table:has(#compare-050:target) .tyt-compare__cell--050,
+.tyt-compare__table:has(#compare-002:target) .tyt-compare__cell--002,
+.tyt-compare__table:has(#compare-054:target) .tyt-compare__cell--054 { background: var(--compare-highlight); }
+.tyt-compare__table tbody tr:last-child > * { border-bottom: 0; }
+
+@media (max-width: 560px) {
+  .tyt-compare__scroll-note { display: block; }
+}

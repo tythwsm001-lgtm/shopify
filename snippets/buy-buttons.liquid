@@ -14,6 +14,9 @@
 <div {{ block.shopify_attributes }}>
   {%- if product != blank -%}
     {%- render 'tyt-receiver-fit-note', fit_product: product -%}
+    {%- if request.page_type == 'product' and section.id contains '__main' -%}
+      {% render 'tyt-ball-mount-compare-link', compare_product: product, label: 'Compare with Other Mounts' %}
+    {%- endif -%}
     {%- liquid
       assign gift_card_recipient_feature_active = false
       if block.settings.show_gift_card_recipient and product.gift_card?

@@ -1,0 +1,95 @@
+{{ 'tyt-ball-mount-compare.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  capture model_data
+    render 'tyt-ball-mount-models'
+  endcapture
+  assign models = model_data | split: ';'
+  assign receiver_groups = '2,2.5' | split: ','
+  assign spec_keys = 'receiver_size,ball_size,towing_capacity,drop_rise,price' | split: ','
+  assign spec_labels = 'Receiver Size,Ball Sizes,Towing Capacity,Drop / Rise,Price' | split: ','
+-%}
+<div class="tyt-compare page-width">
+  <header class="tyt-compare__header">
+    <h1>Compare Ball Mounts</h1>
+    <p>Measure the inside width and height of your receiver opening. Then compare the mounts that fit.</p>
+  </header>
+  <nav class="tyt-compare__sizes" aria-label="Receiver sizes">
+    <a class="tyt-compare__size--two" href="#receiver-two">2″ Receiver</a>
+    <a class="tyt-compare__size--two-half" href="#receiver-two-half">2.5″ Receiver</a>
+  </nav>
+
+  {%- for receiver_size in receiver_groups -%}
+    {%- assign group_key = 'two' -%}
+    {%- if receiver_size == '2.5' -%}{%- assign group_key = 'two-half' -%}{%- endif -%}
+    <section id="receiver-{{ group_key }}" class="tyt-compare__group tyt-compare__group--{{ group_key }}">
+      <h2>{{ receiver_size }}″ Receiver</h2>
+      <p class="tyt-compare__scroll-note">Swipe to see all three mounts.</p>
+      <div class="tyt-compare__scroll" tabindex="0" role="region" aria-label="{{ receiver_size }}-inch receiver ball mount comparison">
+        <table class="tyt-compare__table">
+          <thead>
+            <tr>
+              <th scope="col">Model</th>
+              {%- for row in models -%}
+                {%- assign model = row | strip | split: '|' -%}
+                {%- if model[1] != receiver_size -%}{%- continue -%}{%- endif -%}
+                {%- assign mount = all_products[model[3]] -%}
+                <th scope="col" id="compare-{{ model[0] }}">
+                  {%- if mount.featured_image -%}
+                    {{ mount.featured_image | image_url: width: 320 | image_tag: widths: '160, 240, 320', sizes: '(min-width: 750px) 160px, 110px', loading: 'lazy', alt: '' }}
+                  {%- endif -%}
+                  <span>{{ model[2] | escape }}</span>
+                </th>
+              {%- endfor -%}
+            </tr>
+          </thead>
+          <tbody>
+            {%- for key in spec_keys -%}
+              <tr>
+                <th scope="row">{{ spec_labels[forloop.index0] }}</th>
+                {%- for row in models -%}
+                  {%- assign model = row | strip | split: '|' -%}
+                  {%- if model[1] != receiver_size -%}{%- continue -%}{%- endif -%}
+                  {%- assign mount = all_products[model[3]] -%}
+                  <td class="tyt-compare__cell--{{ model[0] }}">
+                    {%- if key == 'receiver_size' -%}
+                      {{ receiver_size }}″
+                    {%- elsif mount == blank -%}
+                      —
+                    {%- elsif key == 'price' -%}
+                      {% if mount.price_varies %}From {% endif %}{{ mount.price_min | money }}
+                    {%- elsif key == 'ball_size' -%}
+                      {%- for ball in mount.metafields.custom.ball_size.value -%}
+                        {{ ball.label.value | escape }}{% unless forloop.last %}, {% endunless %}
+                      {%- else -%}—{%- endfor -%}
+                    {%- else -%}
+                      {{ mount.metafields.custom[key].value | default: '—' | escape }}
+                    {%- endif -%}
+                  </td>
+                {%- endfor -%}
+              </tr>
+            {%- endfor -%}
+            <tr>
+              <th scope="row">Details</th>
+              {%- for row in models -%}
+                {%- assign model = row | strip | split: '|' -%}
+                {%- if model[1] != receiver_size -%}{%- continue -%}{%- endif -%}
+                {%- assign mount = all_products[model[3]] -%}
+                <td class="tyt-compare__cell--{{ model[0] }}">
+                  {%- if mount != blank -%}
+                    <a href="{{ mount.url }}" aria-label="View {{ receiver_size }}-inch {{ model[2] | escape }} details">View Details</a>
+                  {%- else -%}
+                    —
+                  {%- endif -%}
+                </td>
+              {%- endfor -%}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{ "name": "Ball Mount Comparison", "settings": [] }
+{% endschema %}

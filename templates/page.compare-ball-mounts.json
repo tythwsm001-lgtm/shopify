@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "compare": {
+      "type": "tyt-ball-mount-compare",
+      "settings": {}
+    }
+  },
+  "order": ["compare"]
+}

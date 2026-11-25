@@ -211,6 +211,11 @@
           {% endif %}
         >
 
+          {%- if collection.handle == 'ball-mounts' -%}
+            <div class="page-width">
+              <p>{% render 'tyt-ball-mount-compare-link' %}</p>
+            </div>
+          {%- endif -%}
           {% if collection.products.size == 0 %}
 
             <div

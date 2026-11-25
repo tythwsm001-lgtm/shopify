@@ -363,6 +363,8 @@
     >
       {%- if request.page_type == 'page' and page.handle == 'christmas-gifts' and template.suffix != 'christmas-gifts' -%}
         {% section 'tyt-christmas-gifts' %}
+      {%- elsif request.page_type == 'page' and page.handle == 'compare-ball-mounts' and template.suffix != 'compare-ball-mounts' -%}
+        {% section 'tyt-ball-mount-compare' %}
       {%- else -%}
         {{ content_for_layout }}
       {%- endif -%}

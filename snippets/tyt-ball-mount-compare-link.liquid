@@ -1,0 +1,27 @@
+{%- liquid
+  assign compare_page = pages['compare-ball-mounts']
+  assign compare_url = compare_page.url
+  if compare_url == blank
+    assign compare_url = routes.root_url | append: 'pages/compare-ball-mounts'
+  endif
+
+  if compare_product != blank
+    capture model_data
+      render 'tyt-ball-mount-models'
+    endcapture
+    assign models = model_data | split: ';'
+    for row in models
+      assign model = row | strip | split: '|'
+      if model[3] == compare_product.handle
+        assign compare_url = compare_url | append: '#compare-' | append: model[0]
+        assign matched_model = true
+        break
+      endif
+    endfor
+  endif
+-%}
+{%- if compare_product == blank or matched_model -%}
+  <a class="{{ link_class | default: 'link underlined-link' }}" href="{{ compare_url }}">
+    {{- label | default: 'Compare Ball Mounts' | escape }} <span aria-hidden="true">→</span>
+  </a>
+{%- endif -%}
