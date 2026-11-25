@@ -24,6 +24,9 @@
   {% endif %}
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+  {%- if tyt_template_key == 'pp3pl30049' or tyt_template_key == 'pp3pl30050' -%}
+    {{ 'tyt-gold-stock-meter.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
   {{ 'tyt-price-guarantee.css' | asset_url | stylesheet_tag }}
@@ -612,6 +615,9 @@
                   {%- endif -%}
                 {%- when 'buy_buttons' -%}
                   {% render 'tyt-mount-clearance', product: product %}
+                  {%- if tyt_template_key == 'pp3pl30049' or tyt_template_key == 'pp3pl30050' -%}
+                    {% render 'tyt-gold-stock-meter', product: product, product_key: tyt_template_key %}
+                  {%- endif -%}
                   {%- render 'buy-buttons',
                     block: block,
                     product: product,

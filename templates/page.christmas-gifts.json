@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "gift_guide": {
+      "type": "tyt-christmas-gifts"
+    }
+  },
+  "order": ["gift_guide"]
+}

@@ -361,7 +361,11 @@
       tabindex="-1"
       data-template="{{ template.name }}"
     >
-      {{ content_for_layout }}
+      {%- if request.page_type == 'page' and page.handle == 'christmas-gifts' and template.suffix != 'christmas-gifts' -%}
+        {% section 'tyt-christmas-gifts' %}
+      {%- else -%}
+        {{ content_for_layout }}
+      {%- endif -%}
     </main>
 
     {% render 'tyt-black-friday-countdown', footer_promo: true %}

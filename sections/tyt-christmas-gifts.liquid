@@ -1,0 +1,87 @@
+{{ 'tyt-christmas-gifts.css' | asset_url | stylesheet_tag }}
+{{ 'tyt-gold-stock-meter.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign gift_handles = 'tyt-adjustable-truck-trailer-hitch-for-2-inch-receiver-6-drop-rise-tow-hitch-with-dual-balls-2-2-5-16gold-includes-two-pin-locks-hitch-tightener,tyt-adjustable-truck-trailer-hitch-for-2-5-inch-receiver-6-drop-rise-tow-hitch-with-dual-balls-2-2-5-16gold-includes-two-pin-locks-hitch-tightener' | split: ','
+  assign receiver_sizes = '2″,2.5″' | split: ','
+  assign mount_skus = 'PP3PL30049,PP3PL30050' | split: ','
+  assign gift_image = section.settings.hero_image
+  assign holiday_banner = 'https://cdn.shopify.com/s/files/1/0268/5442/4762/files/20261124215503_1012_2.png?v=1795607084'
+-%}
+<div class="tyt-gifts">
+  <div class="tyt-gifts__hero">
+    <div class="tyt-gifts__intro">
+      <span class="tyt-gifts__tree" aria-hidden="true">🎄</span>
+      <h1>Christmas Gifts</h1>
+      <span class="tyt-gifts__tree" aria-hidden="true">🎄</span>
+    </div>
+    <a class="tyt-gifts__visual" href="#GiftSelection-{{ section.id }}" aria-label="Shop Christmas gifts and compare receiver sizes">
+      {%- if gift_image != blank -%}
+        {{ gift_image | image_url: width: 1670 | image_tag: widths: '480, 840, 1200, 1670', sizes: '(min-width: 1220px) 1220px, 100vw', fetchpriority: 'high', alt: '' }}
+      {%- else -%}
+        <img src="{{ holiday_banner | escape }}" srcset="{{ holiday_banner | escape }}&amp;width=480 480w, {{ holiday_banner | escape }}&amp;width=840 840w, {{ holiday_banner | escape }}&amp;width=1200 1200w, {{ holiday_banner | escape }} 1670w" sizes="(min-width: 1220px) 1220px, 100vw" width="1670" height="941" fetchpriority="high" alt="">
+      {%- endif -%}
+    </a>
+  </div>
+
+  <div id="GiftSelection-{{ section.id }}" class="tyt-gifts__selection">
+    <div class="tyt-gifts__offer">
+      <div><strong>Save $20</strong><span>Limited quantities available</span></div>
+      <p>Enter code <b>1127</b> at checkout.</p>
+    </div>
+    <div class="tyt-gifts__fit">
+      <h2>Choose the right receiver size</h2>
+      <p>Measure the inside width and height of the truck’s receiver opening, then choose the matching size.</p>
+    </div>
+    <div class="tyt-gifts__products">
+      {%- for handle in gift_handles -%}
+        {%- assign gift = all_products[handle] -%}
+        {%- assign receiver_size = receiver_sizes[forloop.index0] -%}
+        {%- assign mount_sku = mount_skus[forloop.index0] -%}
+        {%- if gift != blank -%}
+          {%- assign mount_variant = gift.variants | where: 'sku', mount_sku | first -%}
+          {%- assign ball_sizes = gift.metafields.custom.ball_size.value -%}
+          <article class="tyt-gifts__card">
+            {%- if gift.featured_image -%}
+              {{ gift.featured_image | image_url: width: 720 | image_tag: class: 'tyt-gifts__product-image', widths: '180, 320, 480, 720', sizes: '(min-width: 1200px) 560px, 48vw', loading: 'lazy' }}
+            {%- endif -%}
+            <div class="tyt-gifts__card-body">
+              <p class="tyt-gifts__receiver">{{ receiver_size }} Receiver</p>
+              <h3>Gold Dual-Ball Mount</h3>
+              <dl class="tyt-gifts__specs">
+                <div><dt>Towing Capacity</dt><dd>{{ gift.metafields.custom.towing_capacity.value | default: '—' | escape }}</dd></div>
+                <div><dt>Drop / Rise</dt><dd>{{ gift.metafields.custom.drop_rise.value | default: '—' | escape }}</dd></div>
+                <div><dt>Ball Sizes</dt><dd>{% for size in ball_sizes %}{{ size.label.value | escape }}{% unless forloop.last %}, {% endunless %}{% else %}—{% endfor %}</dd></div>
+              </dl>
+              {%- if mount_variant != blank -%}
+                <p><strong>{{ mount_variant.price | money }}</strong> <span>Mount only</span></p>
+              {%- endif -%}
+              {% render 'tyt-gold-stock-meter', product: gift, product_key: mount_sku %}
+              <div class="tyt-gifts__actions">
+                {%- if mount_variant.available -%}
+                  <form method="post" action="{{ routes.cart_add_url }}">
+                    <input type="hidden" name="id" value="{{ mount_variant.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="return_to" value="/checkout">
+                    <button type="submit" class="tyt-gifts__button tyt-gifts__button--checkout" aria-label="Check out with {{ receiver_size }} Gold Dual-Ball Mount">
+                      Check Out <span aria-hidden="true">→</span>
+                    </button>
+                  </form>
+                {%- endif -%}
+                <a class="tyt-gifts__button tyt-gifts__button--details" href="{{ gift.url }}" aria-label="View {{ receiver_size }} Gold Dual-Ball Mount details">View Details</a>
+              </div>
+            </div>
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="tyt-gifts__holiday-trim" aria-hidden="true"><span>🦌</span><span>✦</span><span>🎅</span><span>✦</span><span>🎄</span></div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Christmas Gifts",
+  "settings": [
+    { "type": "image_picker", "id": "hero_image", "label": "Holiday hero image" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,20 @@
+{%- liquid
+  assign stock_baseline = 200
+  assign normalized_product_key = product_key | downcase
+  case normalized_product_key
+    when 'pp3pl30049'
+      assign preview_remaining = 120
+    when 'pp3pl30050'
+      assign preview_remaining = 109
+  endcase
+  assign campaign_remaining = product.metafields.custom.campaign_stock_remaining.value | default: preview_remaining
+  assign meter_stock = campaign_remaining | at_least: 0 | at_most: stock_baseline
+  assign remaining_percent = meter_stock | times: 100.0 | divided_by: stock_baseline | round: 1
+-%}
+<div class="tyt-gold-stock">
+  <p><strong>Holiday Gift Stock</strong><span>{{ remaining_percent | remove: '.0' }}% left</span></p>
+  <div class="tyt-gold-stock__track" style="--stock-position: {{ remaining_percent }}%;">
+    <meter min="0" max="{{ stock_baseline }}" value="{{ meter_stock }}" aria-label="Holiday gift stock remaining"></meter>
+    <span class="tyt-gold-stock__snowflake" aria-hidden="true">❄&#65038;</span>
+  </div>
+</div>

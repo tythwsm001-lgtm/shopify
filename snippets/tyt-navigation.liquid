@@ -1,6 +1,7 @@
 {%- comment -%}Use the selected Shopify menu on every screen size; keep Dawn dropdown behavior.{%- endcomment -%}
 <nav class="header__inline-menu tyt-nav" aria-label="Main navigation" data-menu-handle="{{ section.settings.menu.handle | escape }}">
   <ul class="list-menu list-menu--inline" role="list">
+    {%- assign gift_page_url = pages['christmas-gifts'].url -%}
     {%- for menu_link in section.settings.menu.links -%}
       {%- liquid
         assign is_campaign = false
@@ -10,12 +11,14 @@
         assign panel_key = section.id | append: '-' | append: forloop.index
         assign menu_title_key = menu_link.title | handleize
       -%}
-      <li class="tyt-nav__item{% if is_campaign %} tyt-nav__item--deals{% endif %}">
+      <li class="tyt-nav__item{% if is_campaign %} tyt-nav__item--deals{% elsif gift_page_url != blank and menu_link.url == gift_page_url %} tyt-nav__item--christmas{% endif %}">
         {%- if menu_link.links == blank -%}
           <a href="{{ menu_link.url }}" class="header__menu-item list-menu__item link link--text focus-inset{% if is_campaign %} tyt-nav__black-friday{% endif %}"{% if menu_link.current %} aria-current="page"{% endif %}>
             {%- if is_campaign -%}
               <span class="tyt-nav__deal-heat" aria-hidden="true"></span>
               <span class="tyt-nav__deal-art">{{ menu_link.title | escape }}</span>
+            {%- elsif gift_page_url != blank and menu_link.url == gift_page_url -%}
+              <span class="tyt-nav__christmas-badge"><span aria-hidden="true">🎁</span> {{ menu_link.title | escape }}</span>
             {%- else -%}{{ menu_link.title | escape }}{%- endif -%}
           </a>
         {%- else -%}
