@@ -11,9 +11,31 @@
 .tyt-gold-stock p {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
   gap: 4px 12px;
   margin: 0 0 5px;
+}
+
+.tyt-gold-stock__summary {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3px 6px;
+}
+
+.tyt-gold-stock__remaining { white-space: nowrap; }
+
+.tyt-gold-stock__urgency {
+  padding: 2px 6px;
+  border: 1px solid #a62436;
+  border-radius: 3px;
+  background: #a62436;
+  color: #fff8ea;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.3;
+  white-space: nowrap;
 }
 
 .tyt-gold-stock__track { position: relative; display: grid; align-items: center; min-height: 28px; }
