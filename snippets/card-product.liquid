@@ -18,7 +18,10 @@
     assign ratio = 1
     assign show_bf_badge = false
     assign bf_now = 'now' | date: '%s' | plus: 0
-    assign bf_end = '2026-11-28T07:59:59Z' | date: '%s' | plus: 0
+    capture bf_deadline
+      render 'tyt-black-friday-deadline'
+    endcapture
+    assign bf_end = bf_deadline | date: '%s' | plus: 0
     if card_product.available and card_product.featured_media and bf_now < bf_end
       for bf_variant in card_product.variants
         if bf_variant.available and bf_variant.compare_at_price > bf_variant.price

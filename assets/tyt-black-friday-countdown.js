@@ -20,7 +20,7 @@ if (!customElements.get('tyt-black-friday-countdown')) {
           this.hidden = true;
           return;
         }
-        this.querySelector('[data-live-label]').textContent = 'HAS ENDED';
+        this.querySelector('[data-live-label]').textContent = 'HAVE ENDED';
         this.querySelector('.tyt-bf-bar__countdown').hidden = true;
         this.querySelector('.tyt-bf-bar__saving').hidden = true;
         this.querySelector('.tyt-bf-bar__cta').textContent = 'EXPLORE DEALS →';
